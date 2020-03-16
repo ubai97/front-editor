@@ -114,7 +114,7 @@ if ($("#editor-js")[0]) {
             //saveButton.click();
         },
         onChange: function () {
-            console.log('something changed');
+            //console.log('something changed');
         }
     });
 
@@ -128,7 +128,6 @@ if ($("#editor-js")[0]) {
     });
 
     function save_data(data) {
-        console.log('sending');
         var data = {
             action: 'save_post_from_front',
             data: data
@@ -139,15 +138,15 @@ if ($("#editor-js")[0]) {
             url: editor_data.ajax_url,
             data: data,
             beforeSend: function (response) {
-
+                saveButton.innerHTML = 'Loading...';
             },
             success: function (response) {
-                console.log(response);
                 if (response.error) {
-
+                    saveButton.innerHTML = 'Error';
                     return;
                 } else {
 
+                    saveButton.innerHTML = 'Created';
                 }
             },
         });

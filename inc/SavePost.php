@@ -51,6 +51,9 @@ class SavePost
             wp_send_json_error($post_id->get_error_message());
         }
 
+        // Adding post meta to know the editor page
+        update_post_meta( $post_id, 'editor_js_data', $all_data['blocks'] );
+
         wp_send_json_success($post_id);
 
         wp_die();

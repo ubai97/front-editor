@@ -18,10 +18,24 @@ class EditorShortcode
      */
     public static function editor_js($atts)
     {
+        $post_id = 'new';
+        $editor_data = 'new';
+        
+        if(!empty($_GET)){
+            if(intval($_GET['post_id'])){
+                $post_id = $_GET['post_id'];
+            }
+        }
+
+        if($post_id !== 'new'){
+            $editor_data = get_post_meta( $post_id, 'editor_js_data',true );
+        } else {
+            $editor_data = self::first_data();
+        }
 
         $data = [
             'ajax_url' => admin_url('admin-ajax.php'),
-            'data' => self::first_data()
+            'data' => $editor_data
         ];
 
         $data = json_encode($data);
@@ -35,6 +49,9 @@ class EditorShortcode
             '<div id="editor-js">%s</div>',
             $button_save
         );
+
+        // Adding post meta to know the editor page
+        update_post_meta( get_the_ID(), 'editor_js_page', true );
 
         return $html_data;
     }
