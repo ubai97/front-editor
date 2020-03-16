@@ -9,8 +9,6 @@ class SavePost
     {
 
         add_action('wp_ajax_save_post_from_front', [__CLASS__, 'save_post_from_front']);
-
-        add_action('wp_ajax_save_image_from_front', [__CLASS__, 'save_image_from_front']);
     }
 
 
@@ -87,26 +85,6 @@ class SavePost
         return $html;
     }
 
-    public static function save_image_from_front(){
-        
-    }
-
-    public static function uploadRemoteImageAndAttach($image_url, $post_id, $filename = 'image.jpg')
-    {
-
-        $uploads_dir = wp_upload_dir();
-        $post_name = get_post_field('post_name', $post_id);
-        $filename_data = wp_check_filetype($filename);
-        $filename = $post_name . '.' . $filename_data['ext'];
-        $filename = sanitize_file_name($filename);
-        $filename = wp_unique_filename($uploads_dir['path'], $filename);
-
-        $attach_id = media_sideload_image( $file, $post_id, $desc, $return );
-
-        wp_update_attachment_metadata($attach_id, $attach_data);
-
-        return $attach_id;
-    }
 }
 
 SavePost::init();

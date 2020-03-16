@@ -153,32 +153,6 @@ if ($("#editor-js")[0]) {
         });
     }
 
-    function upload_image(data) {
-        console.log('sending');
-        var data = {
-            action: 'save_image_from_front',
-            data: data
-        };
-
-        $.ajax({
-            type: 'post',
-            url: editor_data.ajax_url,
-            data: data,
-            beforeSend: function (response) {
-
-            },
-            success: function (response) {
-                console.log(response);
-                if (response.error) {
-
-                    return;
-                } else {
-
-                }
-            },
-        });
-    }
-
 
 
 

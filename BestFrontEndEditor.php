@@ -2,12 +2,12 @@
 
 /**
  * Plugin Name: Best Front End Editor
- * Plugin URI: https://wpcraft.ru/product/
+ * Plugin URI: https://github.com/Aharonyan/Best-Front-End-Editor
  * Description: Best Front End Editor is a best front end editor that will allow you to change and save contents of post and pages
  * Author: WPCraft
- * Author URI: https://wpcraft.ru/
+ * Author URI: https://github.com/Aharonyan/
  * Developer: WPCraft
- * Developer URI: https://wpcraft.ru/
+ * Developer URI: https://github.com/Aharonyan/Best-Front-End-Editor
  * Text Domain: Best Front End Editor
  * Domain Path: /languages
  * PHP requires at least: 5.6
@@ -32,11 +32,6 @@ class BestFrontEndEditor
    */
   public static function init()
   {
-
-    /**
-     * This must work before plugins loaded hook
-     */
-    require_once __DIR__ . '/functions.php';
 
     define('BFE_PLUGIN_URL', plugins_url('BestFrontEndEditor'));
     define('BFE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
@@ -65,6 +60,7 @@ class BestFrontEndEditor
      * Add Components
      */
     require_once __DIR__ . '/inc/EditorShortcode.php';
+    require_once __DIR__ . '/inc/PostsListShortcode.php';
     require_once __DIR__ . '/inc/SavePost.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
