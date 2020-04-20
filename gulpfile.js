@@ -3,19 +3,19 @@ const config ={
     styles: {
         src: 'src/scss/main.scss',
         dest: 'assets/css',
-        file: 'app.css',
+        file: 'bfee.css',
         watchSrc: 'src/scss/**/*.scss',
     },
     editorStyles : {
         src: 'src/scss/editor-style.scss',
         dest: 'assets/css',
-        file: 'editor-style.css',
+        file: 'bfe-editor-style.css',
         watchSrc: 'src/scss/**/*.scss',
     },
     blocksEditorStyles : {
         src: 'src/scss/blocks-editor-style.scss',
         dest: 'assets/css',
-        file: 'blocks-editor-style.css',
+        file: 'bfe-blocks-editor-style.css',
         watchSrc: 'src/scss/**/*.scss',
     },
 
@@ -25,7 +25,13 @@ const config ={
             'src/js/*.js',
         ],
         dest: 'assets/js',
-        file: 'app.js'
+        file: 'bfee.js'
+    },
+
+    gutenbergBlock: {
+        src: 'src/js/block/*.js',
+        dest: 'assets/js',
+        file: 'bfee-block.js'
     }
 };
 
@@ -76,13 +82,6 @@ gulp.task('styles', () => {
             includePaths: ['node_modules'],
             importer:  sassTildeImporter
         }))
-        // .pipe(gulpStylelint({
-        //     failAfterError: true,
-        //     reporters: [
-        //         {formatter: 'verbose', console: true},
-        //     ],
-        //     // debug: true
-        // }))
         .pipe(concat(config.styles.file))
         .pipe(postcss([
             loadSVG({
@@ -111,13 +110,6 @@ gulp.task('editor-styles', () => {
             includePaths: ['node_modules'],
             importer: sassTildeImporter
         }))
-        // .pipe(gulpStylelint({
-        //     failAfterError: true,
-        //     reporters: [
-        //         {formatter: 'verbose', console: true},
-        //     ],
-        //     // debug: true
-        // }))
         .pipe(concat(config.editorStyles.file))
         .pipe(postcss([
             objectFitImages,
@@ -181,6 +173,14 @@ gulp.task('scripts', () => {
         .pipe(gulp.dest(config.scripts.dest));
 });
 
+gulp.task('gutenberg-block', function() {
+    return gulp.src(config.gutenbergBlock.src)
+        .pipe(babel({
+            plugins: ['@babel/plugin-transform-react-jsx']
+        }))
+        .pipe(gulp.dest(config.gutenbergBlock.dest))
+});
+
 
 /* watch tasks definitions */
 
@@ -188,13 +188,14 @@ gulp.task('watch:styles', () => gulp.watch(config.styles.watchSrc, gulp.series('
 gulp.task('watch:editor-styles', () => gulp.watch(config.editorStyles.watchSrc, gulp.series('editor-styles')) );
 gulp.task('watch:blocks-editor-styles', () => gulp.watch(config.blocksEditorStyles.watchSrc, gulp.series('blocks-editor-styles')) );
 gulp.task('watch:scripts', () => gulp.watch(config.scripts.src, gulp.series('scripts')) );
+gulp.task('watch:gutenberg-block', () => gulp.watch(config.gutenbergBlock.src, gulp.series('gutenberg-block')) );
 
 
 gulp.task('watch',
     gulp.series(
-        gulp.parallel('watch:styles', 'watch:editor-styles', 'watch:blocks-editor-styles', 'watch:scripts')
+        gulp.parallel('watch:styles', 'watch:editor-styles', 'watch:blocks-editor-styles', 'watch:scripts','watch:gutenberg-block')
     )
 );
 
 
-gulp.task('default', gulp.parallel('styles', 'editor-styles', 'blocks-editor-styles', 'scripts'));
+gulp.task('default', gulp.parallel('styles', 'editor-styles', 'blocks-editor-styles', 'scripts','watch:gutenberg-block'));
