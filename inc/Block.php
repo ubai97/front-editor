@@ -2,102 +2,81 @@
 
 namespace BFE;
 
-class PostsListShortCode
+class Block
 {
 
     public static function init()
-    {
-        add_shortcode('user_posts_list', [__CLASS__, 'user_posts_list']);
-    }
+	{
+		add_action('init', [__CLASS__, 'gutenberg_add_team_block']);
+		add_action('enqueue_block_editor_assets', [__CLASS__, 'gutenberg_team_block_editor_scripts']);
+		add_action('rest_api_init', [__CLASS__, 'add_team_rest_api']);
+	}
 
-    /**
-     * creating shortcode 
-     *
-     * @param [type] $atts
-     * @return void
-     */
-    public static function user_posts_list($atts)
-    {
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        $count = 2;
-        $author_id = get_the_author_meta('ID');
-        $editor_page = self::get_editor_page_link();
-        $html = '';
+	public static function gutenberg_team_block_editor_scripts()
+	{
+		wp_register_script(
+			'bfe-block-script',
+			plugins_url('assets/js/block/bfee-block.js', dirname(__FILE__)),
+			['wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'],
+			filemtime(plugin_dir_path(dirname(__FILE__)) . 'src/block/team-block.js')
+		);
 
-        if (!$editor_page) {
-            $html .= sprintf('<p><strong>%s</strong></p>', __('Please create page with editor shortcode: [short-code]'));
-        }
+		wp_register_style(
+			'bfe-block-style',
+			plugins_url( 'assets/css/block/bfe-block-editor-style.css', dirname(__FILE__) ),
+			[],
+			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'css/editor.css' )
+		);
 
-        if (!empty($atts)) {
-            $count = ($atts['count']) ? $atts['count'] : 2;
-        }
+		//wp_register_style()
 
-        $args = array(
-            'posts_per_page' => $count,
-            'paged' => $paged,
-            'post_type' => 'post',
-            'author' => $author_id
-        );
+		wp_enqueue_script('team_block');
+	}
 
-        $post_lists = new \WP_Query($args);
+	/**
+	 * Rendering block in front
+	 *
+	 * @param [type] $attributes
+	 * @param [type] $content
+	 * @return void
+	 */
+	public static function bfe_content_block($attributes, $content)
+	{
+		// Start capture.
+		ob_start();
+		echo '<h1>Content here</h1>';
+		return ob_get_clean();
+	}
 
-        $html .= '<ul>';
+	/**
+	 * Registering block
+	 *
+	 * @return void
+	 */
+	public static function gutenberg_add_team_block()
+	{
 
-        if ($post_lists->have_posts()) {
+		if (!function_exists('register_block_type')) {
+			// Gutenberg is not active.
+			return;
+		}
 
-            while ($post_lists->have_posts()) {
-                $post_lists->the_post();
+		wp_register_style(
+			'bfe-style',
+			plugins_url( 'assets/css/bfee.css', dirname(__FILE__) ),
+			[],
+			filemtime( plugin_dir_path( dirname(__FILE__) ) . 'css/style.css' )
+		);
 
-                $html .= sprintf(
-                    '<li><a href="%s">%s</a> <a href="%s?post_id=%s">✏</a></li>',
-                    get_the_permalink(),
-                    get_the_title(),
-                    $editor_page,
-                    get_the_ID()
-                );
-            }
-            $html .= '</ul>';
-            $newer_page_link = get_previous_posts_link(__('< Newer'));
-            $previous_page_link = get_next_posts_link(__('Previous >'), $post_lists->max_num_pages);
-            $html .= sprintf('<div class="nav"><span>%s</span> <span>%s</span></div>', $newer_page_link, $previous_page_link);
 
-            wp_reset_postdata();
-        }
+		register_block_type('bfe/bfe-block', [
+			'editor_script' => 'bfe-block-script',
+			'style' => 'bfe-style',
+			'editor_style' => 'bfe-block-style',
+			'render_callback' => [__CLASS__, 'bfe_content_block']
+		]);
+	}
 
-        return $html;
-    }
-
-    /**
-     * Getting the page link with editor shortcode
-     *
-     * @return void
-     */
-    public static function get_editor_page_link()
-    {
-        $args = [
-            'posts_per_page' => 1,
-            'post_type' => 'page',
-            'meta_query' => [
-                [
-                    'key' => 'editor_js_page',
-                    'compare' => 'EXISTS'
-                ]
-            ]
-        ];
-
-        $editor_page = new \WP_Query($args);
-
-        if ($editor_page->have_posts()) {
-
-            while ($editor_page->have_posts()) {
-                $editor_page->the_post();
-
-                return get_the_permalink();
-            }
-        }
-
-        return false;
-    }
 }
 
-PostsListShortCode::init();
+Block::init();

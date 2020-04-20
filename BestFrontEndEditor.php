@@ -62,6 +62,7 @@ class BestFrontEndEditor
     require_once __DIR__ . '/inc/EditorShortcode.php';
     require_once __DIR__ . '/inc/PostsListShortcode.php';
     require_once __DIR__ . '/inc/SavePost.php';
+    require_once __DIR__ . '/inc/Block.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
   }

@@ -4,7 +4,7 @@ const config = {
         src: 'src/scss/main.scss',
         dest: 'assets/css',
         file: 'bfee.css',
-        watchSrc: 'src/scss/**/*.scss',
+        watchSrc: 'src/scss/*.scss',
     },
     editorStyles: {
         src: 'src/scss/editor-style.scss',
@@ -13,9 +13,9 @@ const config = {
         watchSrc: 'src/scss/**/*.scss',
     },
     blocksEditorStyles: {
-        src: 'src/scss/blocks-editor-style.scss',
-        dest: 'assets/css',
-        file: 'bfe-blocks-editor-style.css',
+        src: 'src/scss/block/*.scss',
+        dest: 'assets/css/block',
+        file: 'bfe-block-editor-style.css',
         watchSrc: 'src/scss/**/*.scss',
     },
 
