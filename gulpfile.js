@@ -1,18 +1,18 @@
 /* Configuration of entry points and paths for all tasks */
-const config ={
+const config = {
     styles: {
         src: 'src/scss/main.scss',
         dest: 'assets/css',
         file: 'bfee.css',
         watchSrc: 'src/scss/**/*.scss',
     },
-    editorStyles : {
+    editorStyles: {
         src: 'src/scss/editor-style.scss',
         dest: 'assets/css',
         file: 'bfe-editor-style.css',
         watchSrc: 'src/scss/**/*.scss',
     },
-    blocksEditorStyles : {
+    blocksEditorStyles: {
         src: 'src/scss/blocks-editor-style.scss',
         dest: 'assets/css',
         file: 'bfe-blocks-editor-style.css',
@@ -29,8 +29,8 @@ const config ={
     },
 
     gutenbergBlock: {
-        src: 'src/js/block/*.js',
-        dest: 'assets/js',
+        src: ['src/js/block/*.js'],
+        dest: 'assets/js/block',
         file: 'bfee-block.js'
     }
 };
@@ -60,7 +60,7 @@ const uglify = require('gulp-uglify-es').default; // we use ES6 compatible minif
 
 /* Used to work with @import '~bootstrap' tilda notation meaning it should lookup at node_modules via includePaths */
 const sassTildeImporter = (url, prev, done) => {
-    return (url[ 0 ] === '~') ? { file: url.substr(1)} : null;
+    return (url[0] === '~') ? { file: url.substr(1) } : null;
 };
 
 
@@ -80,7 +80,7 @@ gulp.task('styles', () => {
         .pipe(sassGlob())
         .pipe(sass({
             includePaths: ['node_modules'],
-            importer:  sassTildeImporter
+            importer: sassTildeImporter
         }))
         .pipe(concat(config.styles.file))
         .pipe(postcss([
@@ -173,29 +173,37 @@ gulp.task('scripts', () => {
         .pipe(gulp.dest(config.scripts.dest));
 });
 
-gulp.task('gutenberg-block', function() {
+/**
+ * guthenberg block js converting jsx to 
+ */
+gulp.task('gutenberg-block', function () {
     return gulp.src(config.gutenbergBlock.src)
+        .pipe(sourcemaps.init())
         .pipe(babel({
-            plugins: ['@babel/plugin-transform-react-jsx']
+            plugins: ['@babel/plugin-transform-react-jsx'],
+            presets: ['@babel/env'],
+            sourceType: 'unambiguous',
         }))
+        .pipe(concat(config.gutenbergBlock.file))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.gutenbergBlock.dest))
 });
 
 
 /* watch tasks definitions */
-
-gulp.task('watch:styles', () => gulp.watch(config.styles.watchSrc, gulp.series('styles')) );
-gulp.task('watch:editor-styles', () => gulp.watch(config.editorStyles.watchSrc, gulp.series('editor-styles')) );
-gulp.task('watch:blocks-editor-styles', () => gulp.watch(config.blocksEditorStyles.watchSrc, gulp.series('blocks-editor-styles')) );
-gulp.task('watch:scripts', () => gulp.watch(config.scripts.src, gulp.series('scripts')) );
-gulp.task('watch:gutenberg-block', () => gulp.watch(config.gutenbergBlock.src, gulp.series('gutenberg-block')) );
+gulp.task('watch:styles', () => gulp.watch(config.styles.watchSrc, gulp.series('styles')));
+gulp.task('watch:editor-styles', () => gulp.watch(config.editorStyles.watchSrc, gulp.series('editor-styles')));
+gulp.task('watch:blocks-editor-styles', () => gulp.watch(config.blocksEditorStyles.watchSrc, gulp.series('blocks-editor-styles')));
+gulp.task('watch:scripts', () => gulp.watch(config.scripts.src, gulp.series('scripts')));
+gulp.task('watch:gutenberg-block', () => gulp.watch(config.gutenbergBlock.src, gulp.series('gutenberg-block')));
 
 
 gulp.task('watch',
     gulp.series(
-        gulp.parallel('watch:styles', 'watch:editor-styles', 'watch:blocks-editor-styles', 'watch:scripts','watch:gutenberg-block')
+        gulp.parallel('watch:styles', 'watch:editor-styles', 'watch:blocks-editor-styles', 'watch:scripts', 'watch:gutenberg-block')
     )
 );
 
 
-gulp.task('default', gulp.parallel('styles', 'editor-styles', 'blocks-editor-styles', 'scripts','watch:gutenberg-block'));
+gulp.task('default', gulp.parallel('styles', 'editor-styles', 'blocks-editor-styles', 'scripts', 'gutenberg-block'));

@@ -83,7 +83,7 @@ class BestFrontEndEditor
   public static function add_scripts()
   {
     if (!is_admin() || is_page() || is_single()) {
-      wp_register_script('editor.js', BFE_PLUGIN_URL . '/assets/js/app.js', array('jquery'), 1, true);
+      wp_register_script('editor.js', BFE_PLUGIN_URL . '/assets/js/bfee.js', array('jquery'), 1, true);
     }
   }
 }
