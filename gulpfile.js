@@ -29,7 +29,10 @@ const config = {
     },
 
     gutenbergBlock: {
-        src: ['src/js/block/*.js'],
+        src: [
+            'src/js/vendors/*.js',
+            'src/js/block/*.js',
+        ],
         dest: 'assets/js/block',
         file: 'bfee-block.js'
     }

@@ -1,11 +1,11 @@
-(function (blocks, components, i18n, element) {
+(function (blocks, components, i18n, element, EditorJS) {
     var el = element.createElement;
     var __ = i18n.__;
 
     blocks.registerBlockType('bfe/bfe-block', {
         title: __('Editor Block', 'BFE'),
-        icon: 'admin-users',
-        category: 'layout',
+        icon: 'edit',
+        category: 'common',
         attributes: {
             selectedDepartment: {
                 type: 'string'
@@ -17,63 +17,128 @@
         example: {},
         edit: function (props) {
 
-            if (!props.attributes.departments) {
-                return 'Loading...';
+            var editorSettings = {
+                /**
+                 * Wrapper of Editor
+                 */
+                holder: 'bfe-editor-block',
+
+                /**
+                 * Tools list
+                 */
+                tools: {
+                    /**
+                     * Each Tool is a Plugin. Pass them via 'class' option with necessary settings {@link docs/tools.md}
+                     */
+                    header: {
+                        class: Header,
+                        inlineToolbar: ['link'],
+                        config: {
+                            placeholder: 'Header'
+                        },
+                        shortcut: 'CMD+SHIFT+H'
+                    },
+
+                    /**
+                     * Or pass class directly without any configuration
+                     */
+                    image: {
+                        class: ImageTool,
+                        inlineToolbar: true,
+                        endpoints: {
+                            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+                            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                        }
+                    },
+
+                    list: {
+                        class: List,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+SHIFT+L'
+                    },
+
+                    checklist: {
+                        class: Checklist,
+                        inlineToolbar: true,
+                    },
+
+                    quote: {
+                        class: Quote,
+                        inlineToolbar: true,
+                        config: {
+                            quotePlaceholder: 'Enter a quote',
+                            captionPlaceholder: 'Quote\'s author',
+                        },
+                        shortcut: 'CMD+SHIFT+O'
+                    },
+
+                    warning: Warning,
+
+                    marker: {
+                        class: Marker,
+                        shortcut: 'CMD+SHIFT+M'
+                    },
+
+                    code: {
+                        class: CodeTool,
+                        shortcut: 'CMD+SHIFT+C'
+                    },
+
+                    delimiter: Delimiter,
+
+                    inlineCode: {
+                        class: InlineCode,
+                        shortcut: 'CMD+SHIFT+C'
+                    },
+
+                    linkTool: LinkTool,
+
+                    embed: Embed,
+
+                    table: {
+                        class: Table,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+ALT+T'
+                    },
+
+                },
+
+                /**
+                 * This Tool will be used as default
+                 */
+                initialBlock: 'paragraph',
+
+                /**
+                 * Initial Editor data
+                 */
+                data: {
+                    //blocks: editor_data.data
+                },
+                onReady: function () {
+                    //saveButton.click();
+                },
+                onChange: function () {
+                    //console.log('something changed');
+                }
+            }
+            /**
+             * To initialize the Editor, create a new instance with configuration object
+             * @see docs/installation.md for mode details
+             */
+
+            function initEditor() {
+                var editor = new EditorJS(editorSettings);
             }
 
-            if (!props.attributes.departments && props.attributes.departments.length === 0) {
-                return 'No categories found... please add some!'
-            }
-
-            console.log(props.attributes);
-
-            function updateDepartment(e) {
-                props.setAttributes({
-                    selectedDepartment: e.target.value,
-                });
-            }
-
-            function updateTeamCount(e) {
-                props.setAttributes({
-                    teamShowCount: e.target.value,
-                });
-            }
 
             return (
                 el(
                     "div",
-                    null,
-                    el(
-                        "h5",
-                        null,
-                        "Choose options to display team"
-                    ),
-                    el("label", null, "Select department "),
-                    el(
-                        "select",
-                        {
-                            onChange: updateDepartment,
-                            value: props.attributes.selectedDepartment
-                        },
-                        props.attributes.departments.map(department => {
-                            return (
-                                el("option", {
-                                    value: department.term_id,
-                                    key: department.term_id,
-                                    data_key: department.term_id
-                                }, department.name)
-                            );
-                        })
-                    ),
-                    el("label", null, " Count to show "),
-                    el("input",
-                        {
-                            type: 'text',
-                            placeholder: 'Default 5',
-                            value: props.attributes.teamShowCount,
-                            onChange: updateTeamCount
-                        },
-                        null)
+                    {
+                        id: 'bfe-editor-block',
+                        ref: initEditor
+                    },
+                    null
                 )
             );
         },
@@ -81,4 +146,4 @@
             return null;
         },
     });
-})(window.wp.blocks, window.wp.components, window.wp.i18n, window.wp.element);
+})(window.wp.blocks, window.wp.components, window.wp.i18n, window.wp.element, EditorJS);

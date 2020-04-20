@@ -9,7 +9,6 @@ class Block
 	{
 		add_action('init', [__CLASS__, 'gutenberg_add_team_block']);
 		add_action('enqueue_block_editor_assets', [__CLASS__, 'gutenberg_team_block_editor_scripts']);
-		add_action('rest_api_init', [__CLASS__, 'add_team_rest_api']);
 	}
 
 	public static function gutenberg_team_block_editor_scripts()
@@ -18,14 +17,14 @@ class Block
 			'bfe-block-script',
 			plugins_url('assets/js/block/bfee-block.js', dirname(__FILE__)),
 			['wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'],
-			filemtime(plugin_dir_path(dirname(__FILE__)) . 'src/block/team-block.js')
+			filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/js/block/bfee-block.js')
 		);
 
 		wp_register_style(
 			'bfe-block-style',
 			plugins_url( 'assets/css/block/bfe-block-editor-style.css', dirname(__FILE__) ),
 			[],
-			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'css/editor.css' )
+			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'assets/css/block/bfe-block-editor-style.css' )
 		);
 
 		//wp_register_style()
@@ -65,7 +64,7 @@ class Block
 			'bfe-style',
 			plugins_url( 'assets/css/bfee.css', dirname(__FILE__) ),
 			[],
-			filemtime( plugin_dir_path( dirname(__FILE__) ) . 'css/style.css' )
+			filemtime( plugin_dir_path( dirname(__FILE__) ) . 'assets/css/bfee.css' )
 		);
 
 
