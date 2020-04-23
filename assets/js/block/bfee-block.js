@@ -23659,7 +23659,16 @@ var BfeEditor = /*#__PURE__*/function () {
               uploader: {
                 uploadByFile: function uploadByFile(file) {
                   return BfeEditor.uploadImage(file).then(function (data) {
-                    console.log(data);
+                    return {
+                      "success": 1,
+                      "file": {
+                        "url": data.data.url
+                      }
+                    };
+                  });
+                },
+                uploadByUrl: function uploadByUrl(url) {
+                  return BfeEditor.uploadImage(null, url).then(function (data) {
                     return {
                       "success": 1,
                       "file": {
@@ -23723,11 +23732,22 @@ var BfeEditor = /*#__PURE__*/function () {
     }
   }], [{
     key: "uploadImage",
-    value: function uploadImage(file) {
+    value: function uploadImage() {
+      var file = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       return new Promise(function (resolve, reject) {
         var formData = new FormData();
-        formData.append('image', file);
         formData.append('action', 'bfe_uploading_image');
+
+        if (file !== null) {
+          formData.append('image', file);
+        }
+
+        if (url !== null) {
+          formData.append('image_url', url);
+        }
+
+        formData.append('post_id', BfeEditor.get_bfee_data.post_id);
         fetch(BfeEditor.get_bfee_data.ajax_url, {
           method: 'POST',
           body: formData

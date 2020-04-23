@@ -16,11 +16,47 @@ class SavePost
 
     public static function bfe_uploading_image()
     {
-        $file = $_FILES['image'];
+        $post_id = $_POST['post_id'];
 
-        $cont = file_get_contents($file['tmp_name']);
-        $new_file_name = $file['name'];
+        if (isset($_FILES['image'])) {
+            $file = $_FILES['image'];
+
+            $cont = file_get_contents($file['tmp_name']);
+            $new_file_name = $file['name'];
+            $ext = $file['type'];
+        }
+
+        if (isset($_POST['image_url'])) {
+            $url = $_POST['image_url'];
+            $get = wp_remote_get($url);
+
+            $new_file_name = basename($url); // to get file name
+            $ext = 'image/'.pathinfo($url, PATHINFO_EXTENSION); // to get extension
+            //$new_file_name = pathinfo($url, PATHINFO_FILENAME); //file name without extension
+
+            if (empty($get['response']['code'])) {
+                return false;
+            }
+
+            $cont = wp_remote_retrieve_body($get);
+        }
+
+
         $upload = wp_upload_bits($new_file_name, null, $cont);
+
+        $attachment = array(
+            'post_title' => $new_file_name,
+            'post_mime_type' => $ext
+        );
+
+        $attach_id = wp_insert_attachment($attachment, $upload['file'], $post_id);
+
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+        $attach_data = wp_generate_attachment_metadata($attach_id, $upload['file']);
+
+        wp_update_attachment_metadata($attach_id, $attach_data);
+
         // xxx creat media post
         wp_send_json_success(["url" => $upload['url']]);
     }

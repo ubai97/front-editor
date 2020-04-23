@@ -29,7 +29,8 @@ class Block
 
 		$data = [
             'ajax_url' => admin_url('admin-ajax.php'),
-            'data' => Editor::example_editor_data()
+			'data' => Editor::example_editor_data(),
+			'post_id' => get_the_ID()
         ];
 
         $data = json_encode($data);

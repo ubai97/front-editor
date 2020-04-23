@@ -55,11 +55,17 @@ class BfeEditor {
     /**
      * uploading image
      */
-    static uploadImage(file) {
+    static uploadImage(file = null, url = null) {
         return new Promise((resolve, reject) => {
             const formData = new FormData()
-            formData.append('image', file)
             formData.append('action', 'bfe_uploading_image')
+            if(file !== null){
+                formData.append('image', file)
+            }
+            if(url !== null){
+                formData.append('image_url', url)
+            }
+            formData.append('post_id', BfeEditor.get_bfee_data.post_id)
             fetch(BfeEditor.get_bfee_data.ajax_url, {
                 method: 'POST',
                 body: formData
@@ -102,13 +108,21 @@ class BfeEditor {
                         uploader: {
                             uploadByFile(file) {
                                 return BfeEditor.uploadImage(file).then(data => {
-                                    console.log(data);
                                     return {
                                         "success": 1,
                                         "file": {
-                                            "url": data.data.url
+                                            "url": data.data.url,
                                         }
-
+                                    };
+                                })
+                            },
+                            uploadByUrl(url){
+                                return BfeEditor.uploadImage(null,url).then(data => {
+                                    return {
+                                        "success": 1,
+                                        "file": {
+                                            "url": data.data.url,
+                                        }
                                     };
                                 })
                             }
