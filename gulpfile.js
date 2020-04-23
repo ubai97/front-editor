@@ -31,6 +31,7 @@ const config = {
     gutenbergBlock: {
         src: [
             'src/js/vendors/*.js',
+            'src/js/inc/*.js',
             'src/js/block/*.js',
         ],
         dest: 'assets/js/block',
@@ -188,7 +189,7 @@ gulp.task('gutenberg-block', function () {
             sourceType: 'unambiguous',
         }))
         .pipe(concat(config.gutenbergBlock.file))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.gutenbergBlock.dest))
 });

@@ -63,6 +63,7 @@ class BestFrontEndEditor
     require_once __DIR__ . '/inc/PostsListShortcode.php';
     require_once __DIR__ . '/inc/SavePost.php';
     require_once __DIR__ . '/inc/Block.php';
+    require_once __DIR__ . '/inc/Editor.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
   }
@@ -84,7 +85,7 @@ class BestFrontEndEditor
   public static function add_scripts()
   {
     if (!is_admin() || is_page() || is_single()) {
-      wp_register_script('editor.js', BFE_PLUGIN_URL . '/assets/js/bfee.js', array('jquery'), 1, true);
+      wp_register_script('bfee-editor.js', BFE_PLUGIN_URL . '/assets/js/bfee.js', array('jquery'), 2, true);
     }
   }
 }

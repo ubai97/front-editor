@@ -30,7 +30,7 @@ class EditorShortcode
         if($post_id !== 'new'){
             $editor_data = get_post_meta( $post_id, 'editor_js_data',true );
         } else {
-            $editor_data = self::first_data();
+            $editor_data = Editor::example_editor_data();
         }
 
         $data = [
@@ -40,9 +40,9 @@ class EditorShortcode
 
         $data = json_encode($data);
 
-        wp_localize_script('editor.js', 'editor_data', $data);
+        wp_localize_script('bfee-editor.js', 'editor_data', $data);
 
-        wp_enqueue_script('editor.js');
+        wp_enqueue_script('bfee-editor.js');
 
         $button_save = sprintf('<button>%s</button>', __('Save', 'BFE'));
         $html_data = sprintf(
@@ -64,41 +64,6 @@ class EditorShortcode
     public static function first_data()
     {
 
-        $data = [
-            [
-                'type' => "header",
-                'data' => [
-                    'text' => __("Title", 'BFE'),
-                    'level' => 1
-                ]
-            ],
-            [
-                'type' => 'paragraph',
-                'data' => [
-                    'text' => __('Hey. Meet the new Editor. On this page you can see it in action — try to edit this text. Source code of the page contains the example of connection and configuration.', 'BFE')
-                ]
-            ],
-            [
-                'type' => "header",
-                'data' => [
-                    'text' => __("Key features", 'BFE'),
-                    'level' => 3
-                ]
-            ],
-            [
-                'type' =>  'list',
-                'data' => [
-                    'items' => [
-                        __('It is a block-styled editor', 'BFE'),
-                        __('It returns clean data output in JSON', 'BFE'),
-                        __('Designed to be extendable and pluggable with a simple API', 'BFE'),
-                    ],
-                    'style' => 'unordered'
-                ]
-            ],
-        ];
-
-        return $data;
     }
 }
 

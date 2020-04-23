@@ -9,10 +9,21 @@ class SavePost
     {
 
         add_action('wp_ajax_save_post_from_front', [__CLASS__, 'save_post_from_front']);
+        //add_action('wp_ajax_save_post_wp_admin_block', [__CLASS__, 'save_post_wp_admin_block']);
+        add_action('wp_ajax_bfe_uploading_image', [__CLASS__, 'bfe_uploading_image']);
     }
 
 
+    public static function bfe_uploading_image()
+    {
+        $file = $_FILES['image'];
 
+        $cont = file_get_contents($file['tmp_name']);
+        $new_file_name = $file['name'];
+        $upload = wp_upload_bits($new_file_name, null, $cont);
+        // xxx creat media post
+        wp_send_json_success(["url" => $upload['url']]);
+    }
     /**
      * Save post from front
      */
@@ -52,7 +63,7 @@ class SavePost
         }
 
         // Adding post meta to know the editor page
-        update_post_meta( $post_id, 'editor_js_data', $all_data['blocks'] );
+        update_post_meta($post_id, 'editor_js_data', $all_data['blocks']);
 
         wp_send_json_success($post_id);
 
@@ -87,7 +98,6 @@ class SavePost
 
         return $html;
     }
-
 }
 
 SavePost::init();

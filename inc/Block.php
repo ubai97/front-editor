@@ -27,9 +27,16 @@ class Block
 			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'assets/css/block/bfe-block-editor-style.css' )
 		);
 
-		//wp_register_style()
+		$data = [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'data' => Editor::example_editor_data()
+        ];
 
-		wp_enqueue_script('team_block');
+        $data = json_encode($data);
+
+		wp_enqueue_script('bfe-block-script');
+		
+		wp_localize_script('bfe-block-script', 'editor_data', $data);
 	}
 
 	/**
