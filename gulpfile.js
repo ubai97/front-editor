@@ -1,21 +1,10 @@
 /* Configuration of entry points and paths for all tasks */
 const config = {
-    styles: {
-        src: 'src/scss/main.scss',
-        dest: 'assets/css',
-        file: 'bfee.css',
-        watchSrc: 'src/scss/*.scss',
-    },
+
     editorStyles: {
-        src: 'src/scss/editor-style.scss',
+        src: 'src/scss/**/*.scss',
         dest: 'assets/css',
         file: 'bfe-editor-style.css',
-        watchSrc: 'src/scss/**/*.scss',
-    },
-    blocksEditorStyles: {
-        src: 'src/scss/block/*.scss',
-        dest: 'assets/css/block',
-        file: 'bfe-block-editor-style.css',
         watchSrc: 'src/scss/**/*.scss',
     },
 
@@ -73,34 +62,6 @@ const sassTildeImporter = (url, prev, done) => {
 *  Our tasks definitions go below
 */
 
-gulp.task('styles', () => {
-    return gulp.src(config.styles.src)
-        .pipe(sourcemaps.init())
-        .pipe(plumber({
-            errorHandler: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
-        .pipe(sassGlob())
-        .pipe(sass({
-            includePaths: ['node_modules'],
-            importer: sassTildeImporter
-        }))
-        .pipe(concat(config.styles.file))
-        .pipe(postcss([
-            loadSVG({
-                path: 'src/icons'
-            }),
-            objectFitImages,
-            autoprefixer,
-            cssnano
-        ]))
-        .pipe(sourcemaps.write('.'))
-
-        .pipe(gulp.dest(config.styles.dest));
-});
-
 gulp.task('editor-styles', () => {
     return gulp.src(config.editorStyles.src)
         .pipe(sourcemaps.init())
@@ -125,39 +86,6 @@ gulp.task('editor-styles', () => {
 
         .pipe(gulp.dest(config.editorStyles.dest));
 });
-
-gulp.task('blocks-editor-styles', () => {
-    return gulp.src(config.blocksEditorStyles.src)
-        .pipe(sourcemaps.init())
-        .pipe(plumber({
-            errorHandler: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
-        .pipe(sassGlob())
-        .pipe(sass({
-            includePaths: ['node_modules'],
-            importer: sassTildeImporter
-        }))
-        // .pipe(gulpStylelint({
-        //     failAfterError: true,
-        //     reporters: [
-        //         {formatter: 'verbose', console: true},
-        //     ],
-        //     // debug: true
-        // }))
-        .pipe(concat(config.blocksEditorStyles.file))
-        .pipe(postcss([
-            objectFitImages,
-            autoprefixer,
-            cssnano
-        ]))
-        .pipe(sourcemaps.write('.'))
-
-        .pipe(gulp.dest(config.blocksEditorStyles.dest));
-});
-
 
 gulp.task('scripts', () => {
     return gulp.src(config.scripts.src)
@@ -190,25 +118,23 @@ gulp.task('gutenberg-block', function () {
             sourceType: 'unambiguous',
         }))
         .pipe(concat(config.gutenbergBlock.file))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.gutenbergBlock.dest))
 });
 
 
 /* watch tasks definitions */
-gulp.task('watch:styles', () => gulp.watch(config.styles.watchSrc, gulp.series('styles')));
 gulp.task('watch:editor-styles', () => gulp.watch(config.editorStyles.watchSrc, gulp.series('editor-styles')));
-gulp.task('watch:blocks-editor-styles', () => gulp.watch(config.blocksEditorStyles.watchSrc, gulp.series('blocks-editor-styles')));
 gulp.task('watch:scripts', () => gulp.watch(config.scripts.src, gulp.series('scripts')));
 gulp.task('watch:gutenberg-block', () => gulp.watch(config.gutenbergBlock.src, gulp.series('gutenberg-block')));
 
 
 gulp.task('watch',
     gulp.series(
-        gulp.parallel('watch:styles', 'watch:editor-styles', 'watch:blocks-editor-styles', 'watch:scripts', 'watch:gutenberg-block')
+        gulp.parallel( 'watch:editor-styles', 'watch:scripts', 'watch:gutenberg-block')
     )
 );
 
 
-gulp.task('default', gulp.parallel('styles', 'editor-styles', 'blocks-editor-styles', 'scripts', 'gutenberg-block'));
+gulp.task('default', gulp.parallel('editor-styles', 'scripts', 'gutenberg-block'));

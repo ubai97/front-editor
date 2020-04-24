@@ -2,12 +2,14 @@
 
 namespace BFE;
 
-class EditorShortcode
+class Shorcodes
 {
 
     public static function init()
     {
         add_shortcode('editor-js', [__CLASS__, 'editor_js']);
+
+        add_shortcode('user_posts_list', [__CLASS__, 'user_posts_list']);
     }
 
     /**
@@ -22,14 +24,14 @@ class EditorShortcode
     }
 
     /**
-     * Creating test data for editor
+     * creating shortcode 
      *
+     * @param [type] $atts
      * @return void
      */
-    public static function first_data()
+    public static function user_posts_list($atts)
     {
-
+        return PostList::user_posts_list($atts);
     }
-}
 
-EditorShortcode::init();
+}

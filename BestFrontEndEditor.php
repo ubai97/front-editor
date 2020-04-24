@@ -35,6 +35,7 @@ class BestFrontEndEditor
 
     define('BFE_PLUGIN_URL', plugins_url('BestFrontEndEditor'));
     define('BFE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+    define('BFE_Template_PATH', plugin_dir_path(__FILE__) . 'templates/');
 
     /**
      * Add hook for activate plugin
@@ -59,10 +60,10 @@ class BestFrontEndEditor
     /**
      * Add Components
      */
-    require_once __DIR__ . '/inc/EditorShortcode.php';
-    require_once __DIR__ . '/inc/PostsListShortcode.php';
+    require_once __DIR__ . '/inc/Shortcodes.php';
+    require_once __DIR__ . '/inc/PostsList.php';
     require_once __DIR__ . '/inc/SavePost.php';
-    require_once __DIR__ . '/inc/Block.php';
+    require_once __DIR__ . '/inc/Blocks.php';
     require_once __DIR__ . '/inc/Editor.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
@@ -84,8 +85,18 @@ class BestFrontEndEditor
    */
   public static function add_scripts()
   {
-    if (!is_admin() || is_page() || is_single()) {
+    if (!is_admin() || is_page() || is_single() || is_user_logged_in()) {
       wp_register_script('bfee-editor.js', BFE_PLUGIN_URL . '/assets/js/bfee-editor.js', array('jquery'), 2, true);
+
+      wp_register_style(
+        'bfe-block-style',
+        BFE_PLUGIN_URL . '/assets/css/bfe-editor-style.css',
+        [],
+        BFE_PLUGIN_DIR_PATH . '/assets/css/bfe-editor-style.css'
+      );
+
+      wp_enqueue_style('bfe-block-style');
+
     }
   }
 }

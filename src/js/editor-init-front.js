@@ -5,7 +5,7 @@ if ($("#bfe-editor-block")[0]) {
     /**
      * Saving button
      */
-    const saveButton = document.querySelectorAll('#bfe-editor-block button')[0];
+    const saveButton = document.querySelectorAll('#save-editor-block')[0];
 
     var editor_data = JSON.parse(editor_data);
 

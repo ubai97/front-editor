@@ -39,7 +39,7 @@ class Editor
     public static function show_front_editor()
     {
         if (!self::can_edit_post()) {
-            return sprintf('<h2>%s</h2>',__('You do not have permission','BFE'));
+            return sprintf('<h2>%s</h2>', __('You do not have permission', 'BFE'));
         }
 
         $post_id = 'new';
@@ -67,7 +67,8 @@ class Editor
                     'publish' => __('Publish', 'BFE'),
                     'updating' => sprintf('%s...', __('Updating', 'BFE')),
                     'update' => __('Update', 'BFE')
-                ]
+                ],
+                'View Page' => __('View Page', 'BFE')
             ]
         ];
 
@@ -77,17 +78,12 @@ class Editor
 
         wp_enqueue_script('bfee-editor.js');
 
-        $button_save = sprintf('<button id="save-editor-block">%s</button>', $button_text);
-        $html_data = sprintf(
-            '<div id="bfe-editor-block" post_id="%s">%s</div>',
-            $post_id,
-            $button_save
-        );
-
         // Adding post meta to know the editor page
         update_post_meta(get_the_ID(), 'editor_js_page', true);
 
-        return $html_data;
+        ob_start();
+        require_once BFE_Template_PATH . 'block-editor.php';
+        return ob_get_clean();
     }
 
     /**
@@ -129,15 +125,15 @@ class Editor
      */
     public static function can_edit_post($cur_user_id = false, $post_id = 0)
     {
-        if(!$cur_user_id){
+        if (!$cur_user_id) {
             $cur_user_id = get_current_user_id();
         }
-        
+
         if (!is_user_logged_in()) {
             return false;
         }
 
-        if (!current_user_can('editor')) {
+        if (!current_user_can('edit_others_pages')) {
             return false;
         }
 

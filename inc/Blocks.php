@@ -22,15 +22,20 @@ class Block
 
 		wp_register_style(
 			'bfe-block-style',
-			plugins_url( 'assets/css/block/bfe-block-editor-style.css', dirname(__FILE__) ),
+			plugins_url( 'assets/css/bfe-editor-style.css', dirname(__FILE__) ),
 			[],
-			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'assets/css/block/bfe-block-editor-style.css' )
+			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'assets/css/bfe-editor-style.css' )
 		);
 
 		$data = [
-            'ajax_url' => admin_url('admin-ajax.php'),
-			'data' => Editor::example_editor_data(),
-			'post_id' => get_the_ID()
+            'translations' => [
+                'save_button' => [
+                    'publish' => __('Publish', 'BFE'),
+                    'updating' => sprintf('%s...', __('Updating', 'BFE')),
+                    'update' => __('Update', 'BFE')
+                ],
+                'gutenberg_editor_block_text' => __('Best Front End Editor Block', 'BFE')
+            ]
         ];
 
         $data = json_encode($data);
@@ -68,17 +73,9 @@ class Block
 			return;
 		}
 
-		wp_register_style(
-			'bfe-style',
-			plugins_url( 'assets/css/bfee.css', dirname(__FILE__) ),
-			[],
-			filemtime( plugin_dir_path( dirname(__FILE__) ) . 'assets/css/bfee.css' )
-		);
-
-
 		register_block_type('bfe/bfe-block', [
 			'editor_script' => 'bfe-block-script',
-			'style' => 'bfe-style',
+			'style' => 'bfe-block-style',
 			'editor_style' => 'bfe-block-style',
 			'render_callback' => [__CLASS__, 'bfe_content_block']
 		]);

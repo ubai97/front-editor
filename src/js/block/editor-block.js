@@ -1,10 +1,10 @@
-(function (blocks,i18n, element, EditorJS, bfee_data, $, BfeEditor) {
+(function (blocks, i18n, element, bfee_data, BfeEditor) {
     var el = element.createElement,
         __ = i18n.__,
-        bfee_data = JSON.parse(bfee_data),
-        ajax_url = bfee_data.ajax_url,
+        bfee_data = BfeEditor.get_bfee_data,
         new_editor = true,
         bfee_editor;
+
     blocks.registerBlockType('bfe/bfe-block', {
         title: __('Editor Block', 'BFE'),
         icon: 'edit',
@@ -16,27 +16,14 @@
         },
         example: {},
         edit: function (props) {
-
-            var initEditor = function () {
-                if (new_editor) {
-                    new_editor = false;
-                    bfee_editor = new BfeEditor();
-                }
-            }
-
             return (
-                el(
-                    "div",
-                    {
-                        id: 'bfe-editor-block',
-                        ref: initEditor
-                    },
-                    null
-                )
+                <div class="bfee-guthen-editor-block">
+                    <h2>{BfeEditor.get_bfee_data.translations.gutenberg_editor_block_text}</h2>
+                </div>
             );
         },
         save: function (props) {
             return null;
         },
     });
-})(window.wp.blocks,window.wp.i18n, window.wp.element, EditorJS, editor_data, jQuery, BfeEditor );
+})(window.wp.blocks, window.wp.i18n, window.wp.element, editor_data, BfeEditor);

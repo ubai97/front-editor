@@ -43,10 +43,12 @@ class BfeEditor {
     save_data(data) {
         let save_button_messages = this.bfee_data.translations.save_button,
             save_button = document.querySelector('#save-editor-block'),
-            post_id = document.querySelector('#bfe-editor-block').getAttribute('post_id');
+            editor_block = document.querySelector('#bfe-editor-block'),
+            post_id = document.querySelector('#bfe-editor-block').getAttribute('post_id'),
+            post_link = document.querySelector('.bfe-editor-view-page a');
         var data = {
             action: 'bfe_update_post',
-            post_id: post_id,
+            post_id: post_id ?? 'new',
             editor_data: data,
         };
         jQuery.ajax({
@@ -55,14 +57,16 @@ class BfeEditor {
             data: data,
             beforeSend: function (response) {
                 save_button.innerHTML = save_button_messages.updating;
-                console.log('Updating');
             },
             success: function (response) {
                 if (response.error) {
                     console.log(response.data);
                 } else {
-                    save_button.innerHTML = save_button_messages.update;
                     console.log(response);
+                    save_button.innerHTML = save_button_messages.update;
+                    post_link.setAttribute('href', response.data.url);
+                    post_link.innerHTML = response.data.url;
+                    editor_block.setAttribute('post_id', response.data.post_id)
                 }
             },
         });
@@ -114,7 +118,7 @@ class BfeEditor {
 
         return {
             holder: 'bfe-editor-block',
-           // autofocus: true,
+            // autofocus: true,
             tools: {
 
                 header: {
