@@ -22,10 +22,11 @@ const config = {
     scripts: {
         src: [
             'src/js/vendors/*.js',
+            'src/js/inc/*.js',
             'src/js/*.js',
         ],
         dest: 'assets/js',
-        file: 'bfee.js'
+        file: 'bfee-editor.js'
     },
 
     gutenbergBlock: {

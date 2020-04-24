@@ -23580,7 +23580,12 @@ var BfeEditor = /*#__PURE__*/function () {
     _classCallCheck(this, BfeEditor);
 
     this.bfee_editor = new EditorJS(this.editorSettings);
-    this.data = JSON.parse(editor_data);
+
+    try {
+      this.data = JSON.parse(editor_data);
+    } catch (e) {
+      this.data = editor_data;
+    }
   }
 
   _createClass(BfeEditor, [{
@@ -23591,23 +23596,28 @@ var BfeEditor = /*#__PURE__*/function () {
      * @param {*} data 
      */
     value: function save_data(data) {
+      var save_button_messages = this.bfee_data.translations.save_button,
+          save_button = document.querySelector('#save-editor-block'),
+          post_id = document.querySelector('#bfe-editor-block').getAttribute('post_id');
       var data = {
-        action: 'save_post_wp_admin_block',
-        data: data
+        action: 'bfe_update_post',
+        post_id: post_id,
+        editor_data: data
       };
       jQuery.ajax({
         type: 'post',
         url: this.bfee_data.ajax_url,
         data: data,
         beforeSend: function beforeSend(response) {
-          console.log('sending');
+          save_button.innerHTML = save_button_messages.updating;
+          console.log('Updating');
         },
         success: function success(response) {
           if (response.error) {
-            // console.log('error');
-            return;
+            console.log(response.data);
           } else {
-            console.log('good');
+            save_button.innerHTML = save_button_messages.update;
+            console.log(response);
           }
         }
       });
@@ -23632,7 +23642,15 @@ var BfeEditor = /*#__PURE__*/function () {
   }, {
     key: "bfee_data",
     get: function get() {
-      return JSON.parse(editor_data);
+      var data;
+
+      try {
+        data = JSON.parse(editor_data);
+      } catch (e) {
+        data = editor_data;
+      }
+
+      return data;
     }
   }, {
     key: "editorSettings",
@@ -23643,12 +23661,14 @@ var BfeEditor = /*#__PURE__*/function () {
     get: function get() {
       return {
         holder: 'bfe-editor-block',
+        // autofocus: true,
         tools: {
           header: {
             class: Header,
-            inlineToolbar: ['link'],
+            inlineToolbar: true,
             config: {
-              placeholder: 'Header'
+              placeholder: 'Enter a header',
+              defaultLevel: 2
             },
             shortcut: 'CMD+SHIFT+H'
           },
@@ -23762,7 +23782,15 @@ var BfeEditor = /*#__PURE__*/function () {
   }, {
     key: "get_bfee_data",
     get: function get() {
-      return JSON.parse(editor_data);
+      var data;
+
+      try {
+        data = JSON.parse(editor_data);
+      } catch (e) {
+        data = editor_data;
+      }
+
+      return data;
     }
   }]);
 

@@ -4,15 +4,36 @@ class BfeEditor {
 
     constructor(bfee_editor, data) {
         this.bfee_editor = new EditorJS(this.editorSettings);
-        this.data = JSON.parse(editor_data);
+        try {
+            this.data = JSON.parse(editor_data);
+        }
+        catch (e) {
+            this.data = editor_data;
+        }
     }
 
     get bfee_data() {
-        return JSON.parse(editor_data);
+        let data;
+        try {
+            data = JSON.parse(editor_data);
+        }
+        catch (e) {
+            data = editor_data;
+        }
+
+        return data;
     }
 
     static get get_bfee_data() {
-        return JSON.parse(editor_data);
+        let data;
+        try {
+            data = JSON.parse(editor_data);
+        }
+        catch (e) {
+            data = editor_data;
+        }
+
+        return data;
     }
 
     /**
@@ -20,24 +41,28 @@ class BfeEditor {
      * @param {*} data 
      */
     save_data(data) {
+        let save_button_messages = this.bfee_data.translations.save_button,
+            save_button = document.querySelector('#save-editor-block'),
+            post_id = document.querySelector('#bfe-editor-block').getAttribute('post_id');
         var data = {
-            action: 'save_post_wp_admin_block',
-            data: data
+            action: 'bfe_update_post',
+            post_id: post_id,
+            editor_data: data,
         };
-
         jQuery.ajax({
             type: 'post',
             url: this.bfee_data.ajax_url,
             data: data,
             beforeSend: function (response) {
-                console.log('sending');
+                save_button.innerHTML = save_button_messages.updating;
+                console.log('Updating');
             },
             success: function (response) {
                 if (response.error) {
-                    // console.log('error');
-                    return;
+                    console.log(response.data);
                 } else {
-                    console.log('good');
+                    save_button.innerHTML = save_button_messages.update;
+                    console.log(response);
                 }
             },
         });
@@ -59,10 +84,10 @@ class BfeEditor {
         return new Promise((resolve, reject) => {
             const formData = new FormData()
             formData.append('action', 'bfe_uploading_image')
-            if(file !== null){
+            if (file !== null) {
                 formData.append('image', file)
             }
-            if(url !== null){
+            if (url !== null) {
                 formData.append('image_url', url)
             }
             formData.append('post_id', BfeEditor.get_bfee_data.post_id)
@@ -73,7 +98,7 @@ class BfeEditor {
                 .then(response => {
                     if (response.ok) {
                         let response_json = response.json();
-                        
+
                         resolve(response_json);
                     }
 
@@ -89,14 +114,15 @@ class BfeEditor {
 
         return {
             holder: 'bfe-editor-block',
-
+           // autofocus: true,
             tools: {
 
                 header: {
                     class: Header,
-                    inlineToolbar: ['link'],
+                    inlineToolbar: true,
                     config: {
-                        placeholder: 'Header'
+                        placeholder: 'Enter a header',
+                        defaultLevel: 2
                     },
                     shortcut: 'CMD+SHIFT+H'
                 },
@@ -116,8 +142,8 @@ class BfeEditor {
                                     };
                                 })
                             },
-                            uploadByUrl(url){
-                                return BfeEditor.uploadImage(null,url).then(data => {
+                            uploadByUrl(url) {
+                                return BfeEditor.uploadImage(null, url).then(data => {
                                     return {
                                         "success": 1,
                                         "file": {

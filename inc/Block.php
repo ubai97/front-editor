@@ -51,7 +51,7 @@ class Block
 	{
 		// Start capture.
 		ob_start();
-		echo '<h1>Content here</h1>';
+		echo Editor::show_front_editor();
 		return ob_get_clean();
 	}
 
