@@ -2,13 +2,8 @@
 
 namespace BFE;
 
-class PostsListShortCode
+class PostList
 {
-
-    public static function init()
-    {
-        add_shortcode('user_posts_list', [__CLASS__, 'user_posts_list']);
-    }
 
     /**
      * creating shortcode 
@@ -99,5 +94,3 @@ class PostsListShortCode
         return false;
     }
 }
-
-PostsListShortCode::init();
