@@ -101,7 +101,7 @@ class SavePost
         }
 
         // Adding post meta to know the editor page
-        update_post_meta($post_id, 'editor_js_data', wp_json_encode($editor_data['blocks']));
+        update_post_meta($post_id, 'bfe_editor_js_data', wp_json_encode($editor_data['blocks']));
 
         wp_send_json_success([
             'url' => get_the_permalink($post_id),

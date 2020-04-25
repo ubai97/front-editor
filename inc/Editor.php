@@ -32,7 +32,7 @@ class Editor
     }
 
     /**
-     * editor js data to html
+     * page editor init
      *
      * @return void
      */
@@ -54,7 +54,15 @@ class Editor
         }
 
         if ($post_id !== 'new') {
-            $editor_data = json_decode(get_post_meta($post_id, 'editor_js_data', true));
+            $editor_data = false;
+            $html_content = false;
+            if($editor_data = get_post_meta($post_id, 'bfe_editor_js_data', true)){
+                $editor_data = json_decode($editor_data);
+            } else {
+                $post = get_post($post_id);
+                $html_content = $post->post_content;
+            }
+            
             $button_text = __('Update', 'BFE');
         } else {
             $editor_data = Editor::example_editor_data();
@@ -63,6 +71,7 @@ class Editor
         $data = [
             'ajax_url' => admin_url('admin-ajax.php'),
             'data' => $editor_data,
+            'html_post_content' => $html_content,
             'translations' => [
                 'save_button' => [
                     'publish' => __('Publish', 'BFE'),
