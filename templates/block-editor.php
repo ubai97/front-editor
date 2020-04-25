@@ -4,5 +4,6 @@
         <p><?php echo __('View Post', 'BFE') ?></p>
         <a target="_blank" href="<?php the_permalink($post_id)??''; ?>"><?php the_permalink($post_id)??''; ?></a>
     </div>
+    
 </div>
 <div id="bfe-editor-block" post_id="<?= $post_id; ?>"></div>

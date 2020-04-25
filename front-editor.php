@@ -33,7 +33,7 @@ class BestFrontEndEditor
   public static function init()
   {
 
-    define('BFE_PLUGIN_URL', plugins_url('BestFrontEndEditor'));
+    define('BFE_PLUGIN_URL', plugins_url('front-editor'));
     define('BFE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
     define('BFE_Template_PATH', plugin_dir_path(__FILE__) . 'templates/');
 

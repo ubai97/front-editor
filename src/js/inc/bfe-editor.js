@@ -220,6 +220,7 @@ class BfeEditor {
                 blocks: this.bfee_data.data
             },
             onReady: () => {
+                
                 if (!this.bfee_data.data) {
                     this.bfee_editor.blocks.renderFromHTML(this.bfee_data.html_post_content).catch( error => {
                         console.log('Error with rendering HTML data ' + error);

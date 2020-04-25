@@ -42,7 +42,7 @@ class Editor
         $post_id = 'new';
         $editor_data = 'new';
         $button_text = __('Publish', 'BFE');
-
+        $html_content = '';
         if (!empty($_GET)) {
             if (intval($_GET['post_id'])) {
                 $post_id = $_GET['post_id'];
@@ -55,7 +55,6 @@ class Editor
 
         if ($post_id !== 'new') {
             $editor_data = false;
-            $html_content = false;
             if($editor_data = get_post_meta($post_id, 'bfe_editor_js_data', true)){
                 $editor_data = json_decode($editor_data);
             } else {
