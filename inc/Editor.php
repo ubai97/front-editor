@@ -133,16 +133,66 @@ class Editor
             return false;
         }
 
-        if (!current_user_can('edit_others_pages')) {
-            return false;
+        if (current_user_can('edit_others_pages')) {
+            return true;
         }
 
         if ($post_id) {
-            if (get_the_author_meta($post_id) !== $cur_user_id) {
+            $post_user = (int) get_post_field( 'post_author', $post_id );
+            if ($post_user !== $cur_user_id) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * Getting edit links by id
+     *
+     * @param [type] $post_id
+     * @return void
+     */
+    public static function get_post_edit_link($post_id){
+
+        $editor_page = self::get_editor_page_link();
+
+        if (!$editor_page) {
+            return false;
+        }
+        
+        return sprintf('%s?post_id=%s',$editor_page,$post_id);
+    }
+
+    /**
+     * Getting the page link with editor shortcode
+     *
+     * @return void
+     */
+    public static function get_editor_page_link()
+    {
+        $args = [
+            'posts_per_page' => 1,
+            'post_type' => 'page',
+            'meta_query' => [
+                [
+                    'key' => 'editor_js_page',
+                    'compare' => 'EXISTS'
+                ]
+            ]
+        ];
+
+        $editor_page = new \WP_Query($args);
+
+        if ($editor_page->have_posts()) {
+
+            while ($editor_page->have_posts()) {
+                $editor_page->the_post();
+
+                return get_the_permalink();
+            }
+        }
+
+        return false;
     }
 }

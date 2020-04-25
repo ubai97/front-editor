@@ -1,0 +1,22 @@
+.bfe-edit-post-button {
+    white-space: nowrap;
+    background: #007cba;
+    border: 1px solid #007cba;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+    margin: 0;
+    padding: 4px 12px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-family: Arial;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 5px;
+    font-size: 17px;
+    &:hover{
+        color: #fff;
+        opacity: .7;
+    }
+}

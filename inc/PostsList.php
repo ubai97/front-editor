@@ -13,10 +13,13 @@ class PostList
      */
     public static function user_posts_list($atts)
     {
+        if(!is_user_logged_in()){
+            return;
+        }
+        
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         $count = 2;
-        $author_id = get_the_author_meta('ID');
-        $editor_page = self::get_editor_page_link();
+        $editor_page = Editor::get_editor_page_link();
         $html = '';
 
         if (!$editor_page) {
@@ -27,12 +30,15 @@ class PostList
             $count = ($atts['count']) ? $atts['count'] : 2;
         }
 
-        $args = array(
+        $args = [
             'posts_per_page' => $count,
             'paged' => $paged,
-            'post_type' => 'post',
-            'author' => $author_id
-        );
+            'post_type' => 'post'
+        ];
+
+        if (!current_user_can('edit_others_pages')) {
+            $args['author'] = get_current_user_id();
+        }
 
         $post_lists = new \WP_Query($args);
 
@@ -44,11 +50,10 @@ class PostList
                 $post_lists->the_post();
 
                 $html .= sprintf(
-                    '<li><a href="%s">%s</a> <a href="%s?post_id=%s">✏</a></li>',
+                    '<li><a href="%s">%s</a> <a href="%s">✏</a></li>',
                     get_the_permalink(),
                     get_the_title(),
-                    $editor_page,
-                    get_the_ID()
+                    Editor::get_post_edit_link(get_the_ID())
                 );
             }
             $html .= '</ul>';
@@ -62,35 +67,4 @@ class PostList
         return $html;
     }
 
-    /**
-     * Getting the page link with editor shortcode
-     *
-     * @return void
-     */
-    public static function get_editor_page_link()
-    {
-        $args = [
-            'posts_per_page' => 1,
-            'post_type' => 'page',
-            'meta_query' => [
-                [
-                    'key' => 'editor_js_page',
-                    'compare' => 'EXISTS'
-                ]
-            ]
-        ];
-
-        $editor_page = new \WP_Query($args);
-
-        if ($editor_page->have_posts()) {
-
-            while ($editor_page->have_posts()) {
-                $editor_page->the_post();
-
-                return get_the_permalink();
-            }
-        }
-
-        return false;
-    }
 }

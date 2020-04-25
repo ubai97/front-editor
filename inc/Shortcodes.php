@@ -2,7 +2,7 @@
 
 namespace BFE;
 
-class Shorcodes
+class Shortcodes
 {
 
     public static function init()
@@ -35,3 +35,5 @@ class Shorcodes
     }
 
 }
+
+Shortcodes::init();
