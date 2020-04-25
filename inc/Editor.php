@@ -236,6 +236,12 @@ class Editor
                 break;
         }
 
+        /**
+         * html that generated type of block and data of 
+         * that block you can use this filter for make your html elements
+         */
+        $html = apply_filters('bfe_editor_data_to_html_filter', $html, $type, $data);
+
         return $html;
     }
 }
