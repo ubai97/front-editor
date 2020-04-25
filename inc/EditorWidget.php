@@ -26,7 +26,7 @@ class EditorWidget
             return;
         }
 
-        if (!Editor::can_edit_post(null, $post->ID)) {
+        if (!Editor::can_edit_post(0, $post->ID)) {
             return;
         }
 

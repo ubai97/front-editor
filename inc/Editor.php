@@ -38,9 +38,6 @@ class Editor
      */
     public static function show_front_editor()
     {
-        if (!self::can_edit_post()) {
-            return sprintf('<h2>%s</h2>', __('You do not have permission', 'BFE'));
-        }
 
         $post_id = 'new';
         $editor_data = 'new';
@@ -50,6 +47,10 @@ class Editor
             if (intval($_GET['post_id'])) {
                 $post_id = $_GET['post_id'];
             }
+        }
+
+        if (!self::can_edit_post(0,$post_id)) {
+            return sprintf('<h2>%s</h2>', __('You do not have permission to edit this post', 'BFE'));
         }
 
         if ($post_id !== 'new') {
@@ -123,7 +124,7 @@ class Editor
      * @param [type] $post_id
      * @return boolean
      */
-    public static function can_edit_post($cur_user_id = false, $post_id = 0)
+    public static function can_edit_post($cur_user_id = 0, $post_id = 'new')
     {
         if (!$cur_user_id) {
             $cur_user_id = get_current_user_id();
@@ -137,7 +138,7 @@ class Editor
             return true;
         }
 
-        if ($post_id) {
+        if ($post_id !== 'new') {
             $post_user = (int) get_post_field( 'post_author', $post_id );
             if ($post_user !== $cur_user_id) {
                 return false;
