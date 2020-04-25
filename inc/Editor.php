@@ -38,9 +38,6 @@ class Editor
      */
     public static function show_front_editor()
     {
-        if (!self::can_edit_post()) {
-            return sprintf('<h2>%s</h2>', __('You do not have permission', 'BFE'));
-        }
 
         $post_id = 'new';
         $editor_data = 'new';
@@ -50,6 +47,10 @@ class Editor
             if (intval($_GET['post_id'])) {
                 $post_id = $_GET['post_id'];
             }
+        }
+
+        if (!self::can_edit_post(0,$post_id)) {
+            return sprintf('<h2>%s</h2>', __('You do not have permission to edit this post', 'BFE'));
         }
 
         if ($post_id !== 'new') {
@@ -123,7 +124,7 @@ class Editor
      * @param [type] $post_id
      * @return boolean
      */
-    public static function can_edit_post($cur_user_id = false, $post_id = 0)
+    public static function can_edit_post($cur_user_id = 0, $post_id = 'new')
     {
         if (!$cur_user_id) {
             $cur_user_id = get_current_user_id();
@@ -133,16 +134,66 @@ class Editor
             return false;
         }
 
-        if (!current_user_can('edit_others_pages')) {
-            return false;
+        if (current_user_can('edit_others_pages')) {
+            return true;
         }
 
-        if ($post_id) {
-            if (get_the_author_meta($post_id) !== $cur_user_id) {
+        if ($post_id !== 'new') {
+            $post_user = (int) get_post_field( 'post_author', $post_id );
+            if ($post_user !== $cur_user_id) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * Getting edit links by id
+     *
+     * @param [type] $post_id
+     * @return void
+     */
+    public static function get_post_edit_link($post_id){
+
+        $editor_page = self::get_editor_page_link();
+
+        if (!$editor_page) {
+            return false;
+        }
+        
+        return sprintf('%s?post_id=%s',$editor_page,$post_id);
+    }
+
+    /**
+     * Getting the page link with editor shortcode
+     *
+     * @return void
+     */
+    public static function get_editor_page_link()
+    {
+        $args = [
+            'posts_per_page' => 1,
+            'post_type' => 'page',
+            'meta_query' => [
+                [
+                    'key' => 'editor_js_page',
+                    'compare' => 'EXISTS'
+                ]
+            ]
+        ];
+
+        $editor_page = new \WP_Query($args);
+
+        if ($editor_page->have_posts()) {
+
+            while ($editor_page->have_posts()) {
+                $editor_page->the_post();
+
+                return get_the_permalink();
+            }
+        }
+
+        return false;
     }
 }
