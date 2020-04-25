@@ -202,7 +202,7 @@ class BfeEditor {
                     shortcut: 'CMD+SHIFT+C'
                 },
 
-                linkTool: LinkTool,
+                //linkTool: LinkTool,
 
                 embed: Embed,
 

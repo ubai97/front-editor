@@ -77,7 +77,7 @@ class SavePost
 
         foreach ($editor_data['blocks'] as $data) {
 
-            $single_html = Editor::data_to_html($data['type'], $data['data']);
+            $single_html = Editor::data_to_html($data['type'], $data['data']??'');
             if ($data['type'] == 'header' && $number == 0) {
                 $post_title = $single_html;
             } else {
@@ -90,7 +90,7 @@ class SavePost
         if ($post_id !== 'new') {
             $post_id = intval($post_id);
             // Checking is user has access to edit post 
-            if(Editor::can_edit_post($cur_user_id,$post_id)){
+            if(!Editor::can_edit_post($cur_user_id,$post_id)){
                 wp_send_json_error($post_id);
                 wp_die();
             }

@@ -49,7 +49,7 @@ class Editor
             }
         }
 
-        if (!self::can_edit_post(0,$post_id)) {
+        if (!self::can_edit_post(0, $post_id)) {
             return sprintf('<h2>%s</h2>', __('You do not have permission to edit this post', 'BFE'));
         }
 
@@ -88,36 +88,6 @@ class Editor
     }
 
     /**
-     * Generating html from post data
-     *
-     * @param [type] $type
-     * @param [type] $data
-     * @return void
-     */
-    public static function data_to_html($type, $data)
-    {
-        $html = '';
-        if ($type == 'header') {
-            $html = sprintf('<h%s>%s</h%s>', $data['level'], $data['text'], $data['level']);
-        }
-
-        if ($type == 'paragraph') {
-            $html = sprintf('<p>%s</p>', $data['text']);
-        }
-
-        if ($type == 'list') {
-            $html = '<ul>';
-            foreach ($data['items'] as $item) {
-                $html .= sprintf('<li>%s</li>', $item);
-            }
-            $html .= '</ul>';
-        }
-
-
-        return $html;
-    }
-
-    /**
      * Can user edit post 
      *
      * @param [type] $cur_user
@@ -139,7 +109,7 @@ class Editor
         }
 
         if ($post_id !== 'new') {
-            $post_user = (int) get_post_field( 'post_author', $post_id );
+            $post_user = (int) get_post_field('post_author', $post_id);
             if ($post_user !== $cur_user_id) {
                 return false;
             }
@@ -154,15 +124,16 @@ class Editor
      * @param [type] $post_id
      * @return void
      */
-    public static function get_post_edit_link($post_id){
+    public static function get_post_edit_link($post_id)
+    {
 
         $editor_page = self::get_editor_page_link();
 
         if (!$editor_page) {
             return false;
         }
-        
-        return sprintf('%s?post_id=%s',$editor_page,$post_id);
+
+        return sprintf('%s?post_id=%s', $editor_page, $post_id);
     }
 
     /**
@@ -195,5 +166,76 @@ class Editor
         }
 
         return false;
+    }
+
+    /**
+     * Generating html from post data
+     *
+     * @param [type] $type
+     * @param [type] $data
+     * @return void
+     */
+    public static function data_to_html($type, $data)
+    {
+        $html = '';
+        switch ($type) {
+            case 'header';
+                $html = sprintf('<h%s>%s</h%s>', $data['level'], $data['text'], $data['level']);
+                break;
+
+            case 'paragraph';
+                $html = sprintf('<p>%s</p>', $data['text']);
+                break;
+
+            case 'list';
+                $html = '<ul>';
+                foreach ($data['items'] as $item) {
+                    $html .= sprintf('<li>%s</li>', $item);
+                }
+                $html .= '</ul>';
+                break;
+
+            case 'code';
+                $html = sprintf('<div class="bfe-code"><code class="bfe-code__content">%s</code></div>', $data['code']);
+                break;
+
+            case 'delimiter':
+                $html = '<div class="bfe-delimiter"></div>';
+                break;
+
+            case 'embed':
+                ob_start();
+                require_once BFE_Template_PATH . 'editor/embed.php';
+                $html = ob_get_clean();
+                break;
+
+            case 'image':
+                $image_url = $data['file']['url'];
+                $image_id = attachment_url_to_postid($image_url);
+                ob_start();
+                require_once BFE_Template_PATH . 'editor/image.php';
+                $html = ob_get_clean();
+                break;
+
+            case 'quote':
+                ob_start();
+                require_once BFE_Template_PATH . 'editor/quote.php';
+                $html = ob_get_clean();
+                break;
+
+            case 'table':
+                ob_start();
+                require_once BFE_Template_PATH . 'editor/table.php';
+                $html = ob_get_clean();
+                break;
+
+            case 'checklist':
+                ob_start();
+                require_once BFE_Template_PATH . 'editor/checklist.php';
+                $html = ob_get_clean();
+                break;
+        }
+
+        return $html;
     }
 }
