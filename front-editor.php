@@ -4,9 +4,9 @@
  * Plugin Name: Best Front End Editor
  * Plugin URI: https://github.com/Aharonyan/Best-Front-End-Editor
  * Description: Best Front End Editor is a best front end editor that will allow you to change and save contents of post and pages
- * Author: WPCraft
+ * Author: Aharonyan
  * Author URI: https://github.com/Aharonyan/
- * Developer: WPCraft
+ * Developer: Aharonyan
  * Developer URI: https://github.com/Aharonyan/Best-Front-End-Editor
  * Text Domain: Best Front End Editor
  * Domain Path: /languages
@@ -52,6 +52,8 @@ class BestFrontEndEditor
 
 
     add_action('plugins_loaded', [__CLASS__, 'add_components']);
+
+    add_filter('post_row_actions', [__CLASS__, 'add_link_to_edit_this_post'], 10, 2);
   }
 
   public static function add_components()
@@ -97,8 +99,27 @@ class BestFrontEndEditor
       );
 
       wp_enqueue_style('bfe-block-style');
-
     }
+  }
+
+  /**
+   * added link wp admin post archive
+   *
+   * @param [type] $actions
+   * @param [type] $post
+   * @return void
+   */
+  public static function add_link_to_edit_this_post($actions, $post)
+  {
+    if ($post->post_type == 'post') {
+      $actions['bfe_front_editor_link'] = sprintf(
+        '<a style="color:#388ffe;" href="%s">%s</a>',
+        BFE\Editor::get_post_edit_link($post->ID),
+        __('Edit in front editor', 'BFE')
+      );
+    }
+
+    return $actions;
   }
 }
 
