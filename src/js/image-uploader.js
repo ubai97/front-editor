@@ -36,4 +36,5 @@ $("#img_inp").change(function () {
 
 $('div.image_loader .bfe-remove-image').click(()=>{
     $('div.image_loader').removeClass('chosen');
+    $("#img_inp").val('');
 })

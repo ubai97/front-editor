@@ -1,4 +1,4 @@
-<div class="bfe-editor" id="bfe-editor">
+<div class="bfe-editor" id="bfe-editor" post_id="<?= $post_id ?>">
     <div id="bfe-editor-block-header">
         <div class="sub-header">
             <a class="editor-button" id="save-editor-block"><?php echo $button_text ?></a>

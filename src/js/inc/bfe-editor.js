@@ -63,12 +63,12 @@ class BfeEditor {
         formData.append('post_title', post_title);
 
         if (bfe_selected_file) {
+            
             formData.append('image', bfe_selected_file);
         }
 
         if(category){
             selected_category = category.options[category.selectedIndex].value;
-            console.log(selected_category);
             formData.append('category', selected_category);
         }
 

@@ -10,7 +10,7 @@ class SavePost
 
         add_action('wp_ajax_bfe_update_post', [__CLASS__, 'update_or_add_post']);
         add_action('wp_ajax_bfe_uploading_image', [__CLASS__, 'bfe_uploading_image']);
-        add_action('bfe_after_post_added_or_updated',[__CLASS__,'add_post_thumbnail'],10,3);
+        
     }
 
 
@@ -49,8 +49,12 @@ class SavePost
         $post_title = esc_html($_POST['post_title']);
         $cur_user_id = get_current_user_id();
         $content_html = '';
-        $post_id = $_POST['post_id'];
-    
+        $post_id = 'new';
+        if (!empty($_POST['post_id'])) {
+            $post_id = $_POST['post_id'];
+        }
+
+
         foreach ($editor_data['blocks'] as $data) {
 
             $single_html = Editor::data_to_html($data['type'], $data['data'] ?? '');
@@ -65,7 +69,7 @@ class SavePost
 
         $post_data['post_status'] = 'publish';
 
-        if(!empty($_POST['category'])){
+        if (!empty($_POST['category'])) {
             $post_data['post_category'] = [$_POST['category']];
         }
 
@@ -85,7 +89,7 @@ class SavePost
 
         update_post_meta($post_id, 'bfe_editor_js_data', wp_json_encode($editor_data['blocks']));
 
-        do_action('bfe_after_post_added_or_updated', $post_id, $_POST, $_FILES);
+        self::add_post_thumbnail($post_id,$_FILES['image']??'');
 
         wp_send_json_success(
             [
@@ -105,17 +109,17 @@ class SavePost
      * @param [type] $FILES
      * @return void
      */
-    public static function add_post_thumbnail($post_id, $data, $images){
+    public static function add_post_thumbnail($post_id,$images)
+    {
         // downloading image and adding to post
-        if (!empty($images['image'])) {
-            $post_thumbnail = $images['image'];
+        if (!empty($images)) {
+            $post_thumbnail = $images;
             $upload_data = self::upload_image($post_thumbnail);
-            set_post_thumbnail( $post_id, (int)$upload_data['attach_id'] );
+            set_post_thumbnail($post_id, (int) $upload_data['attach_id']);
             return;
         }
 
-        delete_post_thumbnail( $post_id );
-        delete_post_meta( $post_id, '_thumbnail_id' );
+        delete_post_thumbnail($post_id);
     }
 
     /**

@@ -43,7 +43,7 @@ class Editor
         $html_content = '';
         if (!empty($_GET['post_id'])) {
             if (intval($_GET['post_id'])) {
-                $post_id = $_GET['post_id'];
+                $post_id = (int) esc_html($_GET['post_id']);
             }
         }
 
