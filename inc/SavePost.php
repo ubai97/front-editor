@@ -65,6 +65,10 @@ class SavePost
 
         $post_data['post_status'] = 'publish';
 
+        if(!empty($_POST['category'])){
+            $post_data['post_category'] = [$_POST['category']];
+        }
+
         if ($post_id !== 'new') {
             $post_id = intval($post_id);
             // Checking is user has access to edit post 
@@ -107,12 +111,11 @@ class SavePost
             $post_thumbnail = $images['image'];
             $upload_data = self::upload_image($post_thumbnail);
             set_post_thumbnail( $post_id, (int)$upload_data['attach_id'] );
-
             return;
         }
 
         delete_post_thumbnail( $post_id );
-
+        delete_post_meta( $post_id, '_thumbnail_id' );
     }
 
     /**

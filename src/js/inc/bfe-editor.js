@@ -46,7 +46,8 @@ class BfeEditor {
             editor_block = document.querySelector('#bfe-editor'),
             post_id = document.querySelector('#bfe-editor').getAttribute('post_id'),
             post_link = document.querySelector('.bfe-editor-view-page a'),
-            post_title = document.querySelector('#post_title').value;
+            post_title = document.querySelector('#post_title').value,
+            category =document.querySelector("#bfe-category");
 
         const formData = new FormData();
 
@@ -63,6 +64,12 @@ class BfeEditor {
 
         if (bfe_selected_file) {
             formData.append('image', bfe_selected_file);
+        }
+
+        if(category){
+            selected_category = category.options[category.selectedIndex].value;
+            console.log(selected_category);
+            formData.append('category', selected_category);
         }
 
         formData.append('post_id', post_id ?? 'new');

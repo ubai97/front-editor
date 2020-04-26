@@ -41,7 +41,7 @@ class Editor
         $button_text = __('Publish', 'BFE');
         $new_post_text = false;
         $html_content = '';
-        if (!empty($_GET)) {
+        if (!empty($_GET['post_id'])) {
             if (intval($_GET['post_id'])) {
                 $post_id = $_GET['post_id'];
             }
