@@ -13,14 +13,14 @@ if ($("#bfe-editor-block")[0]) {
      * To initialize the Editor, create a new instance with configuration object
      * @see docs/installation.md for mode details
      */
-    var editor = new BfeEditor();
+    const bfe_page_editor = new BfeEditor();
 
     /**
      * Saving example
      */
     saveButton.addEventListener('click', function () {
-        editor.bfee_editor.save().then((savedData) => {
-            editor.save_data(savedData);
+        bfe_page_editor.bfee_editor.save().then((savedData) => {
+            bfe_page_editor.save_data(savedData);
         });
     });
 } 

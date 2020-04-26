@@ -68,44 +68,50 @@ class SavePost
      */
     public static function update_or_add_post()
     {
-        $editor_data = $_POST['editor_data'];
-        $number = 0;
-        $post_title = '';
+        if (!wp_verify_nonce($_POST['nonce'], 'bfe_nonce'))
+            wp_send_json_error(__('Security error, please update page' . 'BFE'));
+
+        $editor_data = json_decode(stripslashes($_POST['editor_data']), true);
+        $post_title = esc_html($_POST['post_title']);
         $cur_user_id = get_current_user_id();
         $content_html = '';
         $post_id = $_POST['post_id'];
 
         foreach ($editor_data['blocks'] as $data) {
 
-            $single_html = Editor::data_to_html($data['type'], $data['data']??'');
-            if ($data['type'] == 'header' && $number == 0) {
-                $post_title = $single_html;
-            } else {
-                $content_html .= $single_html;
-            }
+            $single_html = Editor::data_to_html($data['type'], $data['data'] ?? '');
 
-            $number++;
+            $content_html .= $single_html;
         }
+
+        $post_data = array(
+            'post_title'    => $post_title,
+            'post_content'  => $content_html,
+        );
+
+        $post_data['post_status'] = 'publish';
 
         if ($post_id !== 'new') {
             $post_id = intval($post_id);
             // Checking is user has access to edit post 
-            if(!Editor::can_edit_post($cur_user_id,$post_id)){
+            if (!Editor::can_edit_post($cur_user_id, $post_id)) {
                 wp_send_json_error($post_id);
                 wp_die();
             }
-
-            self::update_post($post_id, $post_title, $content_html, $cur_user_id);
+            $post_data['ID'] = $post_id;
+            self::update_post($post_id, $post_data);
         } else {
-            $post_id = self::insert_post($post_title, $content_html, $cur_user_id);
+            $post_data['post_author'] = $cur_user_id;
+            $post_id = self::insert_post($post_data);
         }
 
         // Adding post meta to know the editor page
         update_post_meta($post_id, 'bfe_editor_js_data', wp_json_encode($editor_data['blocks']));
 
-        wp_send_json_success([
-            'url' => get_the_permalink($post_id),
-            'post_id' => $post_id
+        wp_send_json_success(
+            [
+                'url' => get_the_permalink($post_id),
+                'post_id' => $post_id
             ]
         );
 
@@ -120,14 +126,8 @@ class SavePost
      * @param [type] $cur_user_id
      * @return void
      */
-    public static function update_post($post_id, $post_title, $content_html, $cur_user_id)
+    public static function update_post($post_id, $post_data)
     {
-
-        $post_data = array(
-            'ID' => $post_id,
-            'post_title'    => wp_strip_all_tags($post_title),
-            'post_content'  => $content_html,
-        );
 
         $post_id = wp_update_post($post_data);
 
@@ -144,15 +144,8 @@ class SavePost
      * @param [type] $cur_user_id
      * @return void
      */
-    public static function insert_post($post_title, $content_html, $cur_user_id)
+    public static function insert_post($post_data)
     {
-
-        $post_data = array(
-            'post_title'    => wp_strip_all_tags($post_title),
-            'post_content'  => $content_html,
-            'post_status'   => 'publish',
-            'post_author'   => $cur_user_id,
-        );
 
         $post_id = wp_insert_post($post_data);
 

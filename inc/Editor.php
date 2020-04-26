@@ -14,13 +14,6 @@ class Editor
 
         $data = [
             [
-                'type' => "header",
-                'data' => [
-                    'text' => __("Add Title", 'BFE'),
-                    'level' => 1
-                ]
-            ],
-            [
                 'type' => 'paragraph',
                 'data' => [
                     'text' => __('Add content', 'BFE')
@@ -42,6 +35,7 @@ class Editor
         $post_id = 'new';
         $editor_data = 'new';
         $button_text = __('Publish', 'BFE');
+        $new_post_text = false;
         $html_content = '';
         if (!empty($_GET)) {
             if (intval($_GET['post_id'])) {
@@ -54,6 +48,8 @@ class Editor
         }
 
         if ($post_id !== 'new') {
+            $new_post_text = __('Add new', 'BFE');
+            $new_post_link = self::get_editor_page_link();
             $editor_data = false;
             if($editor_data = get_post_meta($post_id, 'bfe_editor_js_data', true)){
                 $editor_data = json_decode($editor_data);
@@ -69,6 +65,7 @@ class Editor
 
         $data = [
             'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('bfe_nonce'),
             'data' => $editor_data,
             'html_post_content' => $html_content,
             'translations' => [
