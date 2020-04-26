@@ -31,6 +31,10 @@ class Editor
      */
     public static function show_front_editor()
     {
+        // Adding post meta to know the editor page if no page founded
+        if (!self::get_editor_page_link()) {
+            update_post_meta(get_the_ID(), 'editor_js_page', true);
+        }
 
         $post_id = 'new';
         $editor_data = 'new';
@@ -51,13 +55,13 @@ class Editor
             $new_post_text = __('Add new', 'BFE');
             $new_post_link = self::get_editor_page_link();
             $editor_data = false;
-            if($editor_data = get_post_meta($post_id, 'bfe_editor_js_data', true)){
+            if ($editor_data = get_post_meta($post_id, 'bfe_editor_js_data', true)) {
                 $editor_data = json_decode($editor_data);
             } else {
                 $post = get_post($post_id);
                 $html_content = $post->post_content;
             }
-            
+
             $button_text = __('Update', 'BFE');
         } else {
             $editor_data = Editor::example_editor_data();
@@ -83,9 +87,6 @@ class Editor
         wp_localize_script('bfee-editor.js', 'editor_data', $data);
 
         wp_enqueue_script('bfee-editor.js');
-
-        // Adding post meta to know the editor page
-        update_post_meta(get_the_ID(), 'editor_js_page', true);
 
         ob_start();
         require_once BFE_Template_PATH . 'block-editor.php';
