@@ -147,7 +147,7 @@ class BfeEditor {
 
         return {
             holder: 'bfe-editor-block',
-            // autofocus: true,
+            autofocus: true,
             tools: {
 
                 header: {
@@ -247,7 +247,7 @@ class BfeEditor {
             initialBlock: 'paragraph',
 
             data: {
-                blocks: this.bfee_data.data
+                blocks: this.bfee_data.data.blocks
             },
             onReady: () => {
 

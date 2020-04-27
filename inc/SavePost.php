@@ -44,7 +44,8 @@ class SavePost
         if (!wp_verify_nonce($_POST['nonce'], 'bfe_nonce'))
             wp_send_json_error(__('Security error, please update page' . 'BFE'));
 
-        $editor_data = json_decode(stripslashes($_POST['editor_data']), true);
+        $editor_data_json = $_POST['editor_data'];
+        $editor_data = json_decode(stripslashes($editor_data_json), true);
         $post_title = esc_html($_POST['post_title']);
         $cur_user_id = get_current_user_id();
         $content_html = '';
@@ -86,7 +87,7 @@ class SavePost
             $post_id = self::insert_post($post_data);
         }
 
-        update_post_meta($post_id, 'bfe_editor_js_data', wp_json_encode($editor_data['blocks']));
+        update_post_meta($post_id, 'bfe_editor_js_data', $editor_data_json);
 
         self::add_post_thumbnail($post_id, $_FILES['image'] ?? '', $_POST['thumb_exist'] ?? 0);
 
