@@ -1,5 +1,8 @@
+$blue : #388ffe;
 .bfe-editor {
     background-color: white;
+    max-width: 650px;
+    margin: 0 auto;
     #bfe-editor-block-header {
         .sub-header {
             display: flex;
@@ -8,8 +11,8 @@
             align-items: center;
             .editor-button {
                 white-space: nowrap;
-                background: #007cba;
-                border: 1px solid #007cba;
+                background: $blue;
+                border: 1px solid $blue;
                 color: #fff;
                 text-decoration: none;
                 text-shadow: none;
@@ -31,9 +34,10 @@
                 margin: 0;
                 font-size: 13px;
                 line-height: 1.5;
+                color: black;
             }
             a {
-                color: #0073aa;
+                color: $blue;
                 font-size: 13px;
                 &:link,
                 &:hover {
@@ -51,13 +55,24 @@
                 }
             }
             select {
-                border: none;
                 color: grey;
                 font-weight: 700;
                 cursor: pointer;
+                max-width: 165px;
+                border-radius: 5px;
+                width: 100%;
+                height: 2.25em;
+                min-height: auto;
+                border: 1px solid #ddd;
+                background-color: white;
+                cursor: pointer;
+                padding: 0 15px;
+                margin: 0;
+                font-size: 14px;
+                margin: 5px 0px;
             }
             .image_loader {
-                border: 1px dashed #a2aab2;
+                border: 1px solid #ddd;
                 background-color: #edeff0;
                 height: 100px;
                 width: 150px;
@@ -66,8 +81,9 @@
                 justify-content: center;
                 align-items: center;
                 transition: all 0.1s ease-out;
-                box-shadow: 0 0 0 0 #00a0d2;
+                box-shadow: 0 0 0 0 $blue;
                 border-radius: 5px;
+                margin: 5px 0px;
                 position: relative;
                 cursor: pointer;
                 overflow: hidden;
@@ -112,8 +128,8 @@
                     cursor: pointer;
                     display: none;
                     transition: all 0.4s ease-out;
-                    &:hover{
-                        opacity: .7;
+                    &:hover {
+                        opacity: 0.7;
                     }
                 }
                 &.chosen {
@@ -126,6 +142,20 @@
                     }
                 }
             }
+        }
+    }
+    .ce-toolbar__settings-btn {
+        background: white;
+        .icon--dots {
+            width: 15px;
+            height: 15px;
+            color: $blue;
+        }
+    }
+    .ce-toolbar__plus{
+        background: white;
+        .icon--plus{
+            color: $blue;
         }
     }
 }
