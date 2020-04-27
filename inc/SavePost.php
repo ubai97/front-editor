@@ -57,7 +57,7 @@ class SavePost
 
         foreach ($editor_data['blocks'] as $data) {
 
-            $single_html = Editor::data_to_html($data['type'], $data['data'] ?? '');
+            $single_html = Editor::data_to_html($data['type'], $data['data']??'');
 
             $content_html .= $single_html;
         }

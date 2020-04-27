@@ -211,7 +211,7 @@ class Editor
 
             case 'embed':
                 ob_start();
-                require_once BFE_Template_PATH . 'editor/embed.php';
+                require BFE_Template_PATH . 'editor/embed.php';
                 $html = ob_get_clean();
                 break;
 
@@ -219,25 +219,25 @@ class Editor
                 $image_url = $data['file']['url'];
                 $image_id = attachment_url_to_postid($image_url);
                 ob_start();
-                require_once BFE_Template_PATH . 'editor/image.php';
+                require BFE_Template_PATH . 'editor/image.php';
                 $html = ob_get_clean();
                 break;
 
             case 'quote':
                 ob_start();
-                require_once BFE_Template_PATH . 'editor/quote.php';
+                require BFE_Template_PATH . 'editor/quote.php';
                 $html = ob_get_clean();
                 break;
 
             case 'table':
                 ob_start();
-                require_once BFE_Template_PATH . 'editor/table.php';
+                require BFE_Template_PATH . 'editor/table.php';
                 $html = ob_get_clean();
                 break;
 
             case 'checklist':
                 ob_start();
-                require_once BFE_Template_PATH . 'editor/checklist.php';
+                require BFE_Template_PATH . 'editor/checklist.php';
                 $html = ob_get_clean();
                 break;
         }
