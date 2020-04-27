@@ -47,6 +47,7 @@ class BfeEditor {
             post_id = document.querySelector('#bfe-editor').getAttribute('post_id'),
             post_link = document.querySelector('.bfe-editor-view-page a'),
             post_title = document.querySelector('#post_title').value,
+            thumb_exist = document.querySelector('#bfe-editor .image_loader').getAttribute('thumb_exist'),
             category =document.querySelector("#bfe-category");
 
         const formData = new FormData();
@@ -63,9 +64,9 @@ class BfeEditor {
         formData.append('post_title', post_title);
 
         if (bfe_selected_file) {
-            
             formData.append('image', bfe_selected_file);
         }
+
 
         if(category){
             selected_category = category.options[category.selectedIndex].value;
@@ -73,6 +74,8 @@ class BfeEditor {
         }
 
         formData.append('post_id', post_id ?? 'new');
+
+        formData.append('thumb_exist', thumb_exist);
 
         formData.append('nonce', BfeEditor.get_bfee_data.nonce);
 

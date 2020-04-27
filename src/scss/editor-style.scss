@@ -50,8 +50,13 @@ $blue : #388ffe;
                 font-weight: 600;
                 padding: 15px 0px;
                 color: black;
+                width: 100%;
                 &::placeholder {
                     color: grey;
+                }
+                &:focus {
+                    border: none;
+                    outline-color: transparent;
                 }
             }
             select {

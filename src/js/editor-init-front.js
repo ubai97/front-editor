@@ -7,8 +7,6 @@ if ($("#bfe-editor-block")[0]) {
      */
     const saveButton = document.querySelectorAll('#save-editor-block')[0];
 
-    var editor_data = JSON.parse(editor_data);
-
     /**
      * To initialize the Editor, create a new instance with configuration object
      * @see docs/installation.md for mode details

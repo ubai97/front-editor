@@ -10,7 +10,6 @@ class SavePost
 
         add_action('wp_ajax_bfe_update_post', [__CLASS__, 'update_or_add_post']);
         add_action('wp_ajax_bfe_uploading_image', [__CLASS__, 'bfe_uploading_image']);
-        
     }
 
 
@@ -57,7 +56,7 @@ class SavePost
 
         foreach ($editor_data['blocks'] as $data) {
 
-            $single_html = Editor::data_to_html($data['type'], $data['data']??'');
+            $single_html = Editor::data_to_html($data['type'], $data['data'] ?? '');
 
             $content_html .= $single_html;
         }
@@ -89,7 +88,7 @@ class SavePost
 
         update_post_meta($post_id, 'bfe_editor_js_data', wp_json_encode($editor_data['blocks']));
 
-        self::add_post_thumbnail($post_id,$_FILES['image']??'');
+        self::add_post_thumbnail($post_id, $_FILES['image'] ?? '', $_POST['thumb_exist'] ?? 0);
 
         wp_send_json_success(
             [
@@ -109,7 +108,7 @@ class SavePost
      * @param [type] $FILES
      * @return void
      */
-    public static function add_post_thumbnail($post_id,$images)
+    public static function add_post_thumbnail($post_id, $images, $thumb_exist)
     {
         // downloading image and adding to post
         if (!empty($images)) {
@@ -118,8 +117,9 @@ class SavePost
             set_post_thumbnail($post_id, (int) $upload_data['attach_id']);
             return;
         }
-
-        delete_post_thumbnail($post_id);
+        if (!(int) $thumb_exist) {
+            delete_post_thumbnail($post_id);
+        }
     }
 
     /**

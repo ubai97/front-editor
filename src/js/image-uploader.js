@@ -1,4 +1,5 @@
-var bfe_selected_file = false;
+
+var bfe_selected_file = false ;
 
 function readURL(input) {
     if (input.files && input.files[0]) {
@@ -24,6 +25,7 @@ function readURL(input) {
         reader.onload = function (e) {
             $('#post_thumbnail_image').attr('style', 'background:url(' + e.target.result + ')');
             $('div.image_loader').addClass('chosen');
+            document.querySelector('#bfe-editor .image_loader').setAttribute('thumb_exist','1');
         }
 
         reader.readAsDataURL(input.files[0]); // convert to base64 string
@@ -37,4 +39,5 @@ $("#img_inp").change(function () {
 $('div.image_loader .bfe-remove-image').click(()=>{
     $('div.image_loader').removeClass('chosen');
     $("#img_inp").val('');
+    document.querySelector('#bfe-editor .image_loader').setAttribute('thumb_exist','0');
 })
