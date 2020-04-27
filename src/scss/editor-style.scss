@@ -1,9 +1,10 @@
-$blue : #388ffe;
+$blue: #388ffe;
 .bfe-editor {
     background-color: white;
-    max-width: 650px;
-    margin: 0 auto;
+    width: 100%;
     #bfe-editor-block-header {
+        max-width: 650px;
+        margin: 0 auto;
         .sub-header {
             display: flex;
             justify-content: space-between;
@@ -157,9 +158,9 @@ $blue : #388ffe;
             color: $blue;
         }
     }
-    .ce-toolbar__plus{
+    .ce-toolbar__plus {
         background: white;
-        .icon--plus{
+        .icon--plus {
             color: $blue;
         }
     }

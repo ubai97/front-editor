@@ -112,11 +112,13 @@ class BestFrontEndEditor
   public static function add_link_to_edit_this_post($actions, $post)
   {
     if ($post->post_type == 'post') {
-      $actions['bfe_front_editor_link'] = sprintf(
-        '<a style="color:#388ffe;" href="%s">%s</a>',
-        BFE\Editor::get_post_edit_link($post->ID),
-        __('Edit in front editor', 'BFE')
-      );
+      if ($edit_link = BFE\Editor::get_post_edit_link($post->ID)) {
+        $actions['bfe_front_editor_link'] = sprintf(
+          '<a target="_blank" style="color:#388ffe;" href="%s">%s</a>',
+          $edit_link,
+          __('Edit in front editor', 'BFE')
+        );
+      }
     }
 
     return $actions;
