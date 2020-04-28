@@ -95,7 +95,7 @@ class BestFrontEndEditor
         'bfe-block-style',
         BFE_PLUGIN_URL . '/assets/css/bfe-editor-style.css',
         [],
-        BFE_PLUGIN_DIR_PATH . '/assets/css/bfe-editor-style.css'
+        filemtime(BFE_PLUGIN_DIR_PATH . '/assets/css/bfe-editor-style.css')
       );
 
       wp_enqueue_style('bfe-block-style');
