@@ -48,7 +48,7 @@ class BfeEditor {
             post_link = document.querySelector('.bfe-editor-view-page a'),
             post_title = document.querySelector('#post_title').value,
             thumb_exist = document.querySelector('#bfe-editor .image_loader').getAttribute('thumb_exist'),
-            category =document.querySelector("#bfe-category");
+            category = document.querySelector("#bfe-category");
 
         const formData = new FormData();
 
@@ -68,7 +68,7 @@ class BfeEditor {
         }
 
 
-        if(category){
+        if (category) {
             selected_category = category.options[category.selectedIndex].value;
             formData.append('category', selected_category);
         }
@@ -250,11 +250,11 @@ class BfeEditor {
                 blocks: this.bfee_data.data.blocks
             },
             onReady: () => {
-
                 if (!this.bfee_data.data) {
-                    this.bfee_editor.blocks.renderFromHTML(this.bfee_data.html_post_content).catch(error => {
-                        console.log('Error with rendering HTML data ' + error);
-                    });
+                    this.bfee_editor.blocks.renderFromHTML(this.bfee_data.html_post_content)
+                        .catch(error => {
+                            console.log('Error with rendering HTML data ' + error);
+                        });
                 }
             },
             onChange: () => {

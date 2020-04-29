@@ -54,13 +54,21 @@ class Editor
         if ($post_id !== 'new') {
             $new_post_text = __('Add new', 'BFE');
             $new_post_link = self::get_editor_page_link();
-            $editor_data = false;
+            // if we sending $editor_data = "" in js it will render $html_content data
+            $editor_data = "";
             if ($editor_data = get_post_meta($post_id, 'bfe_editor_js_data', true)) {
-                $editor_data = json_decode($editor_data);
-            } else {
-                $post = get_post($post_id);
-                $html_content = $post->post_content;
+                $editor_data = json_decode($editor_data, true);
+                $front_edited_modified_time = $editor_data['time'] / 1000;
+                $admin_post_modified_time = get_the_modified_time('U', $post_id);
+                // if is the post is changed from admin we will use html content
+                if ($admin_post_modified_time > $front_edited_modified_time) {
+                    $editor_data = "";
+                }
             }
+
+            $post = get_post($post_id);
+            $html_content = $post->post_content;
+
 
             $button_text = __('Update', 'BFE');
         } else {
