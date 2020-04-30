@@ -69,7 +69,6 @@ class Editor
             $post = get_post($post_id);
             $html_content = $post->post_content;
 
-
             $button_text = __('Update', 'BFE');
         } else {
             $editor_data = Editor::example_editor_data();
@@ -194,33 +193,42 @@ class Editor
         $html = '';
         switch ($type) {
             case 'header';
-                $html = sprintf('<h%s>%s</h%s>', $data['level'], $data['text'], $data['level']);
+                $guten_type = 'heading';
+                $html = sprintf(
+                    '<!-- wp:%s {"level":%s} --><h%s>%s</h%s><!-- /wp:%s -->',
+                    $guten_type,
+                    $data['level'],
+                    $data['level'],
+                    $data['text'],
+                    $data['level'],
+                    $guten_type
+                );
                 break;
 
             case 'paragraph';
-                $html = sprintf('<p>%s</p>', $data['text']);
+                $html = sprintf('<!-- wp:paragraph --><p>%s</p><!-- /wp:paragraph -->', $data['text']);
                 break;
 
             case 'list';
-                $html = '<ul>';
+                $html = '<!-- wp:list --><ul>';
                 foreach ($data['items'] as $item) {
                     $html .= sprintf('<li>%s</li>', $item);
                 }
-                $html .= '</ul>';
+                $html .= '</ul><!-- /wp:list -->';
                 break;
 
             case 'code';
-                $html = sprintf('<div class="bfe-code"><code class="bfe-code__content">%s</code></div>', $data['code']);
+                $html = sprintf('<!-- wp:code --><pre class="bfe-code wp-block-code"><code>%s</code></pre><!-- /wp:code -->', $data['code']);
                 break;
 
             case 'delimiter':
-                $html = '<div class="bfe-delimiter"></div>';
+                $html = '<!-- wp:separator --><hr class="wp-block-separator bfe-delimiter"/><!-- /wp:separator -->';
                 break;
 
             case 'embed':
                 ob_start();
                 require BFE_Template_PATH . 'editor/embed.php';
-                $html = ob_get_clean();
+                $html = trim(ob_get_clean());
                 break;
 
             case 'image':
@@ -228,7 +236,7 @@ class Editor
                 $image_id = attachment_url_to_postid($image_url);
                 ob_start();
                 require BFE_Template_PATH . 'editor/image.php';
-                $html = ob_get_clean();
+                $html = trim(ob_get_clean());
                 break;
 
             case 'quote':
@@ -249,6 +257,7 @@ class Editor
                 $html = ob_get_clean();
                 break;
         }
+        $html .= htmlspecialchars("\n");
 
         /**
          * html that generated type of block and data of 

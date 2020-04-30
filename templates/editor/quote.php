@@ -5,7 +5,6 @@
         $centerClass = '';
     }
 ?>
-
-<blockquote class="bfe-quote <?= $centerClass ?>">
-    <?= $data['text'] ?>
-</blockquote>
+<!-- wp:quote -->
+<blockquote class="wp-block-quote bfe-quote <?= $centerClass ?>"><p><?= $data['caption'] ?></p><cite><?= $data['text'] ?></cite></blockquote>
+<!-- /wp:quote -->

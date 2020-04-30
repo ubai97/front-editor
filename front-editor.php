@@ -88,7 +88,15 @@ class BestFrontEndEditor
    */
   public static function add_scripts()
   {
-    if (!is_admin() || is_page() || is_single() || is_user_logged_in()) {
+    if (is_admin() ){
+      return;
+    }
+
+    if(!is_user_logged_in()){
+      return;
+    }
+
+    if(is_page() || is_single() ) {
       wp_register_script('bfee-editor.js', BFE_PLUGIN_URL . '/assets/js/bfee-editor.js', array('jquery'), 2, true);
 
       wp_register_style(

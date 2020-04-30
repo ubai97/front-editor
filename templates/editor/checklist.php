@@ -1,3 +1,4 @@
+<!-- wp:list -->
 <ul class="bfe-checklist">
     <?php foreach ($data['items'] as $list) : ?>
         <li class="bfe-checklist-item <?php echo ($list['checked'] == "true") ? 'checked': ''; ?>">
@@ -6,3 +7,4 @@
 
     <?php endforeach ?>
 </ul>
+<!-- /wp:list -->
