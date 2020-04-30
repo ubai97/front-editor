@@ -50,11 +50,12 @@ class PostList
                 $post_lists->the_post();
 
                 $html .= sprintf(
-                    '<div class="post__list"> <a href="%s"><div class="img__box">%s</div></a> <span edit__btn>%s</span> <span class="edit__btn"><a href="%s">Edit 🖊</a></span> </div>',
+                    '<div class="post__list"> <a href="%s"><div class="img__box">%s</div></a> <span edit__btn>%s</span> <span class="edit__btn"><a href="%s">%s 🖊</a></span> </div>',
                     get_the_permalink(),
                     wp_get_attachment_image( get_post_thumbnail_id($post->ID), 'medium'),
                     wp_trim_words( get_the_title(), 2 ),
-                    Editor::get_post_edit_link(get_the_ID())
+                    Editor::get_post_edit_link(get_the_ID()),
+                    __('Edit', 'BFE_EBTN')
                 );
             }
             $html .= '</div>';
