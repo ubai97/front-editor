@@ -6,17 +6,17 @@ class PostList
 {
 
     /**
-     * creating shortcode 
+     * creating shortcode post list
      *
      * @param [type] $atts
      * @return void
      */
     public static function user_posts_list($atts)
     {
-        if(!is_user_logged_in()){
+        if (!is_user_logged_in()) {
             return;
         }
-        
+
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         $count = 2;
         $editor_page = Editor::get_editor_page_link();
@@ -50,17 +50,18 @@ class PostList
                 $post_lists->the_post();
 
                 $html .= sprintf(
-                    '<div class="post__list"> <a href="%s"><div class="img__box">%s</div></a> <span edit__btn>%s</span> <span class="edit__btn"><a href="%s">%s 🖊</a></span> </div>',
+                    '<div class="post__list"><a href="%s"><div class="img__box">%s</div></a><a href="%s">%s</a><span class="edit__btn"><a href="%s">%s 🖊</a></span></div>',
                     get_the_permalink(),
-                    wp_get_attachment_image( get_post_thumbnail_id($post->ID), 'medium'),
-                    wp_trim_words( get_the_title(), 2 ),
+                    wp_get_attachment_image(get_post_thumbnail_id(get_the_ID()), 'medium'),
+                    get_the_permalink(),
+                    wp_trim_words(get_the_title(), 2),
                     Editor::get_post_edit_link(get_the_ID()),
-                    __('Edit', 'BFE_EBTN')
+                    __('Edit', 'BFE')
                 );
             }
             $html .= '</div>';
-            $newer_page_link = get_previous_posts_link(__('< Newer'));
-            $previous_page_link = get_next_posts_link(__('Previous >'), $post_lists->max_num_pages);
+            $newer_page_link = get_previous_posts_link(sprintf('< %s', __('Newer', 'BFE')));
+            $previous_page_link = get_next_posts_link(sprintf('%s >', __('Previous', 'BFE')), $post_lists->max_num_pages);
             $html .= sprintf('<div class="nav"><span>%s</span> <span>%s</span></div>', $newer_page_link, $previous_page_link);
 
             wp_reset_postdata();
@@ -68,5 +69,4 @@ class PostList
 
         return $html;
     }
-
 }
