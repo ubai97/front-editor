@@ -42,7 +42,7 @@ class PostList
 
         $post_lists = new \WP_Query($args);
 
-        $html .= '<ul>';
+        $html .= '<div class="post__list_block">';
 
         if ($post_lists->have_posts()) {
 
@@ -50,13 +50,15 @@ class PostList
                 $post_lists->the_post();
 
                 $html .= sprintf(
-                    '<li><a href="%s">%s</a> <a href="%s">✏</a></li>',
+                    '<div class="post__list"> <a href="%s"><div class="img__box">%s</div></a> <span edit__btn>%s</span> <span class="edit__btn"><a href="%s">%s 🖊</a></span> </div>',
                     get_the_permalink(),
-                    get_the_title(),
-                    Editor::get_post_edit_link(get_the_ID())
+                    wp_get_attachment_image( get_post_thumbnail_id($post->ID), 'medium'),
+                    wp_trim_words( get_the_title(), 2 ),
+                    Editor::get_post_edit_link(get_the_ID()),
+                    __('Edit', 'BFE_EBTN')
                 );
             }
-            $html .= '</ul>';
+            $html .= '</div>';
             $newer_page_link = get_previous_posts_link(__('< Newer'));
             $previous_page_link = get_next_posts_link(__('Previous >'), $post_lists->max_num_pages);
             $html .= sprintf('<div class="nav"><span>%s</span> <span>%s</span></div>', $newer_page_link, $previous_page_link);
