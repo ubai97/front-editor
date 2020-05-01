@@ -73,6 +73,10 @@ class SavePost
             $post_data['post_category'] = [$_POST['category']];
         }
 
+        if (!empty($_POST['post_type'])) {
+            $post_data['post_type'] = $_POST['post_type'];
+        }
+
         if ($post_id !== 'new') {
             $post_id = intval($post_id);
             // Checking is user has access to edit post 

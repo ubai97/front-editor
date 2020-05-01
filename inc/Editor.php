@@ -4,6 +4,30 @@ namespace BFE;
 
 class Editor
 {
+    public static function init(){
+        add_action('bfe_editor_sub_header_parts_form',[__CLASS__,'post_type_select'],11);
+        add_action('bfe_editor_sub_header_parts_form',[__CLASS__,'category_select'],11);
+    }
+
+    /**
+     * Category selector
+     *
+     * @return void
+     */
+    public static function category_select($post_id){
+        require BFE_Template_PATH . 'front-editor/category.php';
+    }
+
+    /**
+     * Post type select
+     *
+     * @param [type] $post_id
+     * @return void
+     */
+    public static function post_type_select($post_id){
+        require BFE_Template_PATH . 'front-editor/post-type.php';
+    }
+
     /**
      * Example data for editor
      *
@@ -268,3 +292,4 @@ class Editor
         return $html;
     }
 }
+Editor::init();
