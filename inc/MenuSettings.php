@@ -143,15 +143,10 @@ class MenuSettings
 	 */
 	public static function post_moderation($val)
 	{
-		$disabled = 1;
-
-		if (self::$is_pro_version) {
-			$disabled = 0;
-		}
 
 		$id = $val['id'];
 
-		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
+		echo sprintf('<select name="%s">', $id);
 
 		$options = [
 			'publish'=> __('Publish','front-editor'),
@@ -164,9 +159,6 @@ class MenuSettings
 		echo '</select>';
 		printf('<span style="padding-left:10px;">%s</span><br>',__('when user is adding the post what status it must have'));
 		
-		if ($disabled) {
-			echo sprintf('<p>%s</p>', self::$only_if_pro_text);
-		}
 	}
 
 	/**
