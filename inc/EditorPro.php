@@ -80,7 +80,7 @@ class EditorPro
         }
 
         if ($setting === 'require' && empty($_FILES['image'])) {
-            wp_send_json_error(['message' => __('The featured image is required', 'BFE')]);
+            wp_send_json_error(['message' => __('The featured image is required', 'front-editor')]);
         }
 
         return $post_data;
@@ -121,7 +121,7 @@ class EditorPro
         }
 
         if ($setting === 'require' && empty($_POST['post_type'])) {
-            wp_send_json_error(['message' => __('The category selection is required', 'BFE')]);
+            wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
         if (!empty($_POST['category'])) {
@@ -165,7 +165,7 @@ class EditorPro
         }
 
         if ($setting === 'require' && empty($_POST['post_type'])) {
-            wp_send_json_error(['message' => __('The post type selection is required', 'BFE')]);
+            wp_send_json_error(['message' => __('The post type selection is required', 'front-editor')]);
         }
 
         if (!empty($_POST['post_type'])) {

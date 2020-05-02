@@ -6,7 +6,7 @@
                 <a target="_blank" class="editor-button" href="<?= $new_post_link ?>"><?= $new_post_text ?></a>
             <?php endif; ?>
             <div class="bfe-editor-view-page">
-                <p><?php echo __('View Post', 'BFE') ?></p>
+                <p><?php echo __('View Post', 'front-editor') ?></p>
                 <a target="_blank" href="<?php the_permalink($post_id) ?? ''; ?>"><?php the_permalink($post_id) ?? ''; ?></a>
             </div>
         </div>
@@ -14,7 +14,7 @@
             <?php do_action('bfe_editor_sub_header_parts_form',$post_id); ?>
         </div>
         <div class="sub-header">
-            <input id="post_title" name="post_title" type="text" placeholder="<?php echo  __('Add Title', 'BFE') ?>" value="<?php echo $title =  get_the_title($post_id) ?>">
+            <input id="post_title" name="post_title" type="text" placeholder="<?php echo  __('Add Title', 'front-editor') ?>" value="<?php echo $title =  get_the_title($post_id) ?>">
         </div>
     </div>
     <div id="bfe-editor-block" post_id="<?= $post_id; ?>"></div>

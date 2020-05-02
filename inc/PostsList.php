@@ -56,12 +56,12 @@ class PostList
                     get_the_permalink(),
                     wp_trim_words(get_the_title(), 2),
                     Editor::get_post_edit_link(get_the_ID()),
-                    __('Edit', 'BFE')
+                    __('Edit', 'front-editor')
                 );
             }
             $html .= '</div>';
-            $newer_page_link = get_previous_posts_link(sprintf('< %s', __('Newer', 'BFE')));
-            $previous_page_link = get_next_posts_link(sprintf('%s >', __('Previous', 'BFE')), $post_lists->max_num_pages);
+            $newer_page_link = get_previous_posts_link(sprintf('< %s', __('Newer', 'front-editor')));
+            $previous_page_link = get_next_posts_link(sprintf('%s >', __('Previous', 'front-editor')), $post_lists->max_num_pages);
             $html .= sprintf('<div class="nav"><span>%s</span> <span>%s</span></div>', $newer_page_link, $previous_page_link);
 
             wp_reset_postdata();

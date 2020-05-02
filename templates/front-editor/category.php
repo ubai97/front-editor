@@ -1,7 +1,7 @@
 <div>
-    <label><?php echo esc_attr(__('Select category', 'BFE')); ?></label>
+    <label><?php echo esc_attr(__('Select category', 'front-editor')); ?></label>
     <select id="bfe-category" name="category-select">
-        <option value="0"><?php echo esc_attr(__('Select category', 'BFE')); ?></option>
+        <option value="0"><?php echo esc_attr(__('Select category', 'front-editor')); ?></option>
         <?php
         $post_cat_id = 0;
         $has_categories = wp_get_post_categories($post_id);

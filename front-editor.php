@@ -8,7 +8,7 @@
  * Author URI: https://github.com/Aharonyan/
  * Developer: Aleksan Aharonyan
  * Developer URI: https://github.com/Aharonyan/front-editor
- * Text Domain: front_editor
+ * Text Domain: front-editor
  * Domain Path: /languages
  * PHP requires at least: 5.6
  * WP requires at least: 5.0
@@ -83,7 +83,7 @@ class BestFrontEndEditor
    */
   public static function true_load_plugin_textdomain()
   {
-    load_plugin_textdomain('BFE', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+    load_plugin_textdomain('front-editor', false, dirname(plugin_basename(__FILE__)) . '/languages/');
   }
 
   /**
@@ -127,7 +127,7 @@ class BestFrontEndEditor
         $actions['bfe_front_editor_link'] = sprintf(
           '<a target="_blank" style="color:#388ffe;" href="%s">%s</a>',
           $edit_link,
-          __('Edit in front editor', 'BFE')
+          __('Edit in front editor', 'front-editor')
         );
       }
     }

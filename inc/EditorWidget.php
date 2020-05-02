@@ -32,7 +32,7 @@ class EditorWidget
 
         $post_edit_link = Editor::get_post_edit_link($post->ID);
 
-        $widget_html = sprintf('<a class="bfe-edit-post-button" href="%s">%s</a>',$post_edit_link,__('Edit','BFE'));
+        $widget_html = sprintf('<a class="bfe-edit-post-button" href="%s">%s</a>',$post_edit_link,__('Edit','front-editor'));
 
         $widget_html = apply_filters('bfe-editor-post-edit-button-html', $widget_html);
 

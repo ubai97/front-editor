@@ -30,11 +30,11 @@ class Block
 		$data = [
             'translations' => [
                 'save_button' => [
-                    'publish' => __('Publish', 'BFE'),
-                    'updating' => sprintf('%s...', __('Updating', 'BFE')),
-                    'update' => __('Update', 'BFE')
+                    'publish' => __('Publish', 'front-editor'),
+                    'updating' => sprintf('%s...', __('Updating', 'front-editor')),
+                    'update' => __('Update', 'front-editor')
                 ],
-                'gutenberg_editor_block_text' => __('Best Front End Editor Block', 'BFE')
+                'gutenberg_editor_block_text' => __('Best Front End Editor Block', 'front-editor')
             ]
         ];
 

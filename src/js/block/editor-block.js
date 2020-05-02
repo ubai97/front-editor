@@ -6,7 +6,7 @@
         bfee_editor;
 
     blocks.registerBlockType('bfe/bfe-block', {
-        title: __('Editor Block', 'BFE'),
+        title: __('Editor Block', 'front-editor'),
         icon: 'edit',
         category: 'common',
         attributes: {

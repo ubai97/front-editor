@@ -19,13 +19,13 @@ class MenuSettings
 	 */
 	public static function init()
 	{
-		self::$only_if_pro_text = __('Buy pro version to use this functionality', 'BFE');
+		self::$only_if_pro_text = __('Buy pro version to use this functionality', 'front-editor');
 		//self::$is_pro_version = get_option('bfe_is_front_editor_pro_version_exist');
 		self::$is_pro_version = 1;
 		self::$default_select = [
-			'display' => __('Display','BFE'),
-			'require' => __('Display and require','BFE'),
-			'disable' => __('Disable this field',"BFE")
+			'display' => __('Display','front-editor'),
+			'require' => __('Display and require','front-editor'),
+			'disable' => __('Disable this field','front-editor')
 		];
 
 		add_action(
@@ -34,8 +34,8 @@ class MenuSettings
 
 				if (current_user_can('manage_options')) {
 					add_menu_page(
-						$page_title = __('Front Editor', 'BFE'),
-						$menu_title = __('Front Editor', 'BFE'),
+						$page_title = __('Front Editor', 'front-editor'),
+						$menu_title = __('Front Editor', 'front-editor'),
 						$capability = 'manage_options',
 						$menu_slug = 'front_editor_settings',
 						$function = [__CLASS__, 'display_page'],
@@ -50,7 +50,7 @@ class MenuSettings
 
 	public static function settings_general()
 	{
-		add_settings_section('bfe_front_editor_general_settings_section', __('Front editor settings', 'BFE'), null, 'front_editor_settings');
+		add_settings_section('bfe_front_editor_general_settings_section', __('Front editor settings', 'front-editor'), null, 'front_editor_settings');
 
 		/**
 		 * display featured image 
@@ -59,7 +59,7 @@ class MenuSettings
 		register_setting('front_editor_settings', $cs_option_name);
 		add_settings_field(
 			$id = $cs_option_name,
-			$title = __('Post status', "BFE"),
+			$title = __('Post status', 'front-editor'),
 			$callback = [__CLASS__, 'post_moderation'],
 			$page = 'front_editor_settings',
 			$section = 'bfe_front_editor_general_settings_section',
@@ -76,7 +76,7 @@ class MenuSettings
 		register_setting('front_editor_settings', $cs_option_name);
 		add_settings_field(
 			$id = $cs_option_name,
-			$title = __('Post image', "BFE"),
+			$title = __('Post image', 'front-editor'),
 			$callback = [__CLASS__, 'display_featured_image_select'],
 			$page = 'front_editor_settings',
 			$section = 'bfe_front_editor_general_settings_section',
@@ -93,7 +93,7 @@ class MenuSettings
 		register_setting('front_editor_settings', $cs_option_name);
 		add_settings_field(
 			$id = $cs_option_name,
-			$title = __('Post category', "BFE"),
+			$title = __('Post category', 'front-editor'),
 			$callback = [__CLASS__, 'display_category_selector'],
 			$page = 'front_editor_settings',
 			$section = 'bfe_front_editor_general_settings_section',
@@ -110,7 +110,7 @@ class MenuSettings
 		register_setting('front_editor_settings', $cs_option_name);
 		add_settings_field(
 			$id = $cs_option_name,
-			$title = __('Custom post type', "BFE"),
+			$title = __('Custom post type', 'front-editor'),
 			$callback = [__CLASS__, 'display_post_type_selector'],
 			$page = 'front_editor_settings',
 			$section = 'bfe_front_editor_general_settings_section',
@@ -127,7 +127,7 @@ class MenuSettings
 	 */
 	public static function display_page()
 	{
-		echo sprintf('<h1>%s</h1>', __('Front Editor', 'BFE'));
+		echo sprintf('<h1>%s</h1>', __('Front Editor', 'front-editor'));
 		echo '<form method="POST" action="options.php">';
 		settings_fields('front_editor_settings');
 		do_settings_sections('front_editor_settings');
@@ -154,8 +154,8 @@ class MenuSettings
 		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
 
 		$options = [
-			'publish'=> __('Publish','BFE'),
-			'pending' => __('Pending','BFE')
+			'publish'=> __('Publish','front-editor'),
+			'pending' => __('Pending','front-editor')
 		];
 
 		foreach ($options as $val => $option) {

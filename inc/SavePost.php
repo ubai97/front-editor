@@ -42,10 +42,10 @@ class SavePost
     public static function update_or_add_post()
     {
         if (!wp_verify_nonce($_POST['nonce'], 'bfe_nonce'))
-            wp_send_json_error(__('Security error, please update page' . 'BFE'));
+            wp_send_json_error(__('Security error, please update page' . 'front-editor'));
 
         if (empty($_POST['post_title']))
-            wp_send_json_error(['message' => __('Please add post title', 'BFE')]);
+            wp_send_json_error(['message' => __('Please add post title', 'front-editor')]);
 
         $editor_data_json = $_POST['editor_data'];
         $editor_data = json_decode(stripslashes($editor_data_json), true);
@@ -99,7 +99,7 @@ class SavePost
             [
                 'url' => get_the_permalink($post_id),
                 'post_id' => $post_id,
-                'message' => ($post_id == 'new') ? __('New post created', 'BFE') : __('Post updated', 'BFE')
+                'message' => ($post_id == 'new') ? __('New post created', 'front-editor') : __('Post updated', 'front-editor')
             ]
         );
 

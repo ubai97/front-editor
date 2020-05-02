@@ -9,7 +9,7 @@ if (has_post_thumbnail($post_id)) {
 <div class="image_loader <?= $class ?? '' ?>" thumb_exist="<?= $thumb_exist ?? 0 ?>">
     <input name="post_thumbnail" type='file' id="img_inp" accept="image/*" />
     <label class="thumbnail" for="img_inp">
-        <?php echo __('Set featured image', 'BFE'); ?>
+        <?php echo __('Set featured image', 'front-editor'); ?>
     </label>
     <img <?= $style ?? '' ?> id="post_thumbnail_image" src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" />
     <img src="<?= BFE_PLUGIN_URL . '/assets/img/cancel.svg' ?>" class="bfe-remove-image">

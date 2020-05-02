@@ -17,7 +17,7 @@ class Editor
             [
                 'type' => 'paragraph',
                 'data' => [
-                    'text' => __('Add content', 'BFE')
+                    'text' => __('Add content', 'front-editor')
                 ]
             ]
         ];
@@ -39,7 +39,7 @@ class Editor
 
         $post_id = 'new';
         $editor_data = 'new';
-        $button_text = __('Publish', 'BFE');
+        $button_text = __('Publish', 'front-editor');
         $new_post_text = false;
         $html_content = '';
         if (!empty($_GET['post_id'])) {
@@ -49,11 +49,11 @@ class Editor
         }
 
         if (!self::can_edit_post(0, $post_id)) {
-            return sprintf('<h2>%s</h2>', __('You do not have permission to edit this post', 'BFE'));
+            return sprintf('<h2>%s</h2>', __('You do not have permission to edit this post', 'front-editor'));
         }
 
         if ($post_id !== 'new') {
-            $new_post_text = __('Add new', 'BFE');
+            $new_post_text = __('Add new', 'front-editor');
             $new_post_link = self::get_editor_page_link();
             // if we sending $editor_data = "" in js it will render $html_content data
             $editor_data = "";
@@ -70,7 +70,7 @@ class Editor
             $post = get_post($post_id);
             $html_content = $post->post_content;
 
-            $button_text = __('Update', 'BFE');
+            $button_text = __('Update', 'front-editor');
         } else {
             $editor_data = Editor::example_editor_data();
         }
@@ -82,11 +82,11 @@ class Editor
             'html_post_content' => $html_content,
             'translations' => [
                 'save_button' => [
-                    'publish' => __('Publish', 'BFE'),
-                    'updating' => sprintf('%s...', __('Updating', 'BFE')),
-                    'update' => __('Update', 'BFE')
+                    'publish' => __('Publish', 'front-editor'),
+                    'updating' => sprintf('%s...', __('Updating', 'front-editor')),
+                    'update' => __('Update', 'front-editor')
                 ],
-                'View Page' => __('View Page', 'BFE')
+                'View Page' => __('View Page', 'front-editor')
             ]
         ];
 
