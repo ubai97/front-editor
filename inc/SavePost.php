@@ -44,6 +44,9 @@ class SavePost
         if (!wp_verify_nonce($_POST['nonce'], 'bfe_nonce'))
             wp_send_json_error(__('Security error, please update page' . 'BFE'));
 
+        if (empty($_POST['post_title']))
+            wp_send_json_error(['message' => __('Please add post title', 'BFE')]);
+
         $editor_data_json = $_POST['editor_data'];
         $editor_data = json_decode(stripslashes($editor_data_json), true);
         $post_title = esc_html($_POST['post_title']);
@@ -62,20 +65,17 @@ class SavePost
             $content_html .= $single_html;
         }
 
-        $post_data = array(
+        $post_data = [
             'post_title'    => $post_title,
             'post_content'  => $content_html,
-        );
+        ];
 
         $post_data['post_status'] = 'publish';
 
-        if (!empty($_POST['category'])) {
-            $post_data['post_category'] = [$_POST['category']];
-        }
-
-        if (!empty($_POST['post_type'])) {
-            $post_data['post_type'] = $_POST['post_type'];
-        }
+        /**
+         * Before post creation or update
+         */
+        $post_data = apply_filters('bfe_ajax_before_front_editor_post_update_or_creation', $post_data, $_POST, $_FILES);
 
         if ($post_id !== 'new') {
             $post_id = intval($post_id);
@@ -98,7 +98,8 @@ class SavePost
         wp_send_json_success(
             [
                 'url' => get_the_permalink($post_id),
-                'post_id' => $post_id
+                'post_id' => $post_id,
+                'message' => ($post_id == 'new') ? __('New post created', 'BFE') : __('Post updated', 'BFE')
             ]
         );
 
@@ -205,10 +206,10 @@ class SavePost
 
         $upload = wp_upload_bits($new_file_name, null, $cont);
 
-        $attachment = array(
+        $attachment = [
             'post_title' => $new_file_name,
             'post_mime_type' => $ext
-        );
+        ];
 
         $attach_id = wp_insert_attachment($attachment, $upload['file']);
 

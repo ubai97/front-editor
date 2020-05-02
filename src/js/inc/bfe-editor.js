@@ -47,7 +47,7 @@ class BfeEditor {
             post_id = document.querySelector('#bfe-editor').getAttribute('post_id'),
             post_link = document.querySelector('.bfe-editor-view-page a'),
             post_title = document.querySelector('#post_title').value,
-            thumb_exist = document.querySelector('#bfe-editor .image_loader').getAttribute('thumb_exist'),
+            thumb_exist = document.querySelector('#bfe-editor .image_loader'),
             category = document.querySelector("#bfe-category"),
             post_type = document.querySelector("#bfe-post-type");
 
@@ -55,33 +55,29 @@ class BfeEditor {
 
         formData.append('action', 'bfe_update_post');
 
-        if (post_title == "") {
-            this.bfee_editor.notifier.show({
-                message: 'Please add title',
-                style: 'error',
-            });
-            return;
-        }
         formData.append('post_title', post_title);
 
         if (bfe_selected_file) {
             formData.append('image', bfe_selected_file);
         }
 
+        if (thumb_exist) {
+            formData.append('thumb_exist', thumb_exist.getAttribute('thumb_exist'));
+        } else {
+            formData.append('thumb_exist', 0);
+        }
 
         if (category) {
             selected_category = category.options[category.selectedIndex].value;
             formData.append('category', selected_category);
         }
 
-        if(post_type){
+        if (post_type) {
             selected_post_type = post_type.options[post_type.selectedIndex].value;
             formData.append('post_type', selected_post_type);
         }
 
         formData.append('post_id', post_id ?? 'new');
-
-        formData.append('thumb_exist', thumb_exist);
 
         formData.append('nonce', BfeEditor.get_bfee_data.nonce);
 
@@ -96,14 +92,22 @@ class BfeEditor {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                save_button.innerHTML = save_button_messages.update;
-                post_link.setAttribute('href', data.data.url);
-                post_link.innerHTML = data.data.url;
-                editor_block.setAttribute('post_id', data.data.post_id)
-                this.bfee_editor.notifier.show({
-                    message: (post_id == 'new') ? 'New post created' : 'Post updated',
-                    style: 'success',
-                });
+                if (data.success) {
+                    save_button.innerHTML = save_button_messages.update;
+                    post_link.setAttribute('href', data.data.url);
+                    post_link.innerHTML = data.data.url;
+                    editor_block.setAttribute('post_id', data.data.post_id)
+                    this.bfee_editor.notifier.show({
+                        message: data.data.message,
+                        style: 'success',
+                    });
+                } else {
+                    save_button.innerHTML = save_button_messages.update;
+                    this.bfee_editor.notifier.show({
+                        message: data.data.message ?? 'Something goes wrong try later',
+                        style: 'error',
+                    });
+                }
             }).catch()
     }
 

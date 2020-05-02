@@ -2,13 +2,13 @@
 
 /**
  * Plugin Name: Best Front End Editor
- * Plugin URI: https://github.com/Aharonyan/Best-Front-End-Editor
+ * Plugin URI: https://github.com/Aharonyan/front-editor
  * Description: Best Front End Editor is a best front end editor that will allow you to change and save contents of post and pages
- * Author: Aharonyan
+ * Author: Aleksan Aharonyan
  * Author URI: https://github.com/Aharonyan/
- * Developer: Aharonyan
- * Developer URI: https://github.com/Aharonyan/Best-Front-End-Editor
- * Text Domain: Best Front End Editor
+ * Developer: Aleksan Aharonyan
+ * Developer URI: https://github.com/Aharonyan/front-editor
+ * Text Domain: front_editor
  * Domain Path: /languages
  * PHP requires at least: 5.6
  * WP requires at least: 5.0
@@ -62,13 +62,15 @@ class BestFrontEndEditor
     /**
      * Add Components
      */
+    require_once __DIR__ . '/inc/MenuSettings.php';
     require_once __DIR__ . '/inc/Shortcodes.php';
     require_once __DIR__ . '/inc/PostsList.php';
     require_once __DIR__ . '/inc/SavePost.php';
     require_once __DIR__ . '/inc/Blocks.php';
     require_once __DIR__ . '/inc/Editor.php';
     require_once __DIR__ . '/inc/EditorWidget.php';
-    require_once __DIR__ . '/inc/MenuSettings.php';
+    // TODO delete this field after creating pro version of plugin
+    require_once __DIR__ . '/inc/EditorPro.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
   }
