@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: trunk
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Have you ever seen websites that allow users to submit posts or other type of co
 * Post type selection
 * [EditorJs](https://editorjs.io/)
 
-==EditorJS==
+== EditorJS ==
 * Header
 * Image uploading
 * Embed
@@ -75,3 +75,21 @@ Works perfectly with or without Gutenberg Block Editor
 1. Front editor
 2. Admin page settings
 3. Admin page future
+
+== Changelog ==
+
+= 1.0 =
+* Added settings page.
+
+= 0.5 =
+* Added post featured image selector.
+* Added category selector.
+* Added post type selector.
+
+== Upgrade Notice ==
+
+= 1.0 =
+The plugin is now tested and working with out issues
+
+= 0.5 =
+Added new futures
