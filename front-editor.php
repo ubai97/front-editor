@@ -69,8 +69,6 @@ class BestFrontEndEditor
     require_once __DIR__ . '/inc/Blocks.php';
     require_once __DIR__ . '/inc/Editor.php';
     require_once __DIR__ . '/inc/EditorWidget.php';
-    // TODO delete this field after creating pro version of plugin
-    require_once __DIR__ . '/inc/EditorPro.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
   }

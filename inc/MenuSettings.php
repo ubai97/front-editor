@@ -20,8 +20,7 @@ class MenuSettings
 	public static function init()
 	{
 		self::$only_if_pro_text = __('Buy pro version to use this functionality', 'front-editor');
-		//self::$is_pro_version = get_option('bfe_is_front_editor_pro_version_exist');
-		self::$is_pro_version = 1;
+		self::$is_pro_version = get_option('bfe_is_front_editor_pro_version_exist');
 
 		self::$default_select = [
 			'display' => __('Display', 'front-editor'),
