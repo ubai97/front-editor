@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Best Front End Editor
+ * Plugin Name: Front Editor
  * Plugin URI: https://github.com/Aharonyan/front-editor
- * Description: Best Front End Editor is a best front end editor that will allow you to change and save contents of post and pages
+ * Description: Have you ever seen websites that allow users to submit posts or other type of content? Do you want to have user-submitted content on your site? Front Editor allow users to submit blog posts to your WordPress site with new frontend block editor EditorJs.
  * Author: Aleksan Aharonyan
  * Author URI: https://github.com/Aharonyan/
  * Developer: Aleksan Aharonyan
