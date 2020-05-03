@@ -45,6 +45,11 @@ $blue: #388ffe;
                     text-decoration: none;
                 }
             }
+            label{
+                font-family: "Open Sans", sans-serif;
+                font-size: 14px;
+                display: block;
+            }
             input[type="text"] {
                 border: none;
                 font-size: 25px;
@@ -76,6 +81,10 @@ $blue: #388ffe;
                 margin: 0;
                 font-size: 14px;
                 margin: 5px 0px;
+                &#bfe-category{
+                    padding: 0 0;
+                    max-width: 170px;
+                }
             }
             .image_loader {
                 border: 1px solid #ddd;
