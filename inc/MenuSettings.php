@@ -22,10 +22,11 @@ class MenuSettings
 		self::$only_if_pro_text = __('Buy pro version to use this functionality', 'front-editor');
 		//self::$is_pro_version = get_option('bfe_is_front_editor_pro_version_exist');
 		self::$is_pro_version = 1;
+
 		self::$default_select = [
-			'display' => __('Display','front-editor'),
-			'require' => __('Display and require','front-editor'),
-			'disable' => __('Disable this field','front-editor')
+			'display' => __('Display', 'front-editor'),
+			'require' => __('Display and require', 'front-editor'),
+			'disable' => __('Disable this field', 'front-editor')
 		];
 
 		add_action(
@@ -45,9 +46,25 @@ class MenuSettings
 				}
 			}
 		);
+
 		add_action('admin_init', [__CLASS__, 'settings_general'], $priority = 10, $accepted_args = 1);
+
+		/**
+		 * checking is front editor page is created
+		 */
+		add_action('bfe_front_editor_settings_before_form', [__CLASS__, 'add_front_editor_page_check'], 10);
+
+		/**
+		 * short information and instruction
+		 */
+		add_action('bfe_front_editor_settings_before_form', [__CLASS__, 'short_information_and_instruction']);
 	}
 
+	/**
+	 * adding general settings
+	 *
+	 * @return void
+	 */
 	public static function settings_general()
 	{
 		add_settings_section('bfe_front_editor_general_settings_section', __('Front editor settings', 'front-editor'), null, 'front_editor_settings');
@@ -121,13 +138,51 @@ class MenuSettings
 		);
 	}
 
+	/**
+	 * if the page with editor is not set
+	 *
+	 * @return void
+	 */
+	public static function add_front_editor_page_check()
+	{
+		$is_set_editor_page = Editor::get_editor_page_link();
+		if (!$is_set_editor_page) {
+			$class = 'notice notice-error';
+			$message = sprintf(
+				__('We cant fined the page with <strong>Front Editor</strong>, 
+			 		please add the page with Gutenberg block named <strong>%s</strong>
+			 		or add Shortcode <strong>%s</strong>', 'front-editor'),
+				$guthenber_block = 'Editor Block',
+				$shortcode = '[bfe-front-editor]'
+			);
+
+			printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
+		}
+	}
+
+	/**
+	 * What we have
+	 *
+	 * @return void
+	 */
+	public static function short_information_and_instruction()
+	{
+		$github_link = '<a  target="_blank" href="https://github.com/Aharonyan/front-editor">GitHub</a>';
+		printf(
+			'<h2>%s</h2><p>%s</p>',
+			__('Short information', 'front-editor'),
+			sprintf(__('You can find additional information or add some ideas or issues in %s', 'front-editor'), $github_link)
+		);
+	}
+
 
 	/**
 	 * Display UI
 	 */
 	public static function display_page()
 	{
-		echo sprintf('<h1>%s</h1>', __('Front Editor', 'front-editor'));
+		echo sprintf('<h1>%s</h1>', __('Front Editor Page ', 'front-editor'));
+		do_action('bfe_front_editor_settings_before_form');
 		echo '<form method="POST" action="options.php">';
 		settings_fields('front_editor_settings');
 		do_settings_sections('front_editor_settings');
@@ -149,16 +204,15 @@ class MenuSettings
 		echo sprintf('<select name="%s">', $id);
 
 		$options = [
-			'publish'=> __('Publish','front-editor'),
-			'pending' => __('Pending','front-editor')
+			'publish' => __('Publish', 'front-editor'),
+			'pending' => __('Pending', 'front-editor')
 		];
 
 		foreach ($options as $val => $option) {
-			echo sprintf('<option value="%s" %s >%s</option>', $val,selected( $val, get_option($id), false ),$option);
+			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		printf('<span style="padding-left:10px;">%s</span><br>',__('when user is adding the post what status it must have'));
-		
+		printf('<span style="padding-left:10px;">%s</span><br>', __('when user is adding the post what status it must have'));
 	}
 
 	/**
@@ -179,10 +233,10 @@ class MenuSettings
 		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
 		$data = get_option($id);
 		foreach (self::$default_select as $val => $option) {
-			echo sprintf('<option value="%s" %s >%s</option>', $val,selected( $val, get_option($id), false ),$option);
+			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		
+
 		if ($disabled) {
 			echo sprintf('<p>%s</p>', self::$only_if_pro_text);
 		}
@@ -206,10 +260,10 @@ class MenuSettings
 		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
 		$data = get_option($id);
 		foreach (self::$default_select as $val => $option) {
-			echo sprintf('<option value="%s" %s >%s</option>', $val,selected( $val, get_option($id), false ),$option);
+			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		
+
 		if ($disabled) {
 			echo sprintf('<p>%s</p>', self::$only_if_pro_text);
 		}
@@ -233,10 +287,10 @@ class MenuSettings
 		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
 		$data = get_option($id);
 		foreach (self::$default_select as $val => $option) {
-			echo sprintf('<option value="%s" %s >%s</option>', $val,selected( $val, get_option($id), false ),$option);
+			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		
+
 		if ($disabled) {
 			echo sprintf('<p>%s</p>', self::$only_if_pro_text);
 		}
