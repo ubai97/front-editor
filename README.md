@@ -1,7 +1,7 @@
 # What you can get with Front Editor
 Have you ever seen websites that allow users to submit posts or other type of content? Do you want to have user-submitted content on your site? Front Editor allow users to submit blog posts to your WordPress site with great and new [EditorJs](https://editorjs.io/ "EditorJs").
 ## Plugin Futures
-![image](https://user-images.githubusercontent.com/48214689/80917961-f2eeaf80-8d6a-11ea-88dd-b9d0455b7ec3.png | width=200)
+![image](https://user-images.githubusercontent.com/48214689/80917961-f2eeaf80-8d6a-11ea-88dd-b9d0455b7ec3.png)
 ### Add page with our Gutenberg block ```Editor Block ``` or shortcode ```[bfe-front-editor]``` and allow your website user submit post from front end with Editorjs
 ![image](https://user-images.githubusercontent.com/48214689/80918056-a6f03a80-8d6b-11ea-85a4-398b3165dc47.png)
 ### Widget on post page
