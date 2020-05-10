@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,9 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Changelog ==
 
+= 1.2 = 
+* Refactoring
+
 = 1.1 = 
 * Added new logo
 * Refactoring
@@ -91,6 +94,9 @@ Works perfectly with or without Gutenberg Block Editor
 * Added post type selector.
 
 == Upgrade Notice ==
+
+= 1.2 = 
+* Refactoring
 
 = 1.1 = 
 * Added new logo
