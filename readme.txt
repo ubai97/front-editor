@@ -78,6 +78,10 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Changelog ==
 
+= 1.1 = 
+* Added new logo
+* Refactoring
+
 = 1.0 =
 * Added settings page.
 
