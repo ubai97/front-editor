@@ -92,6 +92,10 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Upgrade Notice ==
 
+= 1.1 = 
+* Added new logo
+* Refactoring
+
 = 1.0 =
 The plugin is now tested and working with out issues
 
