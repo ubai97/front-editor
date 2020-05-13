@@ -74,11 +74,9 @@ class SavePost
 
         $cur_user_id = get_current_user_id();
         $content_html = '';
-        $post_id = 'new';
-
-        if (!empty($_POST['post_id'])) {
-            $post_id = intval(sanitize_text_field($_POST['post_id']));
-            
+        $post_id = sanitize_text_field($_POST['post_id']);
+        if (!empty($post_id) && $post_id !== 'new') {
+            $post_id = intval($post_id);
             if (!$post_id) {
                 wp_send_json_error(['message' => __('The post you trying to edit is not exist, please create a new one', 'front-editor')]);
             }

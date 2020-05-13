@@ -101,6 +101,12 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Upgrade Notice ==
 
+= 1.3 =
+* Added image validation
+* Added images sanitizing
+* Showing image errors on uploading in front editor
+* Added security check when trying to edit post or create
+
 = 1.2 = 
 * Refactoring
 
