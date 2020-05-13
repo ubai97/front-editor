@@ -138,14 +138,15 @@ class BfeEditor {
                 method: 'POST',
                 body: formData
             })
-                .then(response => {
-                    if (response.ok) {
-                        let response_json = response.json();
-
-                        resolve(response_json);
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.success) {
+                        resolve(data);
+                    } else {
+                        resolve(data);
                     }
-
-                })
+                }).catch()
         })
     }
 
@@ -178,6 +179,13 @@ class BfeEditor {
                         uploader: {
                             uploadByFile(file) {
                                 return BfeEditor.uploadImage(file).then(data => {
+                                    if (!data.success) {
+                                        BfeEditor.bfee_editor.notifier.show({
+                                            message: data.data.message ?? 'Something goes wrong try later',
+                                            style: 'error',
+                                        });
+                                        return { "success": 0 };
+                                    }
                                     return {
                                         "success": 1,
                                         "file": {
@@ -188,6 +196,13 @@ class BfeEditor {
                             },
                             uploadByUrl(url) {
                                 return BfeEditor.uploadImage(null, url).then(data => {
+                                    if (!data.success) {
+                                        BfeEditor.bfee_editor.notifier.show({
+                                            message: data.data.message ?? 'Something goes wrong try later',
+                                            style: 'error',
+                                        });
+                                        return { "success": 0 };
+                                    }
                                     return {
                                         "success": 1,
                                         "file": {

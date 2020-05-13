@@ -78,6 +78,11 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Changelog ==
 
+= 1.3 =
+* Added image validation
+* Added images sanitizing
+* Showing image errors on uploading in front editor
+
 = 1.2 = 
 * Refactoring
 
