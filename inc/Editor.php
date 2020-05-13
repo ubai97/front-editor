@@ -45,17 +45,14 @@ class Editor
 
         if (!empty($_GET['post_id'])) {
 
-            $post_id = sanitize_text_field($_GET['post_id']);
+            $post_id = intval(sanitize_text_field($_GET['post_id']));
 
-            if ($post_id !== 'new') {
-                if (!$post_id = intval($post_id)) {
-                    return sprintf('<h2>%s</h2>', __('The post you trying to edit is not exist, please create a new one', 'front-editor'));
-                }
-                if ($post_id = intval($post_id)) {
-                    if (!get_post_status($post_id)) {
-                        return sprintf('<h2>%s</h2>', __('The post you trying to edit is not exist, please create a new one', 'front-editor'));
-                    }
-                }
+            if (!$post_id) {
+                return sprintf('<h2>%s</h2>', __('The post you trying to edit is not exist, please create a new one', 'front-editor'));
+            }
+
+            if (!get_post_status($post_id)) {
+                return sprintf('<h2>%s</h2>', __('The post you trying to edit is not exist, please create a new one', 'front-editor'));
             }
         }
 

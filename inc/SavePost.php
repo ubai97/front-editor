@@ -61,7 +61,7 @@ class SavePost
         if (!wp_verify_nonce($_POST['nonce'], 'bfe_nonce'))
             wp_send_json_error(['message' => __('Security error, please update page', 'front-editor')]);
 
-        
+
         if (empty($_POST['post_title']))
             wp_send_json_error(['message' => __('Please add post title', 'front-editor')]);
 
@@ -71,23 +71,20 @@ class SavePost
 
         $editor_data_json = wp_kses_data($_POST['editor_data']);
         $editor_data = json_decode(stripslashes($editor_data_json), true);
-        
+
         $cur_user_id = get_current_user_id();
         $content_html = '';
         $post_id = 'new';
 
         if (!empty($_POST['post_id'])) {
-            $post_id = sanitize_text_field($_POST['post_id']);
+            $post_id = intval(sanitize_text_field($_POST['post_id']));
+            
+            if (!$post_id) {
+                wp_send_json_error(['message' => __('The post you trying to edit is not exist, please create a new one', 'front-editor')]);
+            }
 
-            if ($post_id !== 'new') {
-                if (!$post_id = intval($post_id)) {
-                    wp_send_json_error(['message' => __('The post you trying to edit is not exist, please create a new one', 'front-editor')]);
-                }
-                if ($post_id = intval($post_id)) {
-                    if (!get_post_status($post_id)) {
-                        wp_send_json_error(['message' => __('The post you trying to edit is not exist, please create a new one', 'front-editor')]);
-                    }
-                }
+            if (!get_post_status($post_id)) {
+                wp_send_json_error(['message' => __('The post you trying to edit is not exist, please create a new one', 'front-editor')]);
             }
         }
 
@@ -123,7 +120,7 @@ class SavePost
             $post_id = self::insert_post($post_data);
         }
 
-        $editor_data_json_clean = wp_json_encode($editor_data,JSON_UNESCAPED_SLASHES);
+        $editor_data_json_clean = wp_json_encode($editor_data, JSON_UNESCAPED_SLASHES);
         update_post_meta($post_id, 'bfe_editor_js_data', $editor_data_json_clean);
 
         self::add_post_thumbnail($post_id, $_FILES['image'] ?? '', $_POST['thumb_exist'] ?? 0);
