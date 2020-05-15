@@ -1,11 +1,10 @@
-=== front-editor ===
+=== Front Editor ===
 Contributors: aharonyan
-Tags: user post,front editor,post editor,frontend post,guest author,guest post
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RJTUQ2TVS9UFG&source=url
+Tags: user post,front editor,wp front editor,post editor,frontend post,guest author,guest post
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +26,7 @@ Have you ever seen websites that allow users to submit posts or other type of co
 * Code
 * Link
 * List
-* Delimeter
+* Delimiter
 * Inline Code
 * Table 
 
@@ -54,6 +53,11 @@ EditorJs is similar to Gutenberg editor and we make integration with it!
 
 Plus much more! Too many features to list them all!
 
+== Pro Version ==
+*Front Editor Pro* now available [here](https://wpfronteditor.com/).
+
+For more information please visit [our site](https://wpfronteditor.com/) .
+
 ==DEVELOPMENT OF THIS PLUGIN==
 Sources for those wishing to participate in the development: [https://github.com/Aharonyan/front-editor](https://github.com/Aharonyan/front-editor)
 For revision issues [https://github.com/Aharonyan/front-editor/issues](https://github.com/Aharonyan/front-editor/issues)
@@ -66,6 +70,12 @@ Add Gutenberg block `Editor Block` or `[bfe-front-editor]`
 
 That\'s all there is to it! Your site now can accept user-generated content. Everything is super easy to customize via the Plugin Settings page.
 
+== Translations ==
+
+* English - default, always included
+* Russian - ru_RU
+
+*Note:* All my plugins are localized/ translatable by default. For translating I recommend the awesome plugin [Loco Translate](https://wordpress.org/plugins/loco-translate/).
 
 == Frequently Asked Questions ==
 **Is working with Gutenberg Block Editor ?**
@@ -73,10 +83,13 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Screenshots ==
 1. Front editor
-2. Admin page settings
-3. Admin page future
+2. How is is working gif
+3. Admin page settings
 
 == Changelog ==
+
+= 1.4 =
+* Security fixes
 
 = 1.3 =
 * Added image validation
@@ -100,6 +113,9 @@ Works perfectly with or without Gutenberg Block Editor
 * Added post type selector.
 
 == Upgrade Notice ==
+
+= 1.4 =
+* Security fixes
 
 = 1.3 =
 * Added image validation

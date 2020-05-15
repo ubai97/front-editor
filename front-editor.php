@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Front Editor
- * Plugin URI: https://github.com/Aharonyan/front-editor
+ * Plugin URI: https://wpfronteditor.com/
  * Description: Have you ever seen websites that allow users to submit posts or other type of content? Do you want to have user-submitted content on your site? Front Editor allow users to submit blog posts to your WordPress site with new frontend block editor EditorJs.
  * Author: Aleksan Aharonyan
  * Author URI: https://github.com/Aharonyan/
@@ -15,7 +15,7 @@
  * Tested up to: 5.6
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version: 1.3
+ * Version: 1.4
  */
 
 // Exit if accessed directly

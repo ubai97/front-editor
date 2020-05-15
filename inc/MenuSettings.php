@@ -167,10 +167,11 @@ class MenuSettings
 	public static function short_information_and_instruction()
 	{
 		$github_link = '<a  target="_blank" href="https://github.com/Aharonyan/front-editor">GitHub</a>';
+		$site_link = 'https://wpfronteditor.com/';
 		printf(
 			'<h2>%s</h2><p>%s</p>',
 			__('Short information', 'front-editor'),
-			sprintf(__('You can find additional information or add some ideas or issues in %s', 'front-editor'), $github_link)
+			sprintf(__('You can buy pro version or find additional information <a href="%s">here</a> or add some ideas or issues in %s', 'front-editor'), $site_link, $github_link)
 		);
 	}
 
