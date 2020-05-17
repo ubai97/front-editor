@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-17 10:09+0000\n"
+"POT-Creation-Date: 2020-05-17 09:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -127,10 +127,6 @@ msgstr ""
 
 #: inc/MenuSettings.php:208
 msgid "Pending"
-msgstr ""
-
-#: inc/MenuSettings.php:215
-msgid "when user is adding the post what status it must have"
 msgstr ""
 
 #: inc/PostsList.php:63

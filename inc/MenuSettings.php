@@ -181,7 +181,7 @@ class MenuSettings
 	 */
 	public static function display_page()
 	{
-		echo sprintf('<h1>%s</h1>', __('Front Editor Page ', 'front-editor'));
+		echo sprintf('<h1>%s</h1>', __('Settings Page', 'front-editor'));
 		do_action('bfe_front_editor_settings_before_form');
 		echo '<form method="POST" action="options.php">';
 		settings_fields('front_editor_settings');
@@ -212,7 +212,7 @@ class MenuSettings
 			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		printf('<span style="padding-left:10px;">%s</span><br>', __('when user is adding the post what status it must have'));
+		printf('<span style="padding-left:10px;">%s</span><br>', __('when user is adding the post what status it must have', 'front-editor'));
 	}
 
 	/**
