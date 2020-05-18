@@ -223,11 +223,7 @@ class MenuSettings
 	 */
 	public static function display_featured_image_select($val)
 	{
-		$disabled = 1;
-
-		if (self::$is_pro_version) {
-			$disabled = 0;
-		}
+		$disabled = 0;
 
 		$id = $val['id'];
 		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
@@ -236,10 +232,6 @@ class MenuSettings
 			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-
-		if ($disabled) {
-			echo sprintf('<p>%s</p>', self::$only_if_pro_text);
-		}
 	}
 
 	/**
@@ -250,11 +242,7 @@ class MenuSettings
 	 */
 	public static function display_category_selector($val)
 	{
-		$disabled = 1;
-
-		if (self::$is_pro_version) {
-			$disabled = 0;
-		}
+		$disabled = 0;
 
 		$id = $val['id'];
 		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
@@ -263,10 +251,7 @@ class MenuSettings
 			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-
-		if ($disabled) {
-			echo sprintf('<p>%s</p>', self::$only_if_pro_text);
-		}
+		
 	}
 
 	/**
