@@ -1,7 +1,7 @@
 # What are the purposes of using this plugin?
-* 1. You can edit a post and add it without entering the admin panel  
-* 2. If you have editors, they can add or edit the post even without having the access to admin panel
-* 3. You can allow users to submit posts and edit them without the admin panel access, and you will get user-generated unique content
+* You can edit a post and add it without entering the admin panel  
+* If you have editors, they can add or edit the post even without having the access to admin panel
+* You can allow users to submit posts and edit them without the admin panel access, and you will get user-generated unique content
 
 Font Editor is using the new generation block editor: [EditorJS](https://editorjs.io/ "EditorJs").
 
