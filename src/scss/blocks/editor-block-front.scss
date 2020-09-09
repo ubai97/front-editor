@@ -1,7 +1,10 @@
 $blue: #388ffe;
 .bfe-editor {
+    font: 400 13.3333px Arial;
     background-color: white;
     width: 100%;
+    padding: 15px;
+    border-radius: 5px;
     #bfe-editor-block-header {
         max-width: 650px;
         margin: 0 auto;

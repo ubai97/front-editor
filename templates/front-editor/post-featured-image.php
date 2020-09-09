@@ -12,5 +12,5 @@ if (has_post_thumbnail($post_id)) {
         <?php echo __('Set featured image', 'front-editor'); ?>
     </label>
     <img <?= $style ?? '' ?> id="post_thumbnail_image" src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" />
-    <img src="<?= BFE_PLUGIN_URL . '/assets/img/cancel.svg' ?>" class="bfe-remove-image">
+    <img src="<?= FE_PLUGIN_URL . '/assets/img/cancel.svg' ?>" class="bfe-remove-image">
 </div>

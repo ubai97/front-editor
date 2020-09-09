@@ -1,140 +1,126 @@
 /* Configuration of entry points and paths for all tasks */
 const config = {
-
-    editorStyles: {
-        src: 'src/scss/**/*.scss',
-        dest: 'assets/css',
-        file: 'bfe-editor-style.css',
-        watchSrc: 'src/scss/**/*.scss',
+  wpScripts: {
+    editor: {
+      src: "src/js/editor.js",
+      dest: "assets/editor/"
     },
-
-    scripts: {
-        src: [
-            'src/js/vendors/*.js',
-            'src/js/inc/*.js',
-            'src/js/*.js',
-        ],
-        dest: 'assets/js',
-        file: 'bfee-editor.js'
-    },
-
-    gutenbergBlock: {
-        src: [
-            'src/js/vendors/*.js',
-            'src/js/inc/*.js',
-            'src/js/block/*.js',
-        ],
-        dest: 'assets/js/block',
-        file: 'bfee-block.js'
+    frontend: {
+      src: "src/js/frontend.js",
+      dest: "assets/frontend/"
     }
+  },
+  styles: {
+    editor: {
+      src: "src/scss/editor.scss",
+      dest: "assets/editor",
+      file: "main.css",
+      watchSrc: "src/scss/**/*.scss"
+    },
+    frontend: {
+      src: "src/scss/frontend.scss",
+      dest: "assets/frontend",
+      file: "main.css",
+      watchSrc: "src/scss/**/*.scss"
+    }
+  }
 };
 
 const gulp = require('gulp');
-const plumber = require('gulp-plumber');
-const concat = require('gulp-concat');
-const sourcemaps = require('gulp-sourcemaps');
+const plumber = require("gulp-plumber");
+const concat = require("gulp-concat");
+const sourcemaps = require("gulp-sourcemaps");
+const sassGlob = require("gulp-sass-glob");
+const sass = require("gulp-sass");
+const postcss = require("gulp-postcss");
+const cssnano = require("cssnano");
+const autoprefixer = require("autoprefixer");
+const gulpRun = require("gulp-run-command");
 
-const sassGlob = require('gulp-sass-glob');
-const sass = require('gulp-sass');
-
-const postcss = require('gulp-postcss');
-const gulpStylelint = require('gulp-stylelint');
-const cssnano = require('cssnano');
-const autoprefixer = require('autoprefixer');
-// post-css plugin to solve object-fit polyfill requirements
-const objectFitImages = require('postcss-object-fit-images');
-const loadSVG = require('postcss-inline-svg');
-
-// use these if you need less support instead, also run `npm install --save-dev gulp-less gulp-less-glob`
-// const lessGlob = require('gulp-less-glob');
-// const less = require('gulp-less');
-
-const babel = require('gulp-babel');
-const uglify = require('gulp-uglify-es').default; // we use ES6 compatible minifier for future :)
-
-/* Used to work with @import '~bootstrap' tilda notation meaning it should lookup at node_modules via includePaths */
 const sassTildeImporter = (url, prev, done) => {
-    return (url[0] === '~') ? { file: url.substr(1) } : null;
+  return url[0] === "~" ? { file: url.substr(1) } : null;
 };
 
+const registerStyleTasks = config => {
+  // we generate normal styles tasks.
+  const tasks = Object.keys(config).map(entryKey => {
+    const currentConfig = config[entryKey];
 
-/*
-*  Our tasks definitions go below
-*/
-
-gulp.task('editor-styles', () => {
-    return gulp.src(config.editorStyles.src)
+    return gulp.task(`style:${entryKey}`, () => {
+      return gulp
+        .src(currentConfig.src)
         .pipe(sourcemaps.init())
-        .pipe(plumber({
-            errorHandler: function (err) {
-                console.log(err);
-                this.emit('end');
+        .pipe(
+          plumber({
+            errorHandler: function(err) {
+              console.log(err);
+              this.emit("end");
             }
-        }))
+          })
+        )
         .pipe(sassGlob())
-        .pipe(sass({
-            includePaths: ['node_modules'],
+        .pipe(
+          sass({
+            includePaths: ["node_modules"],
             importer: sassTildeImporter
-        }))
-        .pipe(concat(config.editorStyles.file))
-        .pipe(postcss([
-            objectFitImages,
-            autoprefixer,
-            cssnano
-        ]))
-        .pipe(sourcemaps.write('.'))
+          })
+        )
+        .pipe(concat(currentConfig.file))
+        .pipe(postcss([autoprefixer, cssnano]))
+        .pipe(sourcemaps.write("."))
+        .pipe(gulp.dest(currentConfig.dest));
+    });
+  });
 
-        .pipe(gulp.dest(config.editorStyles.dest));
-});
+  // now we generate watcher tasks.
+  const watchTasks = Object.keys(config).map(entryKey => {
+    gulp.task(`style:watch:${entryKey}`, () =>
+      gulp.watch(config[entryKey].watchSrc, gulp.series(`style:${entryKey}`))
+    );
+  });
 
-gulp.task('scripts', () => {
-    return gulp.src(config.scripts.src)
-        .pipe(sourcemaps.init())
-        .pipe(plumber({
-            errorHandler: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
-        .pipe(babel({
-            presets: ['@babel/env'],
-            sourceType: 'unambiguous',
-        }))
-        .pipe(concat(config.scripts.file))
-        .pipe(uglify())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.scripts.dest));
-});
+  return [...tasks, watchTasks];
+};
 
-/**
- * guthenberg block js converting jsx to 
- */
-gulp.task('gutenberg-block', function () {
-    return gulp.src(config.gutenbergBlock.src)
-        .pipe(sourcemaps.init())
-        .pipe(babel({
-            plugins: ['@babel/plugin-transform-react-jsx'],
-            presets: ['@babel/env'],
-            sourceType: 'unambiguous',
-        }))
-        .pipe(concat(config.gutenbergBlock.file))
-        .pipe(uglify())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.gutenbergBlock.dest))
-});
+registerStyleTasks(config.styles);
 
+const registerWpScriptsTasks = config => {
+  return Object.keys(config).map(entryKey => {
+    const currentConfig = config[entryKey];
+    return [
+      gulp.task(
+        `js:${entryKey}`,
+        gulpRun.default(
+          `npx wp-scripts build ${currentConfig.src} --output-path=./${currentConfig.dest} `
+        )
+      ),
+      gulp.task(
+        `js:watch:${entryKey}`,
+        gulpRun.default(
+          `npx wp-scripts start ${currentConfig.src} --output-path=./${currentConfig.dest} `
+        )
+      )
+    ];
+  });
+};
+registerWpScriptsTasks(config.wpScripts);
 
-/* watch tasks definitions */
-gulp.task('watch:editor-styles', () => gulp.watch(config.editorStyles.watchSrc, gulp.series('editor-styles')));
-gulp.task('watch:scripts', () => gulp.watch(config.scripts.src, gulp.series('scripts')));
-gulp.task('watch:gutenberg-block', () => gulp.watch(config.gutenbergBlock.src, gulp.series('gutenberg-block')));
-
-
-gulp.task('watch',
-    gulp.series(
-        gulp.parallel( 'watch:editor-styles', 'watch:scripts', 'watch:gutenberg-block')
-    )
+gulp.task(
+  "watch",
+  gulp.series(
+    // gulp.parallel( Object.keys(config.styles).map(key=>`style:${key}`) ),
+    // gulp.parallel(Object.keys(config.styles).map(key => `style:watch:${key}`)),
+    gulp.parallel([
+        ...Object.keys(config.styles).map(key => `style:watch:${key}`),
+        ...Object.keys(config.wpScripts).map(key => `js:watch:${key}`)
+    ])
+  )
 );
 
-
-gulp.task('default', gulp.parallel('editor-styles', 'scripts', 'gutenberg-block'));
+gulp.task(
+  "default",
+  gulp.parallel([
+    ...Object.keys(config.styles).map(key=>`style:${key}`),
+    ...Object.keys(config.wpScripts).map(key=>`js:${key}`)
+  ])
+);

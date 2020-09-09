@@ -1,4 +1,7 @@
+import BfeEditor from './../inc/class-bfe-editor.js';
+
 var $ = jQuery;
+
 if ($("#bfe-editor-block")[0]) {
 
 

@@ -1,6 +1,37 @@
 'use strict';
 
-class BfeEditor {
+import EditorJS from '@editorjs/editorjs';
+
+import Header from '@editorjs/header';
+
+import ImageTool from '@editorjs/image';
+
+import Embed from '@editorjs/embed';
+
+import Quote from '@editorjs/quote';
+
+import Marker from '@editorjs/marker';
+
+import CodeTool from '@editorjs/code';
+
+import LinkTool from '@editorjs/link';
+
+import List from '@editorjs/list';
+
+import Delimiter from '@editorjs/delimiter';
+
+import InlineCode from '@editorjs/inline-code';
+
+import RawTool from '@editorjs/raw';
+
+import Warning from '@editorjs/warning';
+
+import Table from '@editorjs/table';
+
+import Checklist from '@editorjs/checklist';
+
+export default class BfeEditor {
+
 
     constructor(bfee_editor, data) {
         this.bfee_editor = new EditorJS(this.editorSettings);
@@ -49,7 +80,8 @@ class BfeEditor {
             post_title = document.querySelector('#post_title').value,
             thumb_exist = document.querySelector('#bfe-editor .image_loader'),
             category = document.querySelector("#bfe-category"),
-            post_type = document.querySelector("#bfe-post-type");
+            post_type = document.querySelector("#bfe-post-type"),
+            bfe_selected_file = document.querySelector('#img_inp').files[0];
 
         const formData = new FormData();
 
@@ -57,10 +89,16 @@ class BfeEditor {
 
         formData.append('post_title', post_title);
 
+        /**
+         * Post image
+         */
         if (bfe_selected_file) {
             formData.append('image', bfe_selected_file);
         }
 
+        /**
+         * Sending exist or not post image to understand delete or not it from post
+         */
         if (thumb_exist) {
             formData.append('thumb_exist', thumb_exist.getAttribute('thumb_exist'));
         } else {
@@ -68,12 +106,12 @@ class BfeEditor {
         }
 
         if (category) {
-            selected_category = category.options[category.selectedIndex].value;
+            let selected_category = category.options[category.selectedIndex].value;
             formData.append('category', selected_category);
         }
 
         if (post_type) {
-            selected_post_type = post_type.options[post_type.selectedIndex].value;
+            let selected_post_type = post_type.options[post_type.selectedIndex].value;
             formData.append('post_type', selected_post_type);
         }
 

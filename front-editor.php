@@ -35,9 +35,9 @@ class BestFrontEndEditor
   public static function init()
   {
 
-    define('BFE_PLUGIN_URL', plugins_url('', __FILE__));
-    define('BFE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-    define('BFE_Template_PATH', plugin_dir_path(__FILE__) . 'templates/');
+    define('FE_PLUGIN_URL', plugins_url('', __FILE__));
+    define('FE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+    define('FE_Template_PATH', plugin_dir_path(__FILE__) . 'templates/');
 
     register_activation_hook(__FILE__, [__CLASS__, 'fe_plugin_activate']);
 
@@ -111,13 +111,15 @@ class BestFrontEndEditor
     }
 
     if (is_page() || is_single()) {
-      wp_register_script('bfee-editor.js', BFE_PLUGIN_URL . '/assets/js/bfee-editor.js', array('jquery'), 2, true);
+      $asset = require FE_PLUGIN_DIR_PATH . 'assets/frontend/frontend.asset.php';
+
+      wp_register_script('bfee-editor.js', FE_PLUGIN_URL . '/assets/frontend/frontend.js', array('jquery'), $asset['version'], true);
 
       wp_register_style(
         'bfe-block-style',
-        BFE_PLUGIN_URL . '/assets/css/bfe-editor-style.css',
+        FE_PLUGIN_URL . '/assets/frontend/main.css',
         [],
-        filemtime(BFE_PLUGIN_DIR_PATH . '/assets/css/bfe-editor-style.css')
+        $asset['version']
       );
 
       wp_enqueue_style('bfe-block-style');

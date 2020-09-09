@@ -39,7 +39,7 @@ class MenuSettings
 						$capability = 'manage_options',
 						$menu_slug = 'front_editor_settings',
 						$function = [__CLASS__, 'display_page'],
-						$icon = BFE_PLUGIN_URL . '/assets/img/logo.svg',
+						$icon = FE_PLUGIN_URL . '/assets/img/logo.svg',
 						'57.5'
 					);
 				}

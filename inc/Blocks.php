@@ -17,8 +17,8 @@ class Block
 
     public static function init()
 	{
-		add_action('init', [__CLASS__, 'gutenberg_add_team_block']);
-		add_action('enqueue_block_editor_assets', [__CLASS__, 'gutenberg_team_block_editor_scripts']);
+		add_action('init', [__CLASS__, 'gutenberg_add_editor_block']);
+		add_action('enqueue_block_editor_assets', [__CLASS__, 'gutenberg_editor_block_editor_scripts']);
 		// post status
 		add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_post_status_check'], 10, 3);
 		// image selection addon
@@ -34,20 +34,23 @@ class Block
 	 *
 	 * @return void
 	 */
-	public static function gutenberg_team_block_editor_scripts()
+	public static function gutenberg_editor_block_editor_scripts()
 	{
+        $asset = require FE_PLUGIN_DIR_PATH . 'assets/editor/editor.asset.php';
+
 		wp_register_script(
 			'bfe-block-script',
-			plugins_url('assets/js/block/bfee-block.js', dirname(__FILE__)),
-			['wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'],
-			filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/js/block/bfee-block.js')
+			plugins_url('assets/editor/editor.js', dirname(__FILE__)),
+			$asset['dependencies'],
+            $asset['version'],
+            true
 		);
 
 		wp_register_style(
 			'bfe-block-style',
-			plugins_url( 'assets/css/bfe-editor-style.css', dirname(__FILE__) ),
+			plugins_url( 'assets/editor/main.css', dirname(__FILE__) ),
 			[],
-			filemtime( plugin_dir_path(dirname(__FILE__) ) . 'assets/css/bfe-editor-style.css' )
+			$asset['version']
 		);
 
 		$data = [
@@ -88,7 +91,7 @@ class Block
 	 *
 	 * @return void
 	 */
-	public static function gutenberg_add_team_block()
+	public static function gutenberg_add_editor_block()
 	{
 
 		if (!function_exists('register_block_type')) {
@@ -139,7 +142,7 @@ class Block
             return;
         }
 
-        require BFE_Template_PATH . 'front-editor/post-featured-image.php';
+        require FE_Template_PATH . 'front-editor/post-featured-image.php';
 	}
 	
 	/**
@@ -184,7 +187,7 @@ class Block
             return;
         }
 
-        require BFE_Template_PATH . 'front-editor/category.php';
+        require FE_Template_PATH . 'front-editor/category.php';
     }
 
 
