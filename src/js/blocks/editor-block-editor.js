@@ -1,24 +1,55 @@
-(function (blocks, i18n, element, bfee_data, BfeEditor) {
+(function (blocks, i18n, element, blockEditor) {
     var el = element.createElement,
         __ = i18n.__,
-        bfee_data = BfeEditor.get_bfee_data,
         new_editor = true,
-        bfee_editor;
+        AlignmentToolbar = blockEditor.AlignmentToolbar,
+        BlockControls = blockEditor.BlockControls;
 
     blocks.registerBlockType('bfe/bfe-block', {
         title: __('Editor Block', 'front-editor'),
         icon: 'edit',
         category: 'common',
         attributes: {
-            selectedDepartment: {
-                type: 'string'
+            content: {
+                type: 'array',
+                source: 'children',
+                selector: 'p',
+            },
+            alignment: {
+                type: 'string',
+                default: 'none',
             },
         },
         example: {},
         edit: function (props) {
+            
+            const {
+                attributes: {
+                    content,
+                    alignment,
+                },
+                className,
+            } = props;
+     
+            const onChangeContent = ( newContent ) => {
+                props.setAttributes( { content: newContent } );
+            };
+     
+            const onChangeAlignment = ( newAlignment ) => {
+                props.setAttributes( { alignment: newAlignment === undefined ? 'none' : newAlignment } );
+            };
+
             return (
                 <div class="bfee-guthen-editor-block">
-                    <h2>{BfeEditor.get_bfee_data.translations.gutenberg_editor_block_text}</h2>
+                    {
+                        <BlockControls>
+                            <AlignmentToolbar
+                                value={alignment}
+                                onChange={onChangeAlignment}
+                            />
+                        </BlockControls>
+                    }
+                    <h2>Hey i am hear</h2>
                 </div>
             );
         },
@@ -26,4 +57,4 @@
             return null;
         },
     });
-})(window.wp.blocks, window.wp.i18n, window.wp.element, editor_data, BfeEditor);
+})(window.wp.blocks, window.wp.i18n, window.wp.element, wp.blockEditor);

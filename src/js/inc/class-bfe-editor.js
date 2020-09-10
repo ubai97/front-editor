@@ -76,7 +76,7 @@ export default class BfeEditor {
             save_button = document.querySelector('#save-editor-block'),
             editor_block = document.querySelector('#bfe-editor'),
             post_id = document.querySelector('#bfe-editor').getAttribute('post_id'),
-            post_link = document.querySelector('.bfe-editor-view-page a'),
+            post_link = document.querySelector('.view-page'),
             post_title = document.querySelector('#post_title').value,
             thumb_exist = document.querySelector('#bfe-editor .image_loader'),
             category = document.querySelector("#bfe-category"),
@@ -133,7 +133,6 @@ export default class BfeEditor {
                 if (data.success) {
                     save_button.innerHTML = save_button_messages.update;
                     post_link.setAttribute('href', data.data.url);
-                    post_link.innerHTML = data.data.url;
                     editor_block.setAttribute('post_id', data.data.post_id)
                     this.bfee_editor.notifier.show({
                         message: data.data.message,

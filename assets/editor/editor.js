@@ -99,32 +99,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
 
-(function (blocks, i18n, element, bfee_data, BfeEditor) {
+(function (blocks, i18n, element, blockEditor) {
   var el = element.createElement,
       __ = i18n.__,
-      bfee_data = BfeEditor.get_bfee_data,
       new_editor = true,
-      bfee_editor;
+      AlignmentToolbar = blockEditor.AlignmentToolbar,
+      BlockControls = blockEditor.BlockControls;
   blocks.registerBlockType('bfe/bfe-block', {
     title: __('Editor Block', 'front-editor'),
     icon: 'edit',
     category: 'common',
     attributes: {
-      selectedDepartment: {
-        type: 'string'
+      content: {
+        type: 'array',
+        source: 'children',
+        selector: 'p'
+      },
+      alignment: {
+        type: 'string',
+        default: 'none'
       }
     },
     example: {},
     edit: function edit(props) {
+      var _props$attributes = props.attributes,
+          content = _props$attributes.content,
+          alignment = _props$attributes.alignment,
+          className = props.className;
+
+      var onChangeContent = function onChangeContent(newContent) {
+        props.setAttributes({
+          content: newContent
+        });
+      };
+
+      var onChangeAlignment = function onChangeAlignment(newAlignment) {
+        props.setAttributes({
+          alignment: newAlignment === undefined ? 'none' : newAlignment
+        });
+      };
+
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
         class: "bfee-guthen-editor-block"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, BfeEditor.get_bfee_data.translations.gutenberg_editor_block_text));
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AlignmentToolbar, {
+        value: alignment,
+        onChange: onChangeAlignment
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, "Hey i am hear"));
     },
     save: function save(props) {
       return null;
     }
   });
-})(window.wp.blocks, window.wp.i18n, window.wp.element, editor_data, BfeEditor);
+})(window.wp.blocks, window.wp.i18n, window.wp.element, wp.blockEditor);
 
 /***/ }),
 

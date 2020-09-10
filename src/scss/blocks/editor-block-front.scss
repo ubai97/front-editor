@@ -1,37 +1,60 @@
-$blue: #388ffe;
+
 .bfe-editor {
-    font: 400 13.3333px Arial;
-    background-color: white;
+    font-family: "Roboto", Tahoma;
+    background-color: $white;
     width: 100%;
-    padding: 15px;
     border-radius: 5px;
     #bfe-editor-block-header {
-        max-width: 650px;
+        max-width: $editor-max-width;
         margin: 0 auto;
         .sub-header {
             display: flex;
-            justify-content: space-between;
+            //justify-content: space-between;
             flex-wrap: wrap;
             align-items: center;
+            padding-right: 15px;
+            padding-left: 15px;
+            &:not(:first-child) {
+                margin-top: 10px;
+            }
+            :not(:last-child) {
+                margin-right: 10px;
+            }
+            &.top {
+                height: 50px;
+                box-shadow: 0 6px 17px -2px rgba(0, 0, 0, 0.02), 0 2px 2px -1px rgba(0, 0, 0, 0.04);
+            }
             .editor-button {
                 white-space: nowrap;
-                background: $blue;
-                border: 1px solid $blue;
-                color: #fff;
+                background: $white;
+                border: $button-border;
+                color: $black;
+                box-shadow: $button-shadow;
                 text-decoration: none;
                 text-shadow: none;
-                margin: 0;
-                padding: 4px 12px;
+                height: 34px;
+                line-height: 34px;
+                font-size: 15px;
+                padding: 0 12px;
+                border-radius: 4px;
                 font-weight: 400;
-                margin-bottom: 5px;
                 font-family: Arial;
                 border-radius: 5px;
-                font-size: 17px;
                 transition: all 0.1s ease-out;
+                margin-right: 10px;
                 cursor: pointer;
                 &:hover {
-                    color: #fff;
-                    opacity: 0.7;
+                    box-shadow: none;
+                }
+                &.big {
+                    padding: 0 20px;
+                }
+                img {
+                    width: 20px;
+                }
+                &.view-page {
+                    display: flex;
+                    padding: 0 7px;
                 }
             }
             p {
@@ -41,25 +64,29 @@ $blue: #388ffe;
                 color: black;
             }
             a {
-                color: $blue;
+                color: $black;
                 font-size: 13px;
                 &:link,
                 &:hover {
                     text-decoration: none;
                 }
             }
-            label{
+            label {
                 font-family: "Open Sans", sans-serif;
                 font-size: 14px;
                 display: block;
             }
-            input[type="text"] {
+            #post_title {
                 border: none;
-                font-size: 25px;
-                font-weight: 600;
-                padding: 15px 0px;
-                color: black;
+                color: $black;
                 width: 100%;
+                margin: 0 0 12px;
+                resize: none;
+                border: 0;
+                outline: 0 !important;
+                font-size: 36px;
+                line-height: 1.3em;
+                font-weight: 500;
                 &::placeholder {
                     color: grey;
                 }
@@ -69,42 +96,34 @@ $blue: #388ffe;
                 }
             }
             select {
-                color: grey;
-                font-weight: 700;
+                color: $black;
                 cursor: pointer;
                 max-width: 165px;
-                border-radius: 5px;
-                width: 100%;
-                height: 2.25em;
-                min-height: auto;
-                border: 1px solid #ddd;
-                background-color: white;
-                cursor: pointer;
-                padding: 0 15px;
-                margin: 0;
-                font-size: 14px;
-                margin: 5px 0px;
-                &#bfe-category{
+                border: $button-border;
+                box-shadow: $button-shadow;
+                background-color: $white;
+                &#bfe-category {
                     padding: 0 0;
                     max-width: 170px;
                 }
             }
             .image_loader {
-                border: 1px solid #ddd;
-                background-color: #edeff0;
-                height: 100px;
-                width: 150px;
+                border: $button-border;
+                background-color: $white;
+                height: 70px;
+                width: 70px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 align-items: center;
                 transition: all 0.1s ease-out;
-                box-shadow: 0 0 0 0 $blue;
+                box-shadow: $button-shadow;
                 border-radius: 5px;
                 margin: 5px 0px;
                 position: relative;
                 cursor: pointer;
                 overflow: hidden;
+                color: $black;
                 &:hover {
                     opacity: 0.7;
                 }
@@ -117,16 +136,18 @@ $blue: #388ffe;
                     z-index: -1;
                 }
                 label.thumbnail {
-                    text-align: center;
-                    font-weight: 500;
-                    margin-bottom: 0;
-                    font-size: 13px;
                     cursor: pointer;
                     width: 100%;
                     height: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    margin: 0;
+                    display: flex;
+                    margin: 0;
+                    .button-icon {
+                        width: 40px;
+                    }
                 }
                 #post_thumbnail_image {
                     display: none;
@@ -153,7 +174,10 @@ $blue: #388ffe;
                 &.chosen {
                     #post_thumbnail_image {
                         display: block;
-                        height: 100px;
+                        height: 100%;
+                    }
+                    .button-icon {
+                        display: none;
                     }
                     .bfe-remove-image {
                         display: block;
@@ -162,18 +186,24 @@ $blue: #388ffe;
             }
         }
     }
+    #bfe-editor-block {
+        padding-right: 15px;
+        padding-left: 15px;
+        max-width: $editor-max-width;
+        margin: 0 auto;
+    }
     .ce-toolbar__settings-btn {
         background: white;
         .icon--dots {
             width: 15px;
             height: 15px;
-            color: $blue;
+            color: $black;
         }
     }
     .ce-toolbar__plus {
         background: white;
         .icon--plus {
-            color: $blue;
+            color: $black;
         }
     }
 }

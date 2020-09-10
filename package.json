@@ -34,7 +34,9 @@
     "gulp-sass-glob": "^1.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "react-beautiful-dnd": "^13.0.0",
-    "react-smooth-dnd": "^0.11.1"
+    "react-smooth-dnd": "^0.11.1",
+    "select2": "^4.0.13",
+    "selectize": "^0.12.6"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.18.0",

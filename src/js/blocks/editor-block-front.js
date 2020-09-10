@@ -4,6 +4,10 @@ var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
 
+    $('#bfe-category').select2({
+        theme: 'bootstrap4'
+      });
+
 
     /**
      * Saving button

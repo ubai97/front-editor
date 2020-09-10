@@ -1,5 +1,4 @@
-<div>
-    <label><?php echo esc_attr(__('Select category', 'front-editor')); ?></label>
+<div title="<?php echo esc_attr(__('Select category', 'front-editor')); ?>">
     <select id="bfe-category" name="category-select">
         <option value="0"><?php echo esc_attr(__('Select category', 'front-editor')); ?></option>
         <?php
