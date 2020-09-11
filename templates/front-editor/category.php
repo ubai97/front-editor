@@ -1,4 +1,4 @@
-<div class="select-wrap">
+<div class="select-wrap category">
     <label for="category-select"><?php echo esc_attr(__('Select category', 'front-editor')); ?></label>
     <select id="bfe-category" name="category-select" data-placeholder="<?php echo esc_attr(__('Select category', 'front-editor')); ?>">
         <option></option>

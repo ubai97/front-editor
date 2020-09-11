@@ -6497,6 +6497,7 @@ if ($("#bfe-editor-block")[0]) {
   $('#bfe-tags').select2({
     theme: 'material',
     multiple: true,
+    width: 'resolve',
     //tags: true,
     placeholder: function placeholder() {
       $(_this).data('placeholder');
@@ -6664,10 +6665,12 @@ var BfeEditor = /*#__PURE__*/function () {
           thumb_exist = document.querySelector('#bfe-editor .image_loader'),
           category = document.querySelector("#bfe-category"),
           post_type = document.querySelector("#bfe-post-type"),
-          bfe_selected_file = document.querySelector('#img_inp').files[0];
+          bfe_selected_file = document.querySelector('#img_inp').files[0],
+          editor_post_id = document.querySelector('#bfe-editor').getAttribute('editor_post_id');
       var formData = new FormData();
       formData.append('action', 'bfe_update_post');
       formData.append('post_title', post_title);
+      formData.append('editor_post_id', editor_post_id);
       /**
        * Post image
        */

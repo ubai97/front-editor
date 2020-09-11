@@ -1,11 +1,18 @@
-.bfee-guthen-editor-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    h2 {
-        margin:0 !important;
-        padding: 1rem !important;
-        font-weight: 500 !important;
-        color:#007cba !important;
+.editor-block-settings {
+    .title {
+        text-align: center;
+    }
+    .setting-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        :not(:last-child){
+            margin-right: 8px;
+        }
+        .components-base-control {
+            select {
+                display: block;
+                max-width: 200px;
+            }
+        }
     }
 }

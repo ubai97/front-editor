@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class help to work with editor
  *
@@ -15,7 +16,8 @@ namespace BFE;
 /**
  * Editor class;
  */
-class Editor {
+class Editor
+{
 
 
 	/**
@@ -23,12 +25,13 @@ class Editor {
 	 *
 	 * @return $data
 	 */
-	public static function example_editor_data() {
+	public static function example_editor_data()
+	{
 		$data = array(
 			array(
 				'type' => 'paragraph',
 				'data' => array(
-					'text' => __( 'Add content', 'front-editor' ),
+					'text' => __('Add content', 'front-editor'),
 				),
 			),
 		);
@@ -41,83 +44,87 @@ class Editor {
 	 *
 	 * @return string
 	 */
-	public static function show_front_editor() {
+	public static function show_front_editor($attributes, $content)
+	{
 		/**
 		 * Adding post meta to know the editor page if no page founded
 		 */
-		if ( ! self::get_editor_page_link() ) {
-			update_post_meta( get_the_ID(), 'editor_js_page', true );
+		if (!self::get_editor_page_link()) {
+			update_post_meta(get_the_ID(), 'editor_js_page', true);
 		}
 
 		$post_id       = 'new';
 		$editor_data   = 'new';
-		$button_text   = __( 'Publish', 'front-editor' );
+		$button_text   = __('Publish', 'front-editor');
 		$new_post_text = false;
 		$html_content  = '';
 
-		if ( ! empty( $_GET['post_id'] ) ) {
+		update_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', $attributes);
 
-			$post_id = intval( sanitize_text_field( $_GET['post_id'] ) );
+		do_action('bfe_before_editor_block_front_print', $attributes);
 
-			if ( ! $post_id ) {
-				return sprintf( '<h2>%s</h2>', __( 'The post you trying to edit is not exist, please create a new one', 'front-editor' ) );
+		if (!empty($_GET['post_id'])) {
+
+			$post_id = intval(sanitize_text_field($_GET['post_id']));
+
+			if (!$post_id) {
+				return sprintf('<h2>%s</h2>', __('The post you trying to edit is not exist, please create a new one', 'front-editor'));
 			}
 
-			if ( ! get_post_status( $post_id ) ) {
-				return sprintf( '<h2>%s</h2>', __( 'The post you trying to edit is not exist, please create a new one', 'front-editor' ) );
+			if (!get_post_status($post_id)) {
+				return sprintf('<h2>%s</h2>', __('The post you trying to edit is not exist, please create a new one', 'front-editor'));
 			}
 		}
 
-		if ( ! self::can_edit_post( 0, $post_id ) ) {
-			return sprintf( '<h2>%s</h2>', __( 'You do not have permission to edit this post', 'front-editor' ) );
+		if (!self::can_edit_post(0, $post_id)) {
+			return sprintf('<h2>%s</h2>', __('You do not have permission to edit this post', 'front-editor'));
 		}
 
-		if ( 'new' !== $post_id ) {
-			$new_post_text = __( 'Add new', 'front-editor' );
+		if ('new' !== $post_id) {
+			$new_post_text = __('Add new', 'front-editor');
 			$new_post_link = self::get_editor_page_link();
 			/**
 			 * If we sending $editor_data = "" in js it will render $html_content data
 			 */
 			$editor_data = '';
-			if ( get_post_meta( $post_id, 'bfe_editor_js_data', true ) ) {
-				$editor_data                = get_post_meta( $post_id, 'bfe_editor_js_data', true );
-				$editor_data                = json_decode( $editor_data, true );
+			if (get_post_meta($post_id, 'bfe_editor_js_data', true)) {
+				$editor_data                = get_post_meta($post_id, 'bfe_editor_js_data', true);
+				$editor_data                = json_decode($editor_data, true);
 				$front_edited_modified_time = $editor_data['time'] / 1000;
-				$admin_post_modified_time   = get_the_modified_time( 'U', $post_id );
+				$admin_post_modified_time   = get_the_modified_time('U', $post_id);
 				/**
 				 * If is the post is changed from admin we will use html content
 				 */
-				if ( $admin_post_modified_time > $front_edited_modified_time ) {
+				if ($admin_post_modified_time > $front_edited_modified_time) {
 					$editor_data = '';
 				}
 			}
 
-			$post         = get_post( $post_id );
+			$post         = get_post($post_id);
 			$html_content = $post->post_content;
 
-			$button_text = __( 'Update', 'front-editor' );
+			$button_text = __('Update', 'front-editor');
 		} else {
 			$editor_data = self::example_editor_data();
 		}
 
 		$data = array(
-			'ajax_url'          => admin_url( 'admin-ajax.php' ),
-			'nonce'             => wp_create_nonce( 'bfe_nonce' ),
+			'ajax_url'          => admin_url('admin-ajax.php'),
+			'nonce'             => wp_create_nonce('bfe_nonce'),
 			'data'              => $editor_data,
 			'html_post_content' => $html_content,
 			'translations'      => array(
 				'save_button' => array(
-					'publish'  => __( 'Publish', 'front-editor' ),
-					'updating' => sprintf( '%s...', __( 'Updating', 'front-editor' ) ),
-					'update'   => __( 'Update', 'front-editor' ),
+					'publish'  => __('Publish', 'front-editor'),
+					'updating' => sprintf('%s...', __('Updating', 'front-editor')),
+					'update'   => __('Update', 'front-editor'),
 				),
-				'View Page'   => __( 'View Page', 'front-editor' ),
 			),
 		);
 
-		wp_localize_script( 'bfee-editor.js', 'editor_data', $data );
+		wp_localize_script('bfee-editor.js', 'editor_data', $data);
 
-		wp_enqueue_script( 'bfee-editor.js' );
+		wp_enqueue_script('bfee-editor.js');
 
 		ob_start();
 		require_once FE_Template_PATH . 'block-editor.php';
@@ -131,22 +138,23 @@ class Editor {
 	 * @param string  $post_id post id.
 	 * @return boolean
 	 */
-	public static function can_edit_post( $cur_user_id = 0, $post_id = 'new' ) {
-		if ( ! $cur_user_id ) {
+	public static function can_edit_post($cur_user_id = 0, $post_id = 'new')
+	{
+		if (!$cur_user_id) {
 			$cur_user_id = get_current_user_id();
 		}
 
-		if ( ! is_user_logged_in() ) {
+		if (!is_user_logged_in()) {
 			return false;
 		}
 
-		if ( current_user_can( 'edit_others_pages' ) ) {
+		if (current_user_can('edit_others_pages')) {
 			return true;
 		}
 
-		if ( 'new' !== $post_id ) {
-			$post_user = (int) get_post_field( 'post_author', $post_id );
-			if ( $post_user !== $cur_user_id ) {
+		if ('new' !== $post_id) {
+			$post_user = (int) get_post_field('post_author', $post_id);
+			if ($post_user !== $cur_user_id) {
 				return false;
 			}
 		}
@@ -159,14 +167,15 @@ class Editor {
 	 * @param integer $post_id past id to get link.
 	 * @return string
 	 */
-	public static function get_post_edit_link( $post_id = 0 ) {
+	public static function get_post_edit_link($post_id = 0)
+	{
 		$editor_page = self::get_editor_page_link();
 
-		if ( ! $editor_page ) {
+		if (!$editor_page) {
 			return false;
 		}
 
-		return sprintf( '%s?post_id=%s', $editor_page, $post_id );
+		return sprintf('%s?post_id=%s', $editor_page, $post_id);
 	}
 
 	/**
@@ -174,7 +183,8 @@ class Editor {
 	 *
 	 * @return string
 	 */
-	public static function get_editor_page_link() {
+	public static function get_editor_page_link()
+	{
 
 		$args = array(
 			'posts_per_page' => 1,
@@ -187,11 +197,11 @@ class Editor {
 			),
 		);
 
-		$editor_page = new \WP_Query( $args );
+		$editor_page = new \WP_Query($args);
 
-		if ( $editor_page->have_posts() ) {
+		if ($editor_page->have_posts()) {
 
-			while ( $editor_page->have_posts() ) {
+			while ($editor_page->have_posts()) {
 				$editor_page->the_post();
 
 				return get_the_permalink();
@@ -208,9 +218,10 @@ class Editor {
 	 * @param array  $data data of that field.
 	 * @return string
 	 */
-	public static function data_to_html( $type = '', $data = array() ) {
+	public static function data_to_html($type = '', $data = array())
+	{
 		$html = '';
-		switch ( $type ) {
+		switch ($type) {
 			case 'header';
 				$guten_type = 'heading';
 				$html       = sprintf(
@@ -225,19 +236,19 @@ class Editor {
 				break;
 
 			case 'paragraph';
-				$html = sprintf( '<!-- wp:paragraph --><p>%s</p><!-- /wp:paragraph -->', $data['text'] );
+				$html = sprintf('<!-- wp:paragraph --><p>%s</p><!-- /wp:paragraph -->', $data['text']);
 				break;
 
 			case 'list';
 				$html = '<!-- wp:list --><ul>';
-				foreach ( $data['items'] as $item ) {
-					$html .= sprintf( '<li>%s</li>', $item );
+				foreach ($data['items'] as $item) {
+					$html .= sprintf('<li>%s</li>', $item);
 				}
 				$html .= '</ul><!-- /wp:list -->';
 				break;
 
 			case 'code';
-				$html = sprintf( '<!-- wp:code --><pre class="bfe-code wp-block-code"><code>%s</code></pre><!-- /wp:code -->', $data['code'] );
+				$html = sprintf('<!-- wp:code --><pre class="bfe-code wp-block-code"><code>%s</code></pre><!-- /wp:code -->', $data['code']);
 				break;
 
 			case 'delimiter':
@@ -247,15 +258,15 @@ class Editor {
 			case 'embed':
 				ob_start();
 				require FE_Template_PATH . 'editor/embed.php';
-				$html = trim( ob_get_clean() );
+				$html = trim(ob_get_clean());
 				break;
 
 			case 'image':
 				$image_url = $data['file']['url'];
-				$image_id  = attachment_url_to_postid( $image_url );
+				$image_id  = attachment_url_to_postid($image_url);
 				ob_start();
 				require FE_Template_PATH . 'editor/image.php';
-				$html = trim( ob_get_clean() );
+				$html = trim(ob_get_clean());
 				break;
 
 			case 'quote':
@@ -276,13 +287,13 @@ class Editor {
 				$html = ob_get_clean();
 				break;
 		}
-		$html .= htmlspecialchars( "\n" );
+		$html .= htmlspecialchars("\n");
 
 		/**
 		 * HTML that generated type of block and data of
 		 * that block you can use this filter for make your html elements
 		 */
-		$html = apply_filters( 'bfe_editor_data_to_html_filter', $html, $type, $data );
+		$html = apply_filters('bfe_editor_data_to_html_filter', $html, $type, $data);
 
 		return $html;
 	}

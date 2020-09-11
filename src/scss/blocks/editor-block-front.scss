@@ -104,6 +104,9 @@
                     width: 100%;
                     top: 5px
                 }
+                &.category{
+                    margin-right: 30px;
+                }
                 select {
                     color: $black;
                     cursor: pointer;
@@ -112,11 +115,9 @@
                     background-color: $white;
                     &#bfe-category {
                         padding: 0 0;
-                        max-width: 200px;
                     }
                     &#bfe-tags {
                         padding: 0 0;
-                        width: 300px;
                     }
                 }
                 .select2{
@@ -140,6 +141,7 @@
                 position: relative;
                 cursor: pointer;
                 overflow: hidden;
+                margin-right: 30px;
                 color: $black;
                 &:hover {
                     opacity: 0.7;

@@ -97,60 +97,129 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__);
 
 
-(function (blocks, i18n, element, blockEditor) {
+
+(function (blocks, i18n, element, blockEditor, components, compose, editor_block_data) {
   var el = element.createElement,
       __ = i18n.__,
-      new_editor = true,
       AlignmentToolbar = blockEditor.AlignmentToolbar,
-      BlockControls = blockEditor.BlockControls;
+      FormToggle = components.FormToggle,
+      Dropdown = components.Dropdown,
+      Button = components.Button,
+      BlockControls = blockEditor.BlockControls,
+      SelectControl = components.SelectControl,
+      withState = compose.withState,
+      translations = editor_block_data.translations;
   blocks.registerBlockType('bfe/bfe-block', {
-    title: __('Editor Block', 'front-editor'),
+    title: __('Front Editor', 'front-editor'),
     icon: 'edit',
     category: 'common',
     attributes: {
-      content: {
-        type: 'array',
-        source: 'children',
-        selector: 'p'
-      },
-      alignment: {
+      editor_post_status: {
         type: 'string',
-        default: 'none'
+        default: 'pending'
+      },
+      post_image: {
+        type: 'string',
+        default: 'display'
+      },
+      post_category: {
+        type: 'string',
+        default: 'display'
+      },
+      post_tags: {
+        type: 'string',
+        default: 'display'
       }
     },
     example: {},
     edit: function edit(props) {
-      var _props$attributes = props.attributes,
-          content = _props$attributes.content,
-          alignment = _props$attributes.alignment,
-          className = props.className;
-
-      var onChangeContent = function onChangeContent(newContent) {
-        props.setAttributes({
-          content: newContent
-        });
-      };
-
-      var onChangeAlignment = function onChangeAlignment(newAlignment) {
-        props.setAttributes({
-          alignment: newAlignment === undefined ? 'none' : newAlignment
-        });
-      };
-
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-        class: "bfee-guthen-editor-block"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AlignmentToolbar, {
-        value: alignment,
-        onChange: onChangeAlignment
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, "Hey i am hear"));
+        className: "editor-block-settings"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
+        className: "title"
+      }, translations.title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        className: "setting-wrap"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+        label: translations.post_status,
+        value: props.attributes.editor_post_status //title={translations.post_status_desc}
+        ,
+        onChange: function onChange(value) {
+          props.setAttributes({
+            editor_post_status: value
+          });
+        },
+        options: [{
+          value: 'pending',
+          label: translations.pending
+        }, {
+          value: 'publish',
+          label: translations.publish
+        }]
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+        label: translations.post_image,
+        value: props.attributes.post_image,
+        onChange: function onChange(value) {
+          props.setAttributes({
+            post_image: value
+          });
+        },
+        options: [{
+          value: 'display',
+          label: translations.display
+        }, {
+          value: 'require',
+          label: translations.require
+        }, {
+          value: 'disable',
+          label: translations.disable
+        }]
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+        label: translations.post_category,
+        value: props.attributes.post_category,
+        onChange: function onChange(value) {
+          props.setAttributes({
+            post_category: value
+          });
+        },
+        options: [{
+          value: 'display',
+          label: translations.display
+        }, {
+          value: 'require',
+          label: translations.require
+        }, {
+          value: 'disable',
+          label: translations.disable
+        }]
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+        label: translations.post_tags,
+        value: props.attributes.post_tags,
+        onChange: function onChange(value) {
+          props.setAttributes({
+            post_tags: value
+          });
+        },
+        options: [{
+          value: 'display',
+          label: translations.display
+        }, {
+          value: 'require',
+          label: translations.require
+        }, {
+          value: 'disable',
+          label: translations.disable
+        }]
+      })));
     },
     save: function save(props) {
       return null;
     }
   });
-})(window.wp.blocks, window.wp.i18n, window.wp.element, wp.blockEditor);
+})(window.wp.blocks, window.wp.i18n, window.wp.element, wp.blockEditor, window.wp.components, window.wp.compose, window.editor_block_data);
 
 /***/ }),
 
@@ -175,6 +244,17 @@ __webpack_require__.r(__webpack_exports__);
  * Webpack is compiling as the input file.
  */
 
+
+/***/ }),
+
+/***/ "@wordpress/compose":
+/*!******************************************!*\
+  !*** external {"this":["wp","compose"]} ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["compose"]; }());
 
 /***/ }),
 

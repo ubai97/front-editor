@@ -24,6 +24,7 @@ if ($("#bfe-editor-block")[0]) {
     $('#bfe-tags').select2({
         theme: 'material',
         multiple: true,
+        width: 'resolve',
         //tags: true,
         placeholder: () => {
             $(this).data('placeholder');

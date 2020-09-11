@@ -1,4 +1,4 @@
-<div class="bfe-editor" id="bfe-editor" post_id="<?= $post_id ?>">
+<div class="bfe-editor" id="bfe-editor" post_id="<?= $post_id ?>" editor_post_id="<?= get_the_ID() ?>">
     <div id="bfe-editor-block-header">
         <div class="sub-header top sticky">
             <a class="editor-button big" id="save-editor-block" title="<?php echo $button_text ?>"><?php echo $button_text ?></a>
@@ -10,7 +10,7 @@
             </a>
         </div>
         <div class="sub-header">
-            <?php do_action('bfe_editor_sub_header_parts_form', $post_id); ?>
+            <?php do_action('bfe_editor_sub_header_parts_form', $post_id, $attributes); ?>
         </div>
         <div class="sub-header">
             <input id="post_title" name="post_title" type="text" placeholder="<?php echo  __('Add Title', 'front-editor') ?>" value="<?php echo $title =  get_the_title($post_id) ?>">

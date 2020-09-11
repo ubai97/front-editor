@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Editor blocks for gutenberg and front part
  *
@@ -16,101 +17,104 @@ class Block
 {
 
     public static function init()
-	{
-		add_action('init', [__CLASS__, 'gutenberg_add_editor_block']);
-		add_action('enqueue_block_editor_assets', [__CLASS__, 'gutenberg_editor_block_editor_scripts']);
-		// post status
-		add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_post_status_check'], 10, 3);
-		// image selection addon
+    {
+        add_action('init', [__CLASS__, 'gutenberg_add_editor_block']);
+        add_action('enqueue_block_editor_assets', [__CLASS__, 'gutenberg_editor_block_editor_scripts']);
+        // post status
+        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_post_status_check'], 10, 3);
+        // image selection addon
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'add_post_image_selection'], 12);
-		add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'image_on_save_check'], 10, 3);
-		// category selection addon
+        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'image_on_save_check'], 10, 3);
+        // category selection addon
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'category_select'], 13);
-        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3); 
+        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3);
         // tag selection addon
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'tag_select'], 13);
-        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_tag_on_save_and_check'], 10, 3);   
-	}
+        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_tag_on_save_and_check'], 10, 3);
+    }
 
-	/**
-	 * Gutenberg block scripts
-	 *
-	 * @return void
-	 */
-	public static function gutenberg_editor_block_editor_scripts()
-	{
+    /**
+     * Gutenberg block scripts
+     *
+     * @return void
+     */
+    public static function gutenberg_editor_block_editor_scripts()
+    {
         $asset = require FE_PLUGIN_DIR_PATH . 'assets/editor/editor.asset.php';
 
-		wp_register_script(
-			'bfe-block-script',
-			plugins_url('assets/editor/editor.js', dirname(__FILE__)),
-			$asset['dependencies'],
+        wp_register_script(
+            'bfe-block-script',
+            plugins_url('assets/editor/editor.js', dirname(__FILE__)),
+            $asset['dependencies'],
             $asset['version'],
             true
-		);
+        );
 
-		wp_register_style(
-			'bfe-block-style',
-			plugins_url( 'assets/editor/main.css', dirname(__FILE__) ),
-			[],
-			$asset['version']
-		);
+        wp_register_style(
+            'bfe-block-style',
+            plugins_url('assets/editor/main.css', dirname(__FILE__)),
+            [],
+            $asset['version']
+        );
 
-		$data = [
+        $data = [
             'translations' => [
-                'save_button' => [
-                    'publish' => __('Publish', 'front-editor'),
-                    'updating' => sprintf('%s...', __('Updating', 'front-editor')),
-                    'update' => __('Update', 'front-editor')
-                ],
-                'gutenberg_editor_block_text' => __('Best Front End Editor Block', 'front-editor')
+                'publish' => __('Publish', 'front-editor'),
+                'pending' => __('Pending', 'front-editor'),
+                'post_status' => __('Post status', 'front-editor'),
+                'post_status_desc' => __('when user is adding the post what status it must have', 'front-editor'),
+                'title' => __('Front editor settings', 'front-editor'),
+                'post_image' => __('Post image', 'front-editor'),
+                'post_category' => __('Post category', 'front-editor'),
+                'post_tags' => __('Post tags', 'front-editor'),
+                'display' => __('Display', 'front-editor'),
+                'require' => __('Display and require', 'front-editor'),
+                'disable' => __('Disable this field', 'front-editor')
             ]
         ];
 
-        $data = json_encode($data);
+        wp_enqueue_script('bfe-block-script');
 
-		wp_enqueue_script('bfe-block-script');
-		
-		wp_localize_script('bfe-block-script', 'editor_data', $data);
-	}
+        wp_localize_script('bfe-block-script', 'editor_block_data', $data);
+    }
 
-	/**
-	 * Rendering block in front
-	 *
-	 * @param [type] $attributes
-	 * @param [type] $content
-	 * @return void
-	 */
-	public static function bfe_content_block($attributes, $content)
-	{
-		// Start capture.
-		ob_start();
-		echo Editor::show_front_editor();
-		return ob_get_clean();
-	}
+    /**
+     * Rendering block in front
+     *
+     * @param [type] $attributes
+     * @param [type] $content
+     * @return void
+     */
+    public static function bfe_content_block($attributes, $content)
+    {
+        // Start capture.
+        ob_start();
+        echo Editor::show_front_editor($attributes, $content);
+        return ob_get_clean();
+    }
 
-	/**
-	 * Registering block
-	 *
-	 * @return void
-	 */
-	public static function gutenberg_add_editor_block()
-	{
+    /**
+     * Registering block
+     *
+     * @return void
+     */
+    public static function gutenberg_add_editor_block()
+    {
 
-		if (!function_exists('register_block_type')) {
-			// Gutenberg is not active.
-			return;
-		}
+        if (!function_exists('register_block_type')) {
+            // Gutenberg is not active.
+            return;
+        }
 
-		register_block_type('bfe/bfe-block', [
-			'editor_script' => 'bfe-block-script',
-			'style' => 'bfe-block-style',
-			'editor_style' => 'bfe-block-style',
-			'render_callback' => [__CLASS__, 'bfe_content_block']
-		]);
-	}
+        register_block_type('bfe/bfe-block', [
+            'editor_script' => 'bfe-block-script',
+            'style' => 'bfe-block-style',
+            'editor_style' => 'bfe-block-style',
+            'render_callback' => [__CLASS__, 'bfe_content_block']
+        ]);
+    }
 
-	/**
+    /**
      * adding status
      *
      * @param [type] $post_data
@@ -120,23 +124,24 @@ class Block
      */
     public static function add_post_status_check($post_data, $data, $file)
     {
-        $setting = get_option('bfe_front_editor_post_moderation');
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $post_status = sanitize_text_field($settings['editor_post_status']);
 
-        if (!$setting) {
+        if (empty($post_status)) {
             return $post_data;
         }
 
-        $post_data['post_status'] = $setting;
+        $post_data['post_status'] = $post_status;
 
         return $post_data;
-	}
-	
-	/**
+    }
+
+    /**
      * Add post image selection
      *
      * @return void
      */
-    public static function add_post_image_selection($post_id)
+    public static function add_post_image_selection()
     {
 
         $setting = get_option('bfe_front_editor_display_featured_image_select');
@@ -146,9 +151,9 @@ class Block
         }
 
         require FE_Template_PATH . 'front-editor/post-featured-image.php';
-	}
-	
-	/**
+    }
+
+    /**
      * Image check
      *
      * @param [type] $post_data
@@ -182,7 +187,7 @@ class Block
      *
      * @return void
      */
-    public static function category_select($post_id)
+    public static function category_select()
     {
         $setting = get_option('bfe_front_editor_display_category_selector');
 
@@ -227,7 +232,7 @@ class Block
      *
      * @return void
      */
-    public static function tag_select($post_id)
+    public static function tag_select()
     {
         $setting = get_option('bfe_front_editor_display_category_selector');
 
@@ -266,8 +271,6 @@ class Block
 
         return $post_data;
     }
-
-
 }
 
 Block::init();
