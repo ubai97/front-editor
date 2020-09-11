@@ -1,6 +1,7 @@
-<div title="<?php echo esc_attr(__('Select category', 'front-editor')); ?>">
-    <select id="bfe-category" name="category-select">
-        <option value="0"><?php echo esc_attr(__('Select category', 'front-editor')); ?></option>
+<div class="select-wrap">
+    <label for="category-select"><?php echo esc_attr(__('Select category', 'front-editor')); ?></label>
+    <select id="bfe-category" name="category-select" data-placeholder="<?php echo esc_attr(__('Select category', 'front-editor')); ?>">
+        <option></option>
         <?php
         $post_cat_id = 0;
         $has_categories = wp_get_post_categories($post_id);

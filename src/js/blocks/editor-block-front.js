@@ -4,9 +4,31 @@ var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
 
+    /**
+     * Select2 for category
+     */
     $('#bfe-category').select2({
-        theme: 'bootstrap4'
-      });
+        theme: 'material',
+        placeholder: () => {
+            $(this).data('placeholder');
+        }
+    });
+
+    $(".select2-selection__arrow")
+        .addClass("material-icons")
+        .html("arrow_drop_down");
+
+    /**
+     * Select2 for tags
+     */
+    $('#bfe-tags').select2({
+        theme: 'material',
+        multiple: true,
+        //tags: true,
+        placeholder: () => {
+            $(this).data('placeholder');
+        }
+    });
 
 
     /**

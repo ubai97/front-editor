@@ -22,11 +22,14 @@ class Block
 		// post status
 		add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_post_status_check'], 10, 3);
 		// image selection addon
-        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'add_post_image_selection'], 13);
+        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'add_post_image_selection'], 12);
 		add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'image_on_save_check'], 10, 3);
 		// category selection addon
-        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'category_select'], 12);
-        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3);  
+        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'category_select'], 13);
+        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3); 
+        // tag selection addon
+        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'tag_select'], 13);
+        add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_tag_on_save_and_check'], 10, 3);   
 	}
 
 	/**
@@ -175,7 +178,7 @@ class Block
     }
 
     /**
-     * Category selector
+     * Category selector template
      *
      * @return void
      */
@@ -192,7 +195,7 @@ class Block
 
 
     /**
-     * Category selection add on;
+     * Category selection on post saving actions;
      *
      * @param [type] $post_data
      * @param [type] $data
@@ -218,6 +221,52 @@ class Block
 
         return $post_data;
     }
+
+    /**
+     * Category tag template
+     *
+     * @return void
+     */
+    public static function tag_select($post_id)
+    {
+        $setting = get_option('bfe_front_editor_display_category_selector');
+
+        if ($setting === 'disable') {
+            return;
+        }
+
+        require FE_Template_PATH . 'front-editor/tags.php';
+    }
+
+
+    /**
+     * Tag selection on post saving actions;
+     *
+     * @param [type] $post_data
+     * @param [type] $data
+     * @param [type] $file
+     * @return void
+     */
+    public static function add_tag_on_save_and_check($post_data, $data, $file)
+    {
+
+        $setting = get_option('bfe_front_editor_display_category_selector');
+
+        if ($setting === 'disable') {
+            return $post_data;
+        }
+
+        if ($setting === 'require' && empty($_POST['category'])) {
+            wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
+        }
+
+        if (!empty($_POST['category'])) {
+            $post_data['post_category'] = [$_POST['category']];
+        }
+
+        return $post_data;
+    }
+
 
 }
 

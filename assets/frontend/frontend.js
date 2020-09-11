@@ -6474,12 +6474,33 @@ S2.define('jquery.select2',[
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_class_bfe_editor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../inc/class-bfe-editor.js */ "./src/js/inc/class-bfe-editor.js");
+var _this = undefined;
+
 
 var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
+  /**
+   * Select2 for category
+   */
   $('#bfe-category').select2({
-    theme: 'bootstrap4'
+    theme: 'material',
+    placeholder: function placeholder() {
+      $(_this).data('placeholder');
+    }
+  });
+  $(".select2-selection__arrow").addClass("material-icons").html("arrow_drop_down");
+  /**
+   * Select2 for tags
+   */
+
+  $('#bfe-tags').select2({
+    theme: 'material',
+    multiple: true,
+    //tags: true,
+    placeholder: function placeholder() {
+      $(_this).data('placeholder');
+    }
   });
   /**
    * Saving button
@@ -6689,7 +6710,12 @@ var BfeEditor = /*#__PURE__*/function () {
 
         if (data.success) {
           save_button.innerHTML = save_button_messages.update;
+          /**
+           * New post add link and show the button
+           */
+
           post_link.setAttribute('href', data.data.url);
+          post_link.classList.remove("hide");
           editor_block.setAttribute('post_id', data.data.post_id);
 
           _this.bfee_editor.notifier.show({
@@ -6858,6 +6884,8 @@ var BfeEditor = /*#__PURE__*/function () {
           blocks: this.bfee_data.data.blocks
         },
         onReady: function onReady() {
+          console.log(_this3.bfee_data.data);
+
           if (!_this3.bfee_data.data) {
             _this3.bfee_editor.blocks.renderFromHTML(_this3.bfee_data.html_post_content).catch(function (error) {
               console.log('Error with rendering HTML data ' + error);

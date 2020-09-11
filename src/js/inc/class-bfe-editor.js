@@ -132,7 +132,13 @@ export default class BfeEditor {
                 console.log(data);
                 if (data.success) {
                     save_button.innerHTML = save_button_messages.update;
+
+                    /**
+                     * New post add link and show the button
+                     */
                     post_link.setAttribute('href', data.data.url);
+                    post_link.classList.remove("hide");
+
                     editor_block.setAttribute('post_id', data.data.post_id)
                     this.bfee_editor.notifier.show({
                         message: data.data.message,
@@ -312,6 +318,7 @@ export default class BfeEditor {
                 blocks: this.bfee_data.data.blocks
             },
             onReady: () => {
+                console.log(this.bfee_data.data);
                 if (!this.bfee_data.data) {
                     this.bfee_editor.blocks.renderFromHTML(this.bfee_data.html_post_content)
                         .catch(error => {
