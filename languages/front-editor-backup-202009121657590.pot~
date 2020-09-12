@@ -1,127 +1,125 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-12 16:37+0000\n"
-"PO-Revision-Date: 2020-09-12 17:05+0000\n"
-"Last-Translator: \n"
-"Language-Team: Русский\n"
-"Language: ru_RU\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
-"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.3; wp-5.5.1"
+"X-Loco-Version: 2.3.3; wp-5.4.1"
 
 #: front-editor.php:144
 msgid "Edit in front editor"
-msgstr "Редактировать в Front Editor"
+msgstr ""
 
 #: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:123
 msgid "Publish"
-msgstr "Опубликовать"
+msgstr ""
 
 #: inc/Blocks.php:63
 msgid "Pending"
-msgstr "Ожидает подтверждения"
+msgstr ""
 
 #: inc/Blocks.php:64
 msgid "Post status"
-msgstr "Статус записи"
+msgstr ""
 
 #: inc/Blocks.php:65
 msgid "when user is adding the post what status it must have"
-msgstr "когда пользователь добавляет пост, какой статус он должен иметь"
+msgstr ""
 
 #: inc/Blocks.php:66
 msgid "Front editor settings"
-msgstr "Настройки редактора"
+msgstr ""
 
 #: inc/Blocks.php:67
 msgid "Post image"
-msgstr "Изображение записи"
+msgstr ""
 
 #: inc/Blocks.php:68
 msgid "Post category"
-msgstr "Категория записи"
+msgstr ""
 
 #: inc/Blocks.php:69
 msgid "Post tags"
-msgstr "Теги записи"
+msgstr ""
 
 #: inc/Blocks.php:70 inc/MenuSettings.php:26 inc/MenuSettings.php:208
 msgid "Display"
-msgstr "Отобразить"
+msgstr ""
 
 #: inc/Blocks.php:71 inc/MenuSettings.php:27
 msgid "Display and require"
-msgstr "Отобразить и сделать обязательным"
+msgstr ""
 
 #: inc/Blocks.php:72 inc/MenuSettings.php:28
 msgid "Disable this field"
-msgstr "Отключить данное поле"
+msgstr ""
 
 #: inc/Blocks.php:181
 msgid "The featured image is required"
-msgstr "Изображение записи обязательна"
+msgstr ""
 
 #: inc/Blocks.php:224 inc/Blocks.php:271
 msgid "The category selection is required"
-msgstr "Выбор категории обязателен "
+msgstr ""
 
 #: inc/Editor.php:34
 msgid "Add content"
-msgstr "Приступить к написанию"
+msgstr ""
 
 #: inc/Editor.php:76 inc/Editor.php:80 inc/SavePost.php:104
 #: inc/SavePost.php:108
 msgid "The post you trying to edit is not exist, please create a new one"
 msgstr ""
-"Страница которую вы пытаетесь редактировать не существует пожалуйста "
-"создайте новую "
 
 #: inc/Editor.php:85 inc/SavePost.php:137
 msgid "You do not have permission to edit this post"
-msgstr "Недостаточно прав для редактирования записи"
+msgstr ""
 
 #: inc/Editor.php:89
 msgid "Add new"
-msgstr "Добавить запись"
+msgstr ""
 
 #: inc/Editor.php:111 inc/Editor.php:125
 msgid "Update"
-msgstr "Обновить"
+msgstr ""
 
 #: inc/Editor.php:124
 msgid "Updating"
-msgstr "Обновление"
+msgstr ""
 
 #: inc/EditorWidget.php:41 inc/PostsList.php:59
 msgid "Edit"
-msgstr "Редактировать"
+msgstr ""
 
 #: inc/MenuSettings.php:22
 msgid "Buy pro version to use this functionality"
-msgstr "Обновите до PRO версии, чтобы использовать эту функцию"
+msgstr ""
 
 #. Name of the plugin
 #: inc/MenuSettings.php:37 inc/MenuSettings.php:38
 msgid "Front Editor"
-msgstr "Front Editor"
+msgstr ""
 
 #: inc/MenuSettings.php:69
 msgid "Global settings"
-msgstr "Глобальные настройки"
+msgstr ""
 
 #: inc/MenuSettings.php:78
 msgid "Edit button position in single post"
-msgstr "Позиция кнопки \"Изменить\" в записи"
+msgstr ""
 
 #: inc/MenuSettings.php:95
 msgid "WordPress admin bar"
-msgstr "Панель администратора WordPress"
+msgstr ""
 
 #: inc/MenuSettings.php:117
 #, php-format
@@ -131,13 +129,10 @@ msgid ""
 "\n"
 "\t\t\t \t\tor add Shortcode <strong>%s</strong>"
 msgstr ""
-"Мы не можем найти страницу с блоком <strong>Front Editor</strong> пожалуйста "
-"добавьте новую страницу с Gutenberg  блоком <strong>%s</strong> или добавьте "
-"Shortcode <strong>%s</strong>"
 
 #: inc/MenuSettings.php:135
 msgid "Short information"
-msgstr "Краткая информация"
+msgstr ""
 
 #: inc/MenuSettings.php:139
 msgid ""
@@ -148,94 +143,91 @@ msgid ""
 msgstr ""
 
 #: inc/MenuSettings.php:150
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can buy pro version or find additional information <a href=\"%s\" "
 "target=\"_blank\">here</a> or add some ideas or issues in %s"
 msgstr ""
-"Вы можете купить про версию или найти дополнительную информацию <a "
-"href=\"%s\">здесь</a> \n"
-"или добавить идеи или ошибки здесь %s"
 
 #: inc/MenuSettings.php:160
 msgid "Settings Page"
-msgstr "Страница настроек"
+msgstr ""
 
 #: inc/MenuSettings.php:183
 msgid "Left bottom"
-msgstr "Внизу слева"
+msgstr ""
 
 #: inc/MenuSettings.php:184
 msgid "Left top"
-msgstr "Вверху слева"
+msgstr ""
 
 #: inc/MenuSettings.php:185
 msgid "Right bottom"
-msgstr "Внизу справа"
+msgstr ""
 
 #: inc/MenuSettings.php:186
 msgid "Right top"
-msgstr "Вверху справа"
+msgstr ""
 
 #: inc/MenuSettings.php:209
 msgid "Disable for all"
-msgstr "Отключить для всех"
+msgstr ""
 
 #: inc/MenuSettings.php:210
 msgid "Disable for all but admin"
-msgstr "Отключить для всех, кроме администратора"
+msgstr ""
 
 #: inc/PostsList.php:63
 msgid "Newer"
-msgstr "Новые"
+msgstr ""
 
 #: inc/PostsList.php:64
 msgid "Previous"
-msgstr "Предыдущие"
+msgstr ""
 
 #: inc/SavePost.php:83
 msgid "Security error, please update page"
-msgstr "Ошибка безопасности, пожалуйста, обновите страницу"
+msgstr ""
 
 #: inc/SavePost.php:87
 msgid "Please add post title"
-msgstr "Пожалуйста, добавьте заголовок записи"
+msgstr ""
 
 #: inc/SavePost.php:92
 msgid "Please add correct post title"
-msgstr "Исправьте заголовок поста"
+msgstr ""
 
 #: inc/SavePost.php:161
 msgid "New post created"
-msgstr "Новая запись успешно создана"
+msgstr ""
 
 #: inc/SavePost.php:161
 msgid "Post updated"
-msgstr "Запись обновлена"
+msgstr ""
 
 #: inc/SavePost.php:235
 msgid "Image type is not supported, please select another image"
-msgstr "Тип изображения не поддерживается, выберите другое изображение"
+msgstr ""
 
 #: templates/block-editor.php:8
 msgid "View Post"
-msgstr "Посмотреть запись"
+msgstr ""
 
 #: templates/block-editor.php:16
 msgid "Add Title"
-msgstr "Добавить заголовок"
+msgstr ""
 
 #: templates/front-editor/category.php:2 templates/front-editor/category.php:3
 msgid "Select category"
-msgstr "Выберите категорию"
+msgstr ""
 
 #: templates/front-editor/post-featured-image.php:10
 msgid "Set featured image"
-msgstr "Выберите картинку"
+msgstr ""
 
 #: templates/front-editor/tags.php:2 templates/front-editor/tags.php:3
 msgid "Select tags"
-msgstr "Выберите теги"
+msgstr ""
 
 #. Description of the plugin
 msgid ""
@@ -244,19 +236,15 @@ msgid ""
 "Editor allow users to submit blog posts to your WordPress site with new "
 "frontend block editor EditorJs."
 msgstr ""
-"Вы видели сайты, которые позволяют пользователям добавлять статьи или другой "
-"тип контента? Хотите ли вы, чтобы пользователь размещал контент на вашем "
-"сайте? Front Editor позволяет пользователям добавлять статьи на ваш сайт "
-"WordPress с помощью нового редактора блоков EditorJs."
 
 #. URI of the plugin
 msgid "https://wpfronteditor.com/"
-msgstr "https://wpfronteditor.com/"
+msgstr ""
 
 #. Author of the plugin
 msgid "Aleksan Aharonyan"
-msgstr "А. Агаронян"
+msgstr ""
 
 #. Author URI of the plugin
 msgid "https://github.com/Aharonyan/"
-msgstr "https://github.com/Aharonyan/"
+msgstr ""
