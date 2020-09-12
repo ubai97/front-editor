@@ -146,8 +146,8 @@ class SavePost {
 		/**
 		 * Adding to meta json string.
 		 */
-		$editor_data_json_clean = wp_json_encode( $editor_data, JSON_UNESCAPED_SLASHES );
-		update_post_meta( $post_id, 'bfe_editor_js_data', $editor_data_json_clean );
+		$editor_data_json_clean = wp_json_encode( $editor_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+		update_post_meta( $post_id, 'bfe_editor_js_data', stripslashes( $editor_data_json ) );
 
 		/**
 		 * Adding post thumbnail
