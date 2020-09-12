@@ -4,7 +4,7 @@ Tags: user post,front editor,wp front editor,post editor,frontend post,guest aut
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.5
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,8 +46,8 @@ EditorJs is similar to Gutenberg editor and we make integration with it!
 * You choose which fields to display on the post-submit form
 * Automatically display all submitted content on the frontend
 * NEW: Image preview thumbnails for selected images
-* Widget with edit button on the post page
-* Added custom link to post row
+* Edit button on the post single pages
+* Added custom link to post row in Admin post page
 
 * Boost your site value with user-generated content!*
 
@@ -73,7 +73,7 @@ Roadmap [https://github.com/Aharonyan/front-editor/projects/1](https://github.co
 Front Editor via Gutenberg block or shortcode that enables your visitors to submit posts and upload images. Just add the following shortcode to any Post, Page, or Widget:	
 Add Gutenberg block `Editor Block` or `[bfe-front-editor]`
 
-That\'s all there is to it! Your site now can accept user-generated content. Everything is super easy to customize via the Plugin Settings page.
+That's all there is to it! Your site now can accept user-generated content. Everything is super easy to customize via the Plugin Settings page.
 
 == Translations ==
 
@@ -88,10 +88,21 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Screenshots ==
 1. Front editor
-2. How is is working gif
-3. Admin page settings
+2. Front editor
+3. Block settings
 
 == Changelog ==
+
+= 2.0.0 =
+* added sticky buttons when a post is very big
+* added 'Edit' button position settings
+* solved Cyrillic text issue
+* added tags support
+* added setting to choose what status will post have when it will added 
+* the most of the settings you can find in 'Front Editor' block
+* select now working with select2 and looks better
+* front editor redesigned it looks better now
+* code Refactoring
 
 = 1.5 =
 * Post image selection added to free version
@@ -124,6 +135,17 @@ Works perfectly with or without Gutenberg Block Editor
 * Added post type selector.
 
 == Upgrade Notice ==
+
+= 2.0.0 =
+* added sticky buttons when a post is very big
+* added 'Edit' button position settings
+* solved Cyrillic text issue
+* added tags support
+* added setting to choose what status will post have when it will added 
+* the most of the settings you can find in 'Front Editor' block
+* select now working with select2 and looks better
+* front editor redesigned it looks better now
+* code Refactoring
 
 = 1.5 =
 * Post image selection added to free version

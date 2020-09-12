@@ -8,7 +8,7 @@ Font Editor is using the new generation block editor: [EditorJS](https://editorj
 ## How to start with wp front editor [Full tutorial](https://wpfronteditor.com/how-to-start-with-wp-front-editor/)
 ## Plugin Futures
 * Add page with our Gutenberg block ```Editor Block ``` or shortcode ```[bfe-front-editor]``` and allow your website user submit post from front end with Editorjs
-### Widget on post page
+### Edit button on post page
 ![image](https://user-images.githubusercontent.com/48214689/80918148-136b3980-8d6c-11ea-87f0-cd5ae095da0d.png)
 ### Post list shortcode : ```[user_posts_list count="2"]``` count(the post count to show) 
 ![image](https://user-images.githubusercontent.com/48214689/80918181-5f1de300-8d6c-11ea-8af6-7d96b67deb2e.png)
