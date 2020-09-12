@@ -75,6 +75,7 @@ class BestFrontEndEditor
    */
   public static function add_components()
   {
+    require_once __DIR__ . '/functions.php';
     require_once __DIR__ . '/inc/MenuSettings.php';
     require_once __DIR__ . '/inc/Shortcodes.php';
     require_once __DIR__ . '/inc/PostsList.php';

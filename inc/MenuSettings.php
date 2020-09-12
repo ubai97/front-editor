@@ -66,7 +66,7 @@ class MenuSettings
 	 */
 	public static function settings_general()
 	{
-		add_settings_section('bfe_front_editor_general_settings_section', __('Front editor global settings', 'front-editor'), null, 'front_editor_settings');
+		add_settings_section('bfe_front_editor_general_settings_section', __('Global settings', 'front-editor'), null, 'front_editor_settings');
 
 		/**
 		 * Edit button position in single post
@@ -86,48 +86,14 @@ class MenuSettings
 		);
 
 		/**
-		 * display featured image 
+		 * Disable or enable wp admin bar
 		 */
-		$cs_option_name = 'bfe_front_editor_display_featured_image_select';
+		$cs_option_name = 'bfe_front_editor_wp_admin_menu';
 		register_setting('front_editor_settings', $cs_option_name);
 		add_settings_field(
 			$id = $cs_option_name,
-			$title = __('Post image', 'front-editor'),
-			$callback = [__CLASS__, 'display_featured_image_select'],
-			$page = 'front_editor_settings',
-			$section = 'bfe_front_editor_general_settings_section',
-			$args = [
-				'id' => $cs_option_name,
-				'label_for' => $cs_option_name
-			]
-		);
-
-		/**
-		 * the category selector option
-		 */
-		$cs_option_name = 'bfe_front_editor_display_category_selector';
-		register_setting('front_editor_settings', $cs_option_name);
-		add_settings_field(
-			$id = $cs_option_name,
-			$title = __('Post category', 'front-editor'),
-			$callback = [__CLASS__, 'display_category_selector'],
-			$page = 'front_editor_settings',
-			$section = 'bfe_front_editor_general_settings_section',
-			$args = [
-				'id' => $cs_option_name,
-				'label_for' => $cs_option_name
-			]
-		);
-
-		/**
-		 * display custom post type 
-		 */
-		$cs_option_name = 'bfe_front_editor_display_post_type_selector';
-		register_setting('front_editor_settings', $cs_option_name);
-		add_settings_field(
-			$id = $cs_option_name,
-			$title = __('Custom post type', 'front-editor'),
-			$callback = [__CLASS__, 'display_post_type_selector'],
+			$title = __('WordPress admin bar', 'front-editor'),
+			$callback = [__CLASS__, 'wp_admin_menu'],
 			$page = 'front_editor_settings',
 			$section = 'bfe_front_editor_general_settings_section',
 			$args = [
@@ -166,12 +132,22 @@ class MenuSettings
 	 */
 	public static function short_information_and_instruction()
 	{
+		printf('<h2>%s</h2>', __('Short information', 'front-editor'));
+
+		$class = 'notice notice-warning is-dismissible';
+		$message =
+			__(
+				'If you have some ideas or questions please contact me. 
+				The contact information you can find on our website <strong><a href="https://wpfronteditor.com" target="_blank">wpfronteditor.com</a></strong>',
+				'front-editor'
+			);
+		printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
+
 		$github_link = '<a  target="_blank" href="https://github.com/Aharonyan/front-editor">GitHub</a>';
 		$site_link = 'https://wpfronteditor.com/';
 		printf(
-			'<h2>%s</h2><p>%s</p>',
-			__('Short information', 'front-editor'),
-			sprintf(__('You can buy pro version or find additional information <a href="%s">here</a> or add some ideas or issues in %s', 'front-editor'), $site_link, $github_link)
+			'<p>%s</p>',
+			sprintf(__('You can buy pro version or find additional information <a href="%s" target="_blank">here</a> or add some ideas or issues in %s', 'front-editor'), $site_link, $github_link)
 		);
 	}
 
@@ -222,14 +198,19 @@ class MenuSettings
 	 * @param [type] $val
 	 * @return void
 	 */
-	public static function display_featured_image_select($val)
+	public static function wp_admin_menu($val)
 	{
-		$disabled = 0;
-
 		$id = $val['id'];
-		echo sprintf('<select name="%s" %s>', $id, disabled($disabled, true, false));
-		$data = get_option($id);
-		foreach (self::$default_select as $val => $option) {
+
+		echo sprintf('<select name="%s">', $id);
+
+		$options = [
+			'display' => __('Display', 'front-editor'),
+			'disable' => __('Disable for all', 'front-editor'),
+			'disable_but_admin' => __('Disable for all but admin', 'front-editor'),
+		];
+
+		foreach ($options as $val => $option) {
 			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
