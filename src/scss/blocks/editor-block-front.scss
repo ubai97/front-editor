@@ -23,6 +23,12 @@
                 height: 50px;
                 box-shadow: 0 6px 17px -2px rgba(0, 0, 0, 0.02), 0 2px 2px -1px rgba(0, 0, 0, 0.04);
             }
+            &.sticky{
+                position: fixed;
+                bottom: 0;
+                transition: all 0.3s ease-out;
+                z-index: 9000;
+            }
             .editor-button {
                 white-space: nowrap;
                 background: $white;

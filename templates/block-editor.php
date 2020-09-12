@@ -1,6 +1,6 @@
 <div class="bfe-editor" id="bfe-editor" post_id="<?= $post_id ?>" editor_post_id="<?= get_the_ID() ?>">
     <div id="bfe-editor-block-header">
-        <div class="sub-header top sticky">
+        <div class="sub-header top">
             <a class="editor-button big" id="save-editor-block" title="<?php echo $button_text ?>"><?php echo $button_text ?></a>
             <?php if ($new_post_text) : ?>
                 <a target="_blank" class="editor-button" href="<?= $new_post_link ?>" title="<?= $new_post_text ?>"><?= $new_post_text ?></a>

@@ -6503,6 +6503,18 @@ if ($("#bfe-editor-block")[0]) {
       $(_this).data('placeholder');
     }
   });
+  var button_menu = $('#bfe-editor-block-header .sub-header.top'),
+      fixmeTop = button_menu.offset().top;
+  $(window).scroll(function () {
+    var currentScroll = $(window).scrollTop();
+
+    if (currentScroll >= fixmeTop) {
+      button_menu.addClass('sticky');
+    } else {
+      // apply position: static
+      button_menu.removeClass('sticky');
+    }
+  });
   /**
    * Saving button
    */
