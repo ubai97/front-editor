@@ -16,6 +16,8 @@ import { withState } from '@wordpress/compose';
         title: __('Front Editor', 'front-editor'),
         icon: 'edit',
         category: 'common',
+        multiple: false,
+        html: false,
         attributes: {
             editor_post_status: {
                 type: 'string',
@@ -34,7 +36,6 @@ import { withState } from '@wordpress/compose';
                 default: 'display'
             }
         },
-        example: {},
         edit: function (props) {
 
             return (
@@ -44,15 +45,15 @@ import { withState } from '@wordpress/compose';
                         <SelectControl
                             label={translations.post_status}
                             value={props.attributes.editor_post_status}
-                            //title={translations.post_status_desc}
+                            title={translations.post_status_desc}
                             onChange={(value) => {
                                 props.setAttributes({
                                     editor_post_status: value
                                 })
                             }}
                             options={[
-                                { value: 'pending', label: translations.pending },
                                 { value: 'publish', label: translations.publish },
+                                { value: 'pending', label: translations.pending},
                             ]}
                         />
                         <SelectControl

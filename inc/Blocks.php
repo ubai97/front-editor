@@ -141,12 +141,13 @@ class Block
      *
      * @return void
      */
-    public static function add_post_image_selection()
+    public static function add_post_image_selection($post_id)
     {
 
-        $setting = get_option('bfe_front_editor_display_featured_image_select');
+        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta',1);
+        $post_image = sanitize_text_field($settings['post_image']);
 
-        if ($setting === 'disable') {
+        if ($post_image === 'disable') {
             return;
         }
 
@@ -164,10 +165,11 @@ class Block
     public static function image_on_save_check($post_data, $data, $file)
     {
 
-        $setting = get_option('bfe_front_editor_display_featured_image_select');
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $post_image = sanitize_text_field($settings['post_image']);
         $is_featured_image_exist = $_POST['thumb_exist'] ?? 0;
 
-        if ($setting === 'disable') {
+        if ($post_image === 'disable') {
             return $post_data;
         }
 
@@ -175,7 +177,7 @@ class Block
             return $post_data;
         }
 
-        if ($setting === 'require' && empty($_FILES['image'])) {
+        if ($post_image === 'require' && empty($_FILES['image'])) {
             wp_send_json_error(['message' => __('The featured image is required', 'front-editor')]);
         }
 
@@ -187,11 +189,12 @@ class Block
      *
      * @return void
      */
-    public static function category_select()
+    public static function category_select($post_id)
     {
-        $setting = get_option('bfe_front_editor_display_category_selector');
+        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta',1);
+        $post_category = sanitize_text_field($settings['post_category']);
 
-        if ($setting === 'disable') {
+        if ($post_category === 'disable') {
             return;
         }
 
@@ -210,13 +213,14 @@ class Block
     public static function add_category_on_save_and_check($post_data, $data, $file)
     {
 
-        $setting = get_option('bfe_front_editor_display_category_selector');
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $post_category = sanitize_text_field($settings['post_category']);
 
-        if ($setting === 'disable') {
+        if ($post_category === 'disable') {
             return $post_data;
         }
 
-        if ($setting === 'require' && empty($_POST['category'])) {
+        if ($post_category === 'require' && empty($_POST['category'])) {
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
@@ -232,11 +236,12 @@ class Block
      *
      * @return void
      */
-    public static function tag_select()
+    public static function tag_select($post_id)
     {
-        $setting = get_option('bfe_front_editor_display_category_selector');
+        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta',1);
+        $post_tags = sanitize_text_field($settings['post_tags']);
 
-        if ($setting === 'disable') {
+        if ($post_tags === 'disable') {
             return;
         }
 
@@ -255,18 +260,19 @@ class Block
     public static function add_tag_on_save_and_check($post_data, $data, $file)
     {
 
-        $setting = get_option('bfe_front_editor_display_category_selector');
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $post_tags= sanitize_text_field($settings['post_tags']);
 
-        if ($setting === 'disable') {
+        if ($post_tags === 'disable') {
             return $post_data;
         }
 
-        if ($setting === 'require' && empty($_POST['category'])) {
+        if ($post_tags === 'require' && empty($_POST['tags'])) {
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if (!empty($_POST['category'])) {
-            $post_data['post_category'] = [$_POST['category']];
+        if (!empty($_POST['tags'])) {
+            $post_data['tags_input'] = explode(",", $_POST['tags']);
         }
 
         return $post_data;

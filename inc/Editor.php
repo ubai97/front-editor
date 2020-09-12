@@ -59,7 +59,12 @@ class Editor
 		$new_post_text = false;
 		$html_content  = '';
 
-		update_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', $attributes);
+		update_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', [
+			'editor_post_status' => $attributes['editor_post_status'] ?? 'pending',
+			'post_image' => $attributes['post_image'] ?? 'display',
+			'post_category' => $attributes['post_category'] ?? 'display',
+			'post_tags' => $attributes['post_category'] ?? 'display',
+		]);
 
 		do_action('bfe_before_editor_block_front_print', $attributes);
 

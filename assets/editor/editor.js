@@ -117,6 +117,8 @@ __webpack_require__.r(__webpack_exports__);
     title: __('Front Editor', 'front-editor'),
     icon: 'edit',
     category: 'common',
+    multiple: false,
+    html: false,
     attributes: {
       editor_post_status: {
         type: 'string',
@@ -135,7 +137,6 @@ __webpack_require__.r(__webpack_exports__);
         default: 'display'
       }
     },
-    example: {},
     edit: function edit(props) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
         className: "editor-block-settings"
@@ -145,19 +146,19 @@ __webpack_require__.r(__webpack_exports__);
         className: "setting-wrap"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
         label: translations.post_status,
-        value: props.attributes.editor_post_status //title={translations.post_status_desc}
-        ,
+        value: props.attributes.editor_post_status,
+        title: translations.post_status_desc,
         onChange: function onChange(value) {
           props.setAttributes({
             editor_post_status: value
           });
         },
         options: [{
-          value: 'pending',
-          label: translations.pending
-        }, {
           value: 'publish',
           label: translations.publish
+        }, {
+          value: 'pending',
+          label: translations.pending
         }]
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
         label: translations.post_image,

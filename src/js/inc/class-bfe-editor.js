@@ -80,6 +80,7 @@ export default class BfeEditor {
             post_title = document.querySelector('#post_title').value,
             thumb_exist = document.querySelector('#bfe-editor .image_loader'),
             category = document.querySelector("#bfe-category"),
+            tags = document.querySelector("#bfe-tags"),
             post_type = document.querySelector("#bfe-post-type"),
             bfe_selected_file = document.querySelector('#img_inp').files[0],
             editor_post_id = document.querySelector('#bfe-editor').getAttribute('editor_post_id');
@@ -111,6 +112,12 @@ export default class BfeEditor {
         if (category) {
             let selected_category = category.options[category.selectedIndex].value;
             formData.append('category', selected_category);
+        }
+
+        if (tags) {
+            let selected_tags = jQuery(tags).select2("val");
+            console.log(selected_tags);
+            formData.append('tags', selected_tags);
         }
 
         if (post_type) {
