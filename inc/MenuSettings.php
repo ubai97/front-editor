@@ -135,12 +135,12 @@ class MenuSettings
 		printf('<h2>%s</h2>', __('Short information', 'front-editor'));
 
 		$class = 'notice notice-warning is-dismissible';
-		$message =
+		$message = sprintf(
 			__(
 				'If you have some ideas or questions please contact me. 
-				The contact information you can find on our website <strong><a href="https://wpfronteditor.com" target="_blank">wpfronteditor.com</a></strong>',
+				The contact information you can find on our website %s',
 				'front-editor'
-			);
+			),'<strong><a href="https://wpfronteditor.com" target="_blank">wpfronteditor.com</a></strong>');
 		printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
 
 		$github_link = '<a  target="_blank" href="https://github.com/Aharonyan/front-editor">GitHub</a>';

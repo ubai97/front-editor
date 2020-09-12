@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-17 10:09+0000\n"
+"POT-Creation-Date: 2020-09-12 16:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,49 +15,88 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.3; wp-5.4.1"
 
-#: front-editor.php:141
+#: front-editor.php:144
 msgid "Edit in front editor"
 msgstr ""
 
-#: inc/Blocks.php:33 inc/Editor.php:54 inc/Editor.php:110
-#: inc/MenuSettings.php:207
+#: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:123
 msgid "Publish"
 msgstr ""
 
-#: inc/Blocks.php:34 inc/Editor.php:111
-msgid "Updating"
+#: inc/Blocks.php:63
+msgid "Pending"
 msgstr ""
 
-#: inc/Blocks.php:35 inc/Editor.php:98 inc/Editor.php:112
-msgid "Update"
+#: inc/Blocks.php:64
+msgid "Post status"
 msgstr ""
 
-#: inc/Blocks.php:37
-msgid "Best Front End Editor Block"
+#: inc/Blocks.php:65
+msgid "when user is adding the post what status it must have"
 msgstr ""
 
-#: inc/Editor.php:31
+#: inc/Blocks.php:66
+msgid "Front editor settings"
+msgstr ""
+
+#: inc/Blocks.php:67
+msgid "Post image"
+msgstr ""
+
+#: inc/Blocks.php:68
+msgid "Post category"
+msgstr ""
+
+#: inc/Blocks.php:69
+msgid "Post tags"
+msgstr ""
+
+#: inc/Blocks.php:70 inc/MenuSettings.php:26 inc/MenuSettings.php:208
+msgid "Display"
+msgstr ""
+
+#: inc/Blocks.php:71 inc/MenuSettings.php:27
+msgid "Display and require"
+msgstr ""
+
+#: inc/Blocks.php:72 inc/MenuSettings.php:28
+msgid "Disable this field"
+msgstr ""
+
+#: inc/Blocks.php:181
+msgid "The featured image is required"
+msgstr ""
+
+#: inc/Blocks.php:224 inc/Blocks.php:271
+msgid "The category selection is required"
+msgstr ""
+
+#: inc/Editor.php:34
 msgid "Add content"
 msgstr ""
 
-#: inc/Editor.php:63 inc/Editor.php:67 inc/SavePost.php:104
+#: inc/Editor.php:76 inc/Editor.php:80 inc/SavePost.php:104
 #: inc/SavePost.php:108
 msgid "The post you trying to edit is not exist, please create a new one"
 msgstr ""
 
-#: inc/Editor.php:72 inc/SavePost.php:137
+#: inc/Editor.php:85 inc/SavePost.php:137
 msgid "You do not have permission to edit this post"
 msgstr ""
 
-#: inc/Editor.php:76
+#: inc/Editor.php:89
 msgid "Add new"
 msgstr ""
 
-#: inc/Editor.php:114
-msgid "View Page"
+#: inc/Editor.php:111 inc/Editor.php:125
+msgid "Update"
 msgstr ""
 
-#: inc/EditorWidget.php:35 inc/PostsList.php:59
+#: inc/Editor.php:124
+msgid "Updating"
+msgstr ""
+
+#: inc/EditorWidget.php:41 inc/PostsList.php:59
 msgid "Edit"
 msgstr ""
 
@@ -65,43 +104,24 @@ msgstr ""
 msgid "Buy pro version to use this functionality"
 msgstr ""
 
-#: inc/MenuSettings.php:26
-msgid "Display"
-msgstr ""
-
-#: inc/MenuSettings.php:27
-msgid "Display and require"
-msgstr ""
-
-#: inc/MenuSettings.php:28
-msgid "Disable this field"
-msgstr ""
-
+#. Name of the plugin
 #: inc/MenuSettings.php:37 inc/MenuSettings.php:38
 msgid "Front Editor"
 msgstr ""
 
 #: inc/MenuSettings.php:69
-msgid "Front editor settings"
+msgid "Global settings"
 msgstr ""
 
 #: inc/MenuSettings.php:78
-msgid "Post status"
+msgid "Edit button position in single post"
 msgstr ""
 
 #: inc/MenuSettings.php:95
-msgid "Post image"
+msgid "WordPress admin bar"
 msgstr ""
 
-#: inc/MenuSettings.php:112
-msgid "Post category"
-msgstr ""
-
-#: inc/MenuSettings.php:129
-msgid "Custom post type"
-msgstr ""
-
-#: inc/MenuSettings.php:151
+#: inc/MenuSettings.php:117
 #, php-format
 msgid ""
 "We cant fined the page with <strong>Front Editor</strong>, \n"
@@ -110,27 +130,51 @@ msgid ""
 "\t\t\t \t\tor add Shortcode <strong>%s</strong>"
 msgstr ""
 
-#: inc/MenuSettings.php:173
+#: inc/MenuSettings.php:135
 msgid "Short information"
 msgstr ""
 
-#: inc/MenuSettings.php:174
-#, php-format
+#: inc/MenuSettings.php:139
 msgid ""
-"You can buy pro version or find additional information <a href=\"%s\">"
-"here</a> or add some ideas or issues in %s"
+"If you have some ideas or questions please contact me. \n"
+"\t\t\t\tThe contact information you can find on our website <strong><a "
+"href=\"https://wpfronteditor.com\" target=\"_blank\">wpfronteditor.com</a>"
+"</strong>"
 msgstr ""
 
-#: inc/MenuSettings.php:184
+#: inc/MenuSettings.php:150
+#, php-format
+msgid ""
+"You can buy pro version or find additional information <a href=\"%s\" "
+"target=\"_blank\">here</a> or add some ideas or issues in %s"
+msgstr ""
+
+#: inc/MenuSettings.php:160
 msgid "Settings Page"
 msgstr ""
 
-#: inc/MenuSettings.php:208
-msgid "Pending"
+#: inc/MenuSettings.php:183
+msgid "Left bottom"
 msgstr ""
 
-#: inc/MenuSettings.php:215
-msgid "when user is adding the post what status it must have"
+#: inc/MenuSettings.php:184
+msgid "Left top"
+msgstr ""
+
+#: inc/MenuSettings.php:185
+msgid "Right bottom"
+msgstr ""
+
+#: inc/MenuSettings.php:186
+msgid "Right top"
+msgstr ""
+
+#: inc/MenuSettings.php:209
+msgid "Disable for all"
+msgstr ""
+
+#: inc/MenuSettings.php:210
+msgid "Disable for all but admin"
 msgstr ""
 
 #: inc/PostsList.php:63
@@ -165,12 +209,24 @@ msgstr ""
 msgid "Image type is not supported, please select another image"
 msgstr ""
 
-#: templates/block-editor.php:9
+#: templates/block-editor.php:8
 msgid "View Post"
 msgstr ""
 
-#: templates/block-editor.php:17
+#: templates/block-editor.php:16
 msgid "Add Title"
+msgstr ""
+
+#: templates/front-editor/category.php:2 templates/front-editor/category.php:3
+msgid "Select category"
+msgstr ""
+
+#: templates/front-editor/post-featured-image.php:10
+msgid "Set featured image"
+msgstr ""
+
+#: templates/front-editor/tags.php:2 templates/front-editor/tags.php:3
+msgid "Select tags"
 msgstr ""
 
 #. Description of the plugin

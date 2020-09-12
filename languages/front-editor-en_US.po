@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-02 20:28+0000\n"
-"PO-Revision-Date: 2020-05-02 20:29+0000\n"
+"POT-Creation-Date: 2020-05-17 10:09+0000\n"
+"PO-Revision-Date: 2020-09-12 16:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -12,18 +12,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.3; wp-5.4.1"
+"X-Loco-Version: 2.4.3; wp-5.5.1"
 
-#: inc/Blocks.php:33 inc/Editor.php:42 inc/Editor.php:85
-#: inc/MenuSettings.php:157
+#: front-editor.php:141
+msgid "Edit in front editor"
+msgstr ""
+
+#: inc/Blocks.php:33 inc/Editor.php:54 inc/Editor.php:110
+#: inc/MenuSettings.php:207
 msgid "Publish"
 msgstr ""
 
-#: inc/Blocks.php:34 inc/Editor.php:86
+#: inc/Blocks.php:34 inc/Editor.php:111
 msgid "Updating"
 msgstr ""
 
-#: inc/Blocks.php:35 inc/Editor.php:73 inc/Editor.php:87
+#: inc/Blocks.php:35 inc/Editor.php:98 inc/Editor.php:112
 msgid "Update"
 msgstr ""
 
@@ -31,32 +35,25 @@ msgstr ""
 msgid "Best Front End Editor Block"
 msgstr ""
 
-#: inc/Editor.php:20
+#: inc/Editor.php:31
 msgid "Add content"
 msgstr ""
 
-#: inc/Editor.php:52
+#: inc/Editor.php:63 inc/Editor.php:67 inc/SavePost.php:104
+#: inc/SavePost.php:108
+msgid "The post you trying to edit is not exist, please create a new one"
+msgstr ""
+
+#: inc/Editor.php:72 inc/SavePost.php:137
 msgid "You do not have permission to edit this post"
 msgstr ""
 
-#: inc/Editor.php:56
+#: inc/Editor.php:76
 msgid "Add new"
 msgstr ""
 
-#: inc/Editor.php:89
+#: inc/Editor.php:114
 msgid "View Page"
-msgstr ""
-
-#: inc/EditorPro.php:83
-msgid "The featured image is required"
-msgstr ""
-
-#: inc/EditorPro.php:124
-msgid "The category selection is required"
-msgstr ""
-
-#: inc/EditorPro.php:168
-msgid "The post type selection is required"
 msgstr ""
 
 #: inc/EditorWidget.php:35 inc/PostsList.php:59
@@ -79,32 +76,60 @@ msgstr ""
 msgid "Disable this field"
 msgstr ""
 
-#: inc/MenuSettings.php:37 inc/MenuSettings.php:38 inc/MenuSettings.php:130
+#: inc/MenuSettings.php:37 inc/MenuSettings.php:38
 msgid "Front Editor"
 msgstr ""
 
-#: inc/MenuSettings.php:53
+#: inc/MenuSettings.php:69
 msgid "Front editor settings"
 msgstr ""
 
-#: inc/MenuSettings.php:62
+#: inc/MenuSettings.php:78
 msgid "Post status"
 msgstr ""
 
-#: inc/MenuSettings.php:79
+#: inc/MenuSettings.php:95
 msgid "Post image"
 msgstr ""
 
-#: inc/MenuSettings.php:96
+#: inc/MenuSettings.php:112
 msgid "Post category"
 msgstr ""
 
-#: inc/MenuSettings.php:113
+#: inc/MenuSettings.php:129
 msgid "Custom post type"
 msgstr ""
 
-#: inc/MenuSettings.php:158
+#: inc/MenuSettings.php:151
+#, php-format
+msgid ""
+"We cant fined the page with <strong>Front Editor</strong>, \n"
+"\t\t\t \t\tplease add the page with Gutenberg block named <strong>%s</strong>"
+"\n"
+"\t\t\t \t\tor add Shortcode <strong>%s</strong>"
+msgstr ""
+
+#: inc/MenuSettings.php:173
+msgid "Short information"
+msgstr ""
+
+#: inc/MenuSettings.php:174
+#, php-format
+msgid ""
+"You can buy pro version or find additional information <a href=\"%s\">"
+"here</a> or add some ideas or issues in %s"
+msgstr ""
+
+#: inc/MenuSettings.php:184
+msgid "Settings Page"
+msgstr ""
+
+#: inc/MenuSettings.php:208
 msgid "Pending"
+msgstr ""
+
+#: inc/MenuSettings.php:215
+msgid "when user is adding the post what status it must have"
 msgstr ""
 
 #: inc/PostsList.php:63
@@ -115,16 +140,28 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: inc/SavePost.php:48
+#: inc/SavePost.php:83
+msgid "Security error, please update page"
+msgstr ""
+
+#: inc/SavePost.php:87
 msgid "Please add post title"
 msgstr ""
 
-#: inc/SavePost.php:102
+#: inc/SavePost.php:92
+msgid "Please add correct post title"
+msgstr ""
+
+#: inc/SavePost.php:161
 msgid "New post created"
 msgstr ""
 
-#: inc/SavePost.php:102
+#: inc/SavePost.php:161
 msgid "Post updated"
+msgstr ""
+
+#: inc/SavePost.php:235
+msgid "Image type is not supported, please select another image"
 msgstr ""
 
 #: templates/block-editor.php:9
@@ -135,37 +172,16 @@ msgstr ""
 msgid "Add Title"
 msgstr ""
 
-#: templates/front-editor/category.php:2 templates/front-editor/category.php:4
-msgid "Select category"
-msgstr ""
-
-#: templates/front-editor/post-featured-image.php:12
-msgid "Set featured image"
-msgstr ""
-
-#: templates/front-editor/post-type.php:2
-#: templates/front-editor/post-type.php:12
-msgid "post"
-msgstr ""
-
-#: templates/front-editor/post-type.php:15
-msgid "Select post type"
-msgstr ""
-
-#. Name of the plugin
-msgid "Best Front End Editor"
-msgstr "Best Front End Editor"
-
 #. Description of the plugin
 msgid ""
-"Best Front End Editor is a best front end editor that will allow you to "
-"change and save contents of post and pages"
+"Have you ever seen websites that allow users to submit posts or other type "
+"of content? Do you want to have user-submitted content on your site? Front "
+"Editor allow users to submit blog posts to your WordPress site with new "
+"frontend block editor EditorJs."
 msgstr ""
-"Best Front End Editor is a best front end editor that will allow you to "
-"change and save contents of post and pages"
 
 #. URI of the plugin
-msgid "https://github.com/Aharonyan/front-editor"
+msgid "https://wpfronteditor.com/"
 msgstr ""
 
 #. Author of the plugin
