@@ -95,11 +95,11 @@ Works perfectly with or without Gutenberg Block Editor
 
 = 2.0.0 =
 * added sticky buttons when a post is very big
-* added 'Edit' button position settings
+* Added 'Edit' button position settings
 * solved Cyrillic text issue
-* added tags support
-* added setting to choose what status will post have when it will added 
-* the most of the settings you can find in 'Front Editor' block
+* Added tags support
+* Added setting to choose what status will post have when it will be added 
+* the most of the settings you can find in the 'Front Editor' block
 * select now working with select2 and looks better
 * front editor redesigned it looks better now
 * code Refactoring
@@ -138,11 +138,11 @@ Works perfectly with or without Gutenberg Block Editor
 
 = 2.0.0 =
 * added sticky buttons when a post is very big
-* added 'Edit' button position settings
+* Added 'Edit' button position settings
 * solved Cyrillic text issue
-* added tags support
-* added setting to choose what status will post have when it will added 
-* the most of the settings you can find in 'Front Editor' block
+* Added tags support
+* Added setting to choose what status will post have when it will be added 
+* the most of the settings you can find in the 'Front Editor' block
 * select now working with select2 and looks better
 * front editor redesigned it looks better now
 * code Refactoring
