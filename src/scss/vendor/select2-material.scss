@@ -185,13 +185,13 @@
     cursor: pointer;
     clear: both;
     color: rgba(0, 0, 0, 0.87);
-    line-height: 1.5rem;
+    line-height: 15px;
     text-align: left;
     text-transform: none;
     /* @extend .dropdown-content li>a, .dropdown-content li>span */
-    font-size: 1.2rem;
+    font-size: 15px;
     display: block;
-    padding: 1rem;
+    padding: 5px;
     /**
   * Disabled options
   */
