@@ -66,17 +66,17 @@ class MenuSettings
 	 */
 	public static function settings_general()
 	{
-		add_settings_section('bfe_front_editor_general_settings_section', __('Front editor settings', 'front-editor'), null, 'front_editor_settings');
+		add_settings_section('bfe_front_editor_general_settings_section', __('Front editor global settings', 'front-editor'), null, 'front_editor_settings');
 
 		/**
-		 * display featured image 
+		 * Edit button position in single post
 		 */
-		$cs_option_name = 'bfe_front_editor_post_moderation';
+		$cs_option_name = 'bfe_front_editor_edit_button_position';
 		register_setting('front_editor_settings', $cs_option_name);
 		add_settings_field(
 			$id = $cs_option_name,
-			$title = __('Post status', 'front-editor'),
-			$callback = [__CLASS__, 'post_moderation'],
+			$title = __('Edit button position in single post', 'front-editor'),
+			$callback = [__CLASS__, 'edit_button_position'],
 			$page = 'front_editor_settings',
 			$section = 'bfe_front_editor_general_settings_section',
 			$args = [
@@ -196,7 +196,7 @@ class MenuSettings
 	 * @param [type] $val
 	 * @return void
 	 */
-	public static function post_moderation($val)
+	public static function edit_button_position($val)
 	{
 
 		$id = $val['id'];
@@ -204,15 +204,16 @@ class MenuSettings
 		echo sprintf('<select name="%s">', $id);
 
 		$options = [
-			'publish' => __('Publish', 'front-editor'),
-			'pending' => __('Pending', 'front-editor')
+			'left_bottom' => __('Left bottom', 'front-editor'),
+			'left_top' => __('Left top', 'front-editor'),
+			'right_bottom' => __('Right bottom', 'front-editor'),
+			'right_top' => __('Right top', 'front-editor'),
 		];
 
 		foreach ($options as $val => $option) {
 			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		printf('<span style="padding-left:10px;">%s</span><br>', __('when user is adding the post what status it must have', 'front-editor'));
 	}
 
 	/**
@@ -251,7 +252,6 @@ class MenuSettings
 			echo sprintf('<option value="%s" %s >%s</option>', $val, selected($val, get_option($id), false), $option);
 		}
 		echo '</select>';
-		
 	}
 
 	/**

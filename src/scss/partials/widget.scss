@@ -11,13 +11,27 @@
     margin-bottom: 5px;
     font-family: Arial;
     position: fixed;
-    right: 15px;
-    bottom: 15px;
     border-radius: 5px;
     font-size: 17px;
     z-index: 999999999999;
     &:hover{
         color: #fff;
         opacity: .7;
+    }
+    &.right_bottom{
+        right: 15px;
+        bottom: 15px;
+    }
+    &.right_top{
+        right: 15px;
+        top: 50px;
+    }
+    &.left_bottom{
+        left: 15px;
+        bottom: 15px;
+    }
+    &.left_top{
+        left: 15px;
+        top: 50px;
     }
 }
