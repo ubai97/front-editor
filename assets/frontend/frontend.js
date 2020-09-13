@@ -6927,6 +6927,7 @@ var BfeEditor = /*#__PURE__*/function () {
         var formData = new FormData();
         var post_id = document.querySelector('#bfe-editor').getAttribute('post_id');
         formData.append('action', 'bfe_uploading_image');
+        console.log(post_id);
         formData.append('post_id', post_id);
 
         if (file !== null) {

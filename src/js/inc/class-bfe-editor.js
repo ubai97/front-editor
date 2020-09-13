@@ -184,6 +184,7 @@ export default class BfeEditor {
 
             formData.append('action', 'bfe_uploading_image')
 
+            console.log(post_id)
             formData.append('post_id', post_id)
 
             if (file !== null) {
