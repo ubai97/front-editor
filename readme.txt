@@ -2,9 +2,9 @@
 Contributors: aharonyan
 Tags: user post,front editor,post editor,frontend post,guest author,guest post
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,6 +142,11 @@ Works perfectly with or without Gutenberg Block Editor
 * Added post type selector.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+* Plugin title changed
+* Images in editor duplicating: bug fixed
+* Pictures are not attached to the article: bug fixed
 
 = 2.0.0 =
 * added sticky buttons when a post is very big
