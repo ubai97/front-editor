@@ -70,6 +70,7 @@
 }
 .select2-container--material .select2-selection .select2-selection__rendered {
     padding-left: 0;
+    padding-right: 0px;
 }
 .select2-container--material .select2-selection--single .select2-selection__rendered {
     float: left;
@@ -78,12 +79,9 @@
     float: right;
 }
 .select2-container--material .select2-selection--multiple {
-    /**
-  * Multiple selected options
-  */
-    /**
-  * Multiple selected option clear button
-  */
+    //Multiple selected options
+
+    // Multiple selected option clear button
 }
 .select2-container--material .select2-selection--multiple .select2-selection__rendered {
     width: 100%;
