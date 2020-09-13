@@ -95,6 +95,11 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Changelog ==
 
+= 2.0.1 =
+* Plugin title changed
+* Images in editor duplicating: bug fixed #32
+* Pictures are not attached to the article: bug fixed #39
+
 = 2.0.0 =
 * added sticky buttons when a post is very big
 * Added 'Edit' button position settings
