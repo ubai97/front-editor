@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 16:37+0000\n"
-"PO-Revision-Date: 2020-09-12 17:05+0000\n"
+"POT-Creation-Date: 2020-09-12 17:28+0000\n"
+"PO-Revision-Date: 2020-09-13 18:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -140,12 +140,13 @@ msgid "Short information"
 msgstr "Краткая информация"
 
 #: inc/MenuSettings.php:139
+#, php-format
 msgid ""
 "If you have some ideas or questions please contact me. \n"
-"\t\t\t\tThe contact information you can find on our website <strong><a "
-"href=\"https://wpfronteditor.com\" target=\"_blank\">wpfronteditor.com</a>"
-"</strong>"
+"\t\t\t\tThe contact information you can find on our website %s"
 msgstr ""
+"Если у вас есть идеи или вопросы, свяжитесь со мной.\n"
+"Контактную информацию вы можете найти на нашем сайте %s"
 
 #: inc/MenuSettings.php:150
 #, fuzzy, php-format

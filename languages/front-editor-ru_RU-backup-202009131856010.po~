@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 16:37+0000\n"
-"PO-Revision-Date: 2020-09-12 16:47+0000\n"
+"POT-Creation-Date: 2020-09-12 17:28+0000\n"
+"PO-Revision-Date: 2020-09-13 18:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -65,7 +65,7 @@ msgstr "Отключить данное поле"
 
 #: inc/Blocks.php:181
 msgid "The featured image is required"
-msgstr "Изображение записи не выбрано"
+msgstr "Изображение записи обязательна"
 
 #: inc/Blocks.php:224 inc/Blocks.php:271
 msgid "The category selection is required"
@@ -140,17 +140,14 @@ msgid "Short information"
 msgstr "Краткая информация"
 
 #: inc/MenuSettings.php:139
+#, php-format
 msgid ""
 "If you have some ideas or questions please contact me. \n"
-"\t\t\t\tThe contact information you can find on our website <strong><a "
-"href=\"https://wpfronteditor.com\" target=\"_blank\">wpfronteditor.com</a>"
-"</strong>"
+"\t\t\t\tThe contact information you can find on our website %s"
 msgstr ""
 
 #: inc/MenuSettings.php:150
 #, fuzzy, php-format
-#| "You can buy pro version or find additional information <a href=\"%s\">"
-#| "here</a> or add some ideas or issues in %s"
 msgid ""
 "You can buy pro version or find additional information <a href=\"%s\" "
 "target=\"_blank\">here</a> or add some ideas or issues in %s"
