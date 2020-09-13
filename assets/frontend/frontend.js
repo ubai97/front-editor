@@ -6925,7 +6925,9 @@ var BfeEditor = /*#__PURE__*/function () {
       var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       return new Promise(function (resolve, reject) {
         var formData = new FormData();
+        var post_id = document.querySelector('#bfe-editor').getAttribute('post_id');
         formData.append('action', 'bfe_uploading_image');
+        formData.append('post_id', post_id);
 
         if (file !== null) {
           formData.append('image', file);
@@ -6935,7 +6937,6 @@ var BfeEditor = /*#__PURE__*/function () {
           formData.append('image_url', url);
         }
 
-        formData.append('post_id', BfeEditor.get_bfee_data.post_id);
         fetch(BfeEditor.get_bfee_data.ajax_url, {
           method: 'POST',
           body: formData
