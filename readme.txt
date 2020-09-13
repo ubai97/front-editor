@@ -1,6 +1,6 @@
-=== Front Editor ===
+=== WP Front Editor & publisher ✅ Post Submission and editing Plugin for WordPress ===
 Contributors: aharonyan
-Tags: user post,front editor,wp front editor,post editor,frontend post,guest author,guest post
+Tags: user post,front editor,post editor,frontend post,guest author,guest post
 Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
@@ -8,23 +8,21 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+WP Front Editor & publisher the best frontend plugin for WordPress.
+
 == Description ==
-**Best Front Editor plugin for WordPress**
+**#1 User submitted posts | Frontend post submission plugin, enable visitors to submit posts from the frontend of your site with next-generation block styled editor.**
 
-== What are the purposes of using this plugin? == 
-* You can edit a post and add it without entering the admin panel  
-* If you have editors, they can add or edit the post even without having the access to admin panel
-* You can allow users to submit posts and edit them without the admin panel access, and you will get user-generated unique content
+== Submit and update anything from Frontend ==
+Users can upload files, fill out forms. Allow users to submit or update their posts from the frontend.
 
-== Futures ==
-* Post image
+== Post submission form futures ==
+We using a next-generation block styled editor!
+* Post featured image
 * Category Selection
-* Post type selection
-* [EditorJs](https://editorjs.io/)
-
-== EditorJS ==
+* Post tags
 * Header
-* Image uploading
+* Image
 * Embed
 * Quote
 * Marker
@@ -35,28 +33,22 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Inline Code
 * Table 
 
-EditorJs is similar to Gutenberg editor and we make integration with it!
+All these features can be enabled or disabled 
 
-**Core Features**
+EditorJs is similar to Gutenberg editor and we made integration with it!
 
-* Includes a fast & secure post-submission form
-* Display forms anywhere via shortcode or Gutenberg Block
-* Includes shortcode to display a list of submitted posts
-* Includes template tags to display submitted post content
-* You choose which fields to display on the post-submit form
-* Automatically display all submitted content on the frontend
-* NEW: Image preview thumbnails for selected images
-* Edit button on the post single pages
-* Added custom link to post row in Admin post page
-
-* Boost your site value with user-generated content!*
+*Boost your site value with user-generated content!*
 
 **Post Management**
-
 * Set posts to any status: Pending, Publish
 * One-click filtering of submitted posts on the Admin Posts page
+* Edit button on every your post to make editing efficient
+* Display or disable WordPress admin bar for only user or for all
 
-Plus much more! Too many features to list them all!
+
+== Please help us to improve the plugin ==
+For revision and issues [https://github.com/Aharonyan/front-editor/issues](https://github.com/Aharonyan/front-editor/issues)
+See our future plans *Roadmap* [https://github.com/Aharonyan/front-editor/projects/1](https://github.com/Aharonyan/front-editor/projects/1)
 
 == Pro Version ==
 *Front Editor Pro* now available [here](https://wpfronteditor.com/).
@@ -65,13 +57,13 @@ For more information please visit [our site](https://wpfronteditor.com/) .
 
 ==DEVELOPMENT OF THIS PLUGIN==
 Sources for those wishing to participate in the development: [https://github.com/Aharonyan/front-editor](https://github.com/Aharonyan/front-editor)
-For revision issues [https://github.com/Aharonyan/front-editor/issues](https://github.com/Aharonyan/front-editor/issues)
-Roadmap [https://github.com/Aharonyan/front-editor/projects/1](https://github.com/Aharonyan/front-editor/projects/1)
-
 
 == Installation ==
 Front Editor via Gutenberg block or shortcode that enables your visitors to submit posts and upload images. Just add the following shortcode to any Post, Page, or Widget:	
-Add Gutenberg block `Editor Block` or `[bfe-front-editor]`
+* Gutenberg block:`Front editor`
+* Shortcode: `[bfe-front-editor]`
+For user post list please add shortcode on another page:
+* Shortcode: [user_posts_list count="6"] , 'count' param can be any number 
 
 That's all there is to it! Your site now can accept user-generated content. Everything is super easy to customize via the Plugin Settings page.
 
@@ -80,9 +72,19 @@ That's all there is to it! Your site now can accept user-generated content. Ever
 * English - default, always included
 * Russian - ru_RU
 
-*Note:* All my plugins are localized/ translatable by default. For translating I recommend the awesome plugin [Loco Translate](https://wordpress.org/plugins/loco-translate/).
-
 == Frequently Asked Questions ==
+**Can I create new posts from frontend**
+Yes
+**Can I Edit my posts from frontend**
+Yes
+**Can I delete my posts from frontend**
+Yes
+**Can I upload photo/image/video**
+Yes
+**I am having problem with uploading files**
+Please check if you've specified the max upload size on setting
+**Can I translate plugin**
+Yes! plugins are localized/ translatable by default. For translating I recommend the awesome plugin [Loco Translate](https://wordpress.org/plugins/loco-translate/).
 **Is working with Gutenberg Block Editor ?**
 Works perfectly with or without Gutenberg Block Editor
 

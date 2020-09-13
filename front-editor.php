@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Front Editor
+ * Plugin Name: Front Editor & publisher
  * Plugin URI: https://wpfronteditor.com/
  * Description: Have you ever seen websites that allow users to submit posts or other type of content? Do you want to have user-submitted content on your site? Front Editor allow users to submit blog posts to your WordPress site with new frontend block editor EditorJs.
  * Author: Aleksan Aharonyan
