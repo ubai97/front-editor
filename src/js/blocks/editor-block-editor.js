@@ -8,9 +8,11 @@ import { withState } from '@wordpress/compose';
         Dropdown = components.Dropdown,
         Button = components.Button,
         BlockControls = blockEditor.BlockControls,
+        Disabled = blockEditor.Disabled,
         SelectControl = components.SelectControl,
         withState = compose.withState,
-        translations = editor_block_data.translations;
+        translations = editor_block_data.translations,
+        editor_pro_settings = editor_block_data.editor_pro_settings;
 
     blocks.registerBlockType('bfe/bfe-block', {
         title: __('Front Editor', 'front-editor'),
@@ -42,7 +44,7 @@ import { withState } from '@wordpress/compose';
             editor_header_plugin: {
                 type: 'boolean',
                 default: true
-            },  
+            },
             editor_embed_plugin: {
                 type: 'boolean',
                 default: true
@@ -102,7 +104,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Image block"
-                    help={ checked ? 'Activate image block.' : 'Disable image block.' }
+                    help={checked ? 'Activate image block.' : 'Disable image block.'}
                     id="editor_image_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -127,7 +129,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Header block"
-                    help={ checked ? 'Activate header block.' : 'Disable header block.' }
+                    help={checked ? 'Activate header block.' : 'Disable header block.'}
                     id="editor_header_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -152,7 +154,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Embed block"
-                    help={ checked ? 'Activate embed block.' : 'Disable embed block.' }
+                    help={checked ? 'Activate embed block.' : 'Disable embed block.'}
                     id="editor_embed_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -177,7 +179,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="List block"
-                    help={ checked ? 'Activate list block.' : 'Disable list block.' }
+                    help={checked ? 'Activate list block.' : 'Disable list block.'}
                     id="editor_list_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -202,7 +204,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Checklist block"
-                    help={ checked ? 'Activate checklist block.' : 'Disable checklist block.' }
+                    help={checked ? 'Activate checklist block.' : 'Disable checklist block.'}
                     id="editor_checklist_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -227,7 +229,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Quote block"
-                    help={ checked ? 'Activate quote block.' : 'Disable quote block.' }
+                    help={checked ? 'Activate quote block.' : 'Disable quote block.'}
                     id="editor_quote_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -252,7 +254,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Marker block"
-                    help={ checked ? 'Activate marker block.' : 'Disable marker block.' }
+                    help={checked ? 'Activate marker block.' : 'Disable marker block.'}
                     id="editor_marker_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -269,15 +271,15 @@ import { withState } from '@wordpress/compose';
                 />
             ));
 
-             /**
-             * EditorJS code plugin 
-             */
+            /**
+            * EditorJS code plugin 
+            */
             const EditorCodePlugin = withState({
                 checked: props.attributes.editor_code_plugin,
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Code block"
-                    help={ checked ? 'Activate code block.' : 'Disable code block.' }
+                    help={checked ? 'Activate code block.' : 'Disable code block.'}
                     id="editor_code_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -302,7 +304,7 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Delimiter block"
-                    help={ checked ? 'Activate delimiter block.' : 'Disable delimiter block.' }
+                    help={checked ? 'Activate delimiter block.' : 'Disable delimiter block.'}
                     id="editor_delimiter_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -326,24 +328,26 @@ import { withState } from '@wordpress/compose';
             const EditorTablePlugin = withState({
                 checked: props.attributes.editor_table_plugin,
             })(({ checked, setState }) => (
-                <ToggleControl
-                    label="Table block (PRO)"
-                    help={ 'You need pro version.' }
-                    id="editor_table_plugin"
-                    checked={checked}
-                    className="disabled"
-                    onChange={() => setState(state => {
-                        props.setAttributes({
-                            editor_table_plugin: !state.checked,
-                        })
-                        return (
-                            {
-                                checked: !state.checked
-                            }
-                        )
-                    }
-                    )}
-                />
+                <div className="editor_table_plugin  pro_version">
+                    <ToggleControl
+                        label="Table block (PRO)"
+                        help={'You need pro version.'}
+                        id="editor_table_plugin"
+                        checked={checked}
+                        className={editor_pro_settings.table_block ? '' : "disabled"}
+                        onChange={() => setState(state => {
+                            props.setAttributes({
+                                editor_table_plugin: !state.checked,
+                            })
+                            return (
+                                {
+                                    checked: !state.checked
+                                }
+                            )
+                        }
+                        )}
+                    />
+                </div>
             ));
 
             /**
@@ -352,24 +356,26 @@ import { withState } from '@wordpress/compose';
             const EditorWarningPlugin = withState({
                 checked: props.attributes.editor_warning_plugin,
             })(({ checked, setState }) => (
-                <ToggleControl
-                    label="Warning block (PRO)"
-                    help={ 'You need pro version.' }
-                    id="editor_warning_plugin"
-                    checked={checked}
-                    className="disabled"
-                    onChange={() => setState(state => {
-                        props.setAttributes({
-                            editor_warning_plugin: !state.checked,
-                        })
-                        return (
-                            {
-                                checked: !state.checked
-                            }
-                        )
-                    }
-                    )}
-                />
+                <div className="editor_warning_plugin  pro_version">
+                    <ToggleControl
+                        label="Warning block (PRO)"
+                        help={'You need pro version.'}
+                        id="editor_warning_plugin"
+                        checked={checked}
+                        className={editor_pro_settings.warning_block ? '' : "disabled"}
+                        onChange={() => setState(state => {
+                            props.setAttributes({
+                                editor_warning_plugin: !state.checked,
+                            })
+                            return (
+                                {
+                                    checked: !state.checked
+                                }
+                            )
+                        }
+                        )}
+                    />
+                </div>
             ));
 
             /**
@@ -378,27 +384,29 @@ import { withState } from '@wordpress/compose';
             const EditorGalleryPlugin = withState({
                 checked: props.attributes.editor_gallery_plugin,
             })(({ checked, setState }) => (
-                <ToggleControl
-                    label="Gallery block (PRO)"
-                    help={ 'Will be soon' }
-                    id="editor_gallery_plugin"
-                    checked={checked}
-                    className="disabled"
-                    onChange={() => setState(state => {
-                        props.setAttributes({
-                            editor_gallery_plugin: !state.checked,
-                        })
-                        return (
-                            {
-                                checked: !state.checked
-                            }
-                        )
-                    }
-                    )}
-                />
+                <div className="editor_gallery_plugin pro_version">
+                    <ToggleControl
+                        label="Gallery block (PRO)"
+                        help={'Will be soon'}
+                        id="editor_gallery_plugin"
+                        checked={checked}
+                        className={editor_pro_settings.gallery_block ? '' : "disabled"}
+                        onChange={() => setState(state => {
+                            props.setAttributes({
+                                editor_gallery_plugin: !state.checked,
+                            })
+                            return (
+                                {
+                                    checked: !state.checked
+                                }
+                            )
+                        }
+                        )}
+                    />
+                </div>
             ));
 
-            
+
 
             return (
 
@@ -416,7 +424,7 @@ import { withState } from '@wordpress/compose';
                             }}
                             options={[
                                 { value: 'publish', label: translations.publish },
-                                { value: 'pending', label: translations.pending},
+                                { value: 'pending', label: translations.pending },
                             ]}
                         />
                         <SelectControl

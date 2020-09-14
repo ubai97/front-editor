@@ -71,12 +71,17 @@ class Block
                 'require' => __('Display and require', 'front-editor'),
                 'disable' => __('Disable this field', 'front-editor'),
                 'editor_settings_title' => __('Editor plugins', 'front-editor')
+            ],
+            'editor_pro_settings' => [
+                'table_block' => false,
+                'warning_block' => false,
+                'gallery_block' => false
             ]
         ];
 
         wp_enqueue_script('bfe-block-script');
 
-        wp_localize_script('bfe-block-script', 'editor_block_data', $data);
+        wp_localize_script('bfe-block-script', 'editor_block_data', apply_filters('bfe_front_editor_backend_block_localize_data', $data));
     }
 
     /**

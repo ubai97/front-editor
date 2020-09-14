@@ -110,9 +110,11 @@ __webpack_require__.r(__webpack_exports__);
       Dropdown = components.Dropdown,
       Button = components.Button,
       BlockControls = blockEditor.BlockControls,
+      Disabled = blockEditor.Disabled,
       SelectControl = components.SelectControl,
       withState = compose.withState,
-      translations = editor_block_data.translations;
+      translations = editor_block_data.translations,
+      editor_pro_settings = editor_block_data.editor_pro_settings;
   blocks.registerBlockType('bfe/bfe-block', {
     title: __('Front Editor', 'front-editor'),
     icon: 'edit',
@@ -436,12 +438,14 @@ __webpack_require__.r(__webpack_exports__);
       })(function (_ref10) {
         var checked = _ref10.checked,
             setState = _ref10.setState;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+          className: "editor_table_plugin  pro_version"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Table block (PRO)",
           help: 'You need pro version.',
           id: "editor_table_plugin",
           checked: checked,
-          className: "disabled",
+          className: editor_pro_settings.table_block ? '' : "disabled",
           onChange: function onChange() {
             return setState(function (state) {
               props.setAttributes({
@@ -452,7 +456,7 @@ __webpack_require__.r(__webpack_exports__);
               };
             });
           }
-        });
+        }));
       });
       /**
        * EditorJS Warning plugin (PRO)
@@ -463,12 +467,14 @@ __webpack_require__.r(__webpack_exports__);
       })(function (_ref11) {
         var checked = _ref11.checked,
             setState = _ref11.setState;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+          className: "editor_warning_plugin  pro_version"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Warning block (PRO)",
           help: 'You need pro version.',
           id: "editor_warning_plugin",
           checked: checked,
-          className: "disabled",
+          className: editor_pro_settings.warning_block ? '' : "disabled",
           onChange: function onChange() {
             return setState(function (state) {
               props.setAttributes({
@@ -479,7 +485,7 @@ __webpack_require__.r(__webpack_exports__);
               };
             });
           }
-        });
+        }));
       });
       /**
        * EditorJS gallery plugin 
@@ -490,12 +496,14 @@ __webpack_require__.r(__webpack_exports__);
       })(function (_ref12) {
         var checked = _ref12.checked,
             setState = _ref12.setState;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+          className: "editor_gallery_plugin pro_version"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Gallery block (PRO)",
           help: 'Will be soon',
           id: "editor_gallery_plugin",
           checked: checked,
-          className: "disabled",
+          className: editor_pro_settings.gallery_block ? '' : "disabled",
           onChange: function onChange() {
             return setState(function (state) {
               props.setAttributes({
@@ -506,7 +514,7 @@ __webpack_require__.r(__webpack_exports__);
               };
             });
           }
-        });
+        }));
       });
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
         className: "editor-block-settings"

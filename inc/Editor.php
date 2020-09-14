@@ -297,6 +297,10 @@ class Editor
 				$html = ob_get_clean();
 				break;
 
+			case 'warning':
+				$html = sprintf('<figure class="warning"><figcaption>%s</figcaption><p>%s</p></figure>',$data['title'],$data['message']);
+				break;
+
 			case 'table':
 				ob_start();
 				require FE_Template_PATH . 'editor/table.php';
