@@ -220,18 +220,24 @@ class Block
     {
 
         $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
-        $post_category = sanitize_text_field($settings['post_category']);
+        $post_category_settings = sanitize_text_field($settings['post_category']);
+        $post_category_id = sanitize_text_field($_POST['category']);
 
-        if ($post_category === 'disable') {
+
+        if(empty($post_category_id)){
             return $post_data;
         }
 
-        if ($post_category === 'require' && empty($_POST['category'])) {
+        if ($post_category_settings === 'disable') {
+            return $post_data;
+        }
+
+        if ($post_category_settings === 'require' && empty($post_category_id)) {
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if (!empty($_POST['category'])) {
-            $post_data['post_category'] = [$_POST['category']];
+        if (!empty($post_category_id)) {
+            $post_data['post_category'] = [$post_category_id];
         }
 
         return $post_data;

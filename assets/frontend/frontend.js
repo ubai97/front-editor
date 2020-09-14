@@ -6738,12 +6738,12 @@ var BfeEditor = /*#__PURE__*/function () {
 
       if (category) {
         var selected_category = category.options[category.selectedIndex].value;
+        console.log(selected_category);
         formData.append('category', selected_category);
       }
 
       if (tags) {
         var selected_tags = jQuery(tags).select2("val");
-        console.log(selected_tags);
         formData.append('tags', selected_tags);
       }
 
