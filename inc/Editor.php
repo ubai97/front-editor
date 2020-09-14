@@ -56,8 +56,8 @@ class Editor
 		$post_id       = 'new';
 		$editor_data   = 'new';
 		$button_text   = __('Publish', 'front-editor');
-		$new_post_text = false;
 		$html_content  = '';
+		$new_post_link = self::get_editor_page_link();
 
 		update_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', [
 			'editor_post_status' => $attributes['editor_post_status'] ?? 'pending',
@@ -86,8 +86,6 @@ class Editor
 		}
 
 		if ('new' !== $post_id) {
-			$new_post_text = __('Add new', 'front-editor');
-			$new_post_link = self::get_editor_page_link();
 			/**
 			 * If we sending $editor_data = "" in js it will render $html_content data
 			 */

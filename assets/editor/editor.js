@@ -138,6 +138,10 @@ __webpack_require__.r(__webpack_exports__);
         type: 'string',
         default: 'display'
       },
+      add_new_button: {
+        type: 'string',
+        default: 'display'
+      },
       editor_image_plugin: {
         type: 'boolean',
         default: true
@@ -588,6 +592,24 @@ __webpack_require__.r(__webpack_exports__);
         }, {
           value: 'require',
           label: translations.require
+        }, {
+          value: 'disable',
+          label: translations.disable
+        }]
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+        label: translations.add_new_button,
+        value: props.attributes.add_new_button,
+        onChange: function onChange(value) {
+          props.setAttributes({
+            add_new_button: value
+          });
+        },
+        options: [{
+          value: 'display',
+          label: translations.display
+        }, {
+          value: 'always_display',
+          label: translations.always_display
         }, {
           value: 'disable',
           label: translations.disable

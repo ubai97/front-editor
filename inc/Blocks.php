@@ -68,6 +68,8 @@ class Block
                 'post_category' => __('Post category', 'front-editor'),
                 'post_tags' => __('Post tags', 'front-editor'),
                 'display' => __('Display', 'front-editor'),
+                'always_display' => __('Always display', 'front-editor'),
+                'add_new_button' => __('Add new button', 'front-editor'),
                 'require' => __('Display and require', 'front-editor'),
                 'disable' => __('Disable this field', 'front-editor'),
                 'editor_settings_title' => __('Editor plugins', 'front-editor')

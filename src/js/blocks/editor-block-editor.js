@@ -37,6 +37,10 @@ import { withState } from '@wordpress/compose';
                 type: 'string',
                 default: 'display'
             },
+            add_new_button: {
+                type: 'string',
+                default: 'display'
+            },
             editor_image_plugin: {
                 type: 'boolean',
                 default: true
@@ -93,6 +97,7 @@ import { withState } from '@wordpress/compose';
                 type: 'boolean',
                 default: false
             },
+            
         },
         edit: function (props) {
 
@@ -466,6 +471,20 @@ import { withState } from '@wordpress/compose';
                             options={[
                                 { value: 'display', label: translations.display },
                                 { value: 'require', label: translations.require },
+                                { value: 'disable', label: translations.disable }
+                            ]}
+                        />
+                        <SelectControl
+                            label={translations.add_new_button}
+                            value={props.attributes.add_new_button}
+                            onChange={(value) => {
+                                props.setAttributes({
+                                    add_new_button: value
+                                })
+                            }}
+                            options={[
+                                { value: 'display', label: translations.display },
+                                { value: 'always_display', label: translations.always_display },
                                 { value: 'disable', label: translations.disable }
                             ]}
                         />
