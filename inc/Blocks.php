@@ -273,12 +273,16 @@ class Block
             return $post_data;
         }
 
+        if(sanitize_text_field($_POST['tags']) === 'null'){
+            return $post_data;
+        }
+
         if ($post_tags === 'require' && empty($_POST['tags'])) {
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if (!empty($_POST['tags'])) {
-            $post_data['tags_input'] = explode(",", $_POST['tags']);
+        if (!empty($_POST['tags']) || $_POST['tags']) {
+            $post_data['tags_input'] = explode(",", sanitize_text_field($_POST['tags']));
         }
 
         return $post_data;
