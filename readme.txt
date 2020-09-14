@@ -95,7 +95,7 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Changelog ==
 
-== 2.0.2 ==
+= 2.0.2 =
 * Always show a “null” bug solved https://github.com/Aharonyan/front-editor/issues/45
 * Warning block fixed https://github.com/Aharonyan/front-editor/issues/25
 * Added editor plugins settings
@@ -150,7 +150,7 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Upgrade Notice ==
 
-== 2.0.2 ==
+= 2.0.2 =
 * Always show a “null” bug solved https://github.com/Aharonyan/front-editor/issues/45
 * Warning block fixed https://github.com/Aharonyan/front-editor/issues/25
 * Added editor plugins settings
