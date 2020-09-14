@@ -113,21 +113,38 @@ class Editor
 			$editor_data = self::example_editor_data();
 		}
 
-		$data = array(
+		$data = [
 			'ajax_url'          => admin_url('admin-ajax.php'),
 			'nonce'             => wp_create_nonce('bfe_nonce'),
 			'data'              => $editor_data,
 			'html_post_content' => $html_content,
-			'translations'      => array(
-				'save_button' => array(
+			'translations'      => [
+				'editor_field_placeholder' => __('Start writing or enter Tab to choose a block', 'front-editor'),
+				'save_button' => [
 					'publish'  => __('Publish', 'front-editor'),
 					'updating' => sprintf('%s...', __('Updating', 'front-editor')),
 					'update'   => __('Update', 'front-editor'),
-				),
-			),
-		);
+				],
+			],
+			'editor_settings' => [
+				'editor_image_plugin' => $attributes['editor_image_plugin'] ?? true,
+				'editor_header_plugin' => $attributes['editor_header_plugin'] ?? true,
+				'editor_embed_plugin' => $attributes['editor_embed_plugin'] ?? true,
+				'editor_list_plugin' => $attributes['editor_list_plugin'] ?? true,
+				'editor_checklist_plugin' => $attributes['editor_checklist_plugin'] ?? true,
+				'editor_quote_plugin' => $attributes['editor_quote_plugin'] ?? true,
+				'editor_marker_plugin' => $attributes['editor_marker_plugin'] ?? true,
+				'editor_code_plugin' => $attributes['editor_code_plugin'] ?? true,
+				'editor_delimiter_plugin' => $attributes['editor_delimiter_plugin'] ?? true,
+				'editor_inlineCode_plugin' => $attributes['editor_inlineCode_plugin'] ?? true,
+				'editor_linkTool_plugin' => $attributes['editor_linkTool_plugin'] ?? true,
+				'editor_warning_plugin' => false, // pro
+				'editor_table_plugin' => false, // pro
+				'editor_gallery_plugin' => false, // pro
+			]
+		];
 
-		wp_localize_script('bfee-editor.js', 'editor_data', $data);
+		wp_localize_script('bfee-editor.js', 'editor_data', apply_filters('bfe_front_editor_localize_data', $data, $attributes));
 
 		wp_enqueue_script('bfee-editor.js');
 

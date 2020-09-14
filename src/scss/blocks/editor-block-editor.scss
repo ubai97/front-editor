@@ -5,13 +5,11 @@
     .setting-wrap {
         display: flex;
         flex-wrap: wrap;
-        :not(:last-child){
-            margin-right: 8px;
-        }
+        justify-content: space-around;
         .components-base-control {
             select {
                 display: block;
-                max-width: 200px;
+                max-width: 132px;
             }
         }
     }

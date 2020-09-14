@@ -193,7 +193,7 @@ export default class BfeEditor {
             if (url !== null) {
                 formData.append('image_url', url)
             }
-            
+
             fetch(BfeEditor.get_bfee_data.ajax_url, {
                 method: 'POST',
                 body: formData
@@ -215,118 +215,141 @@ export default class BfeEditor {
      * Setting is set here
      */
     get editorSettings() {
-
+        const editor_settings = this.bfee_data.editor_settings;
         return {
             holder: 'bfe-editor-block',
+            placeholder: this.bfee_data.translations.editor_field_placeholder,
             autofocus: true,
             tools: {
-
-                header: {
-                    class: Header,
-                    inlineToolbar: true,
-                    config: {
-                        placeholder: 'Enter a header',
-                        levels: [2, 3, 4],
-                        defaultLevel: 3
-                    },
-                    shortcut: 'CMD+SHIFT+H'
-                },
-
-                image: {
-                    class: ImageTool,
-                    inlineToolbar: true,
-                    config: {
-                        uploader: {
-                            uploadByFile(file) {
-                                return BfeEditor.uploadImage(file).then(data => {
-                                    if (!data.success) {
-                                        BfeEditor.bfee_editor.notifier.show({
-                                            message: data.data.message ?? 'Something goes wrong try later',
-                                            style: 'error',
-                                        });
-                                        return { "success": 0 };
-                                    }
-                                    return {
-                                        "success": 1,
-                                        "file": {
-                                            "url": data.data.url,
-                                        }
-                                    };
-                                })
-                            },
-                            uploadByUrl(url) {
-                                return BfeEditor.uploadImage(null, url).then(data => {
-                                    if (!data.success) {
-                                        BfeEditor.bfee_editor.notifier.show({
-                                            message: data.data.message ?? 'Something goes wrong try later',
-                                            style: 'error',
-                                        });
-                                        return { "success": 0 };
-                                    }
-                                    return {
-                                        "success": 1,
-                                        "file": {
-                                            "url": data.data.url,
-                                        }
-                                    };
-                                })
-                            }
-
-                        }
-
+                ...(editor_settings.editor_header_plugin && {
+                    header: {
+                        class: Header,
+                        inlineToolbar: true,
+                        config: {
+                            placeholder: 'Enter a header',
+                            levels: [2, 3, 4],
+                            defaultLevel: 3
+                        },
+                        shortcut: 'CMD+SHIFT+H'
                     }
-                },
+                }),
 
-                list: {
-                    class: List,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+SHIFT+L'
-                },
+                ...(editor_settings.editor_image_plugin && {
+                    image: {
+                        class: ImageTool,
+                        inlineToolbar: true,
+                        config: {
+                            uploader: {
+                                uploadByFile(file) {
+                                    return BfeEditor.uploadImage(file).then(data => {
+                                        if (!data.success) {
+                                            BfeEditor.bfee_editor.notifier.show({
+                                                message: data.data.message ?? 'Something goes wrong try later',
+                                                style: 'error',
+                                            });
+                                            return { "success": 0 };
+                                        }
+                                        return {
+                                            "success": 1,
+                                            "file": {
+                                                "url": data.data.url,
+                                            }
+                                        };
+                                    })
+                                },
+                                uploadByUrl(url) {
+                                    return BfeEditor.uploadImage(null, url).then(data => {
+                                        if (!data.success) {
+                                            BfeEditor.bfee_editor.notifier.show({
+                                                message: data.data.message ?? 'Something goes wrong try later',
+                                                style: 'error',
+                                            });
+                                            return { "success": 0 };
+                                        }
+                                        return {
+                                            "success": 1,
+                                            "file": {
+                                                "url": data.data.url,
+                                            }
+                                        };
+                                    })
+                                }
+    
+                            }
+    
+                        }
+                    }
+                }),
 
-                checklist: {
-                    class: Checklist,
-                    inlineToolbar: true,
-                },
+                ...(editor_settings.editor_list_plugin && {
+                    list: {
+                        class: List,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+SHIFT+L'
+                    }
+                }),
 
-                quote: {
-                    class: Quote,
-                    inlineToolbar: true,
-                    config: {
-                        quotePlaceholder: 'Enter a quote',
-                        captionPlaceholder: 'Quote\'s author',
+                ...(editor_settings.editor_checklist_plugin && {
+                    checklist: {
+                        class: Checklist,
+                        inlineToolbar: true,
+                    }
+                }),
+
+                ...(editor_settings.editor_quote_plugin && {
+                    quote: {
+                        class: Quote,
+                        inlineToolbar: true,
+                        config: {
+                            quotePlaceholder: 'Enter a quote',
+                            captionPlaceholder: 'Quote\'s author',
+                        },
+                        shortcut: 'CMD+SHIFT+O'
                     },
-                    shortcut: 'CMD+SHIFT+O'
-                },
+                }),
 
-                warning: Warning,
+                ...(editor_settings.editor_warning_plugin && {
+                    warning: Warning,
+                }),
 
-                marker: {
-                    class: Marker,
-                    shortcut: 'CMD+SHIFT+M'
-                },
+                ...(editor_settings.editor_marker_plugin && {
+                    marker: {
+                        class: Marker,
+                        shortcut: 'CMD+SHIFT+M'
+                    }
+                }),
 
-                code: {
-                    class: CodeTool,
-                    shortcut: 'CMD+SHIFT+C'
-                },
+                ...(editor_settings.editor_code_plugin && {
+                    code: {
+                        class: CodeTool,
+                        shortcut: 'CMD+SHIFT+C'
+                    },
+                }),
 
-                delimiter: Delimiter,
+                ...(editor_settings.editor_delimiter_plugin && {
+                    delimiter: Delimiter
+                }),
 
-                inlineCode: {
-                    class: InlineCode,
-                    shortcut: 'CMD+SHIFT+C'
-                },
+                ...(editor_settings.editor_inlineCode_plugin && {
+                    inlineCode: {
+                        class: InlineCode,
+                        shortcut: 'CMD+SHIFT+C'
+                    },
+                }),
+
+                ...(editor_settings.editor_embed_plugin && {
+                    embed: Embed,
+                }),
+
+                ...(editor_settings.editor_table_plugin && {
+                    table: {
+                        class: Table,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+ALT+T'
+                    },
+                }),
 
                 //linkTool: LinkTool,
-
-                embed: Embed,
-
-                table: {
-                    class: Table,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+ALT+T'
-                },
-
             },
 
             initialBlock: 'paragraph',
@@ -335,7 +358,6 @@ export default class BfeEditor {
                 blocks: this.bfee_data.data.blocks
             },
             onReady: () => {
-                console.log(this.bfee_data.data);
                 if (!this.bfee_data.data) {
                     this.bfee_editor.blocks.renderFromHTML(this.bfee_data.html_post_content)
                         .catch(error => {
