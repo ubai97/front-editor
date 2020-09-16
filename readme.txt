@@ -44,7 +44,7 @@ All these features can be enabled or disabled
 * Display or disable WordPress admin bar for only user or for all
 
 == DEMO LOGIN DETAILS ==
-* [Login Here](https://demo.wpfronteditor.com/wp-login.php)
+* [Login Here](http://demo.wpfronteditor.com/wp-login.php)
 * Username: Demo
 * Password: Demo
 
