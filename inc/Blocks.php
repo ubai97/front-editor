@@ -26,9 +26,9 @@ class Block
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'add_post_image_selection'], 12);
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'image_on_save_check'], 10, 3);
         // category selection addon
-        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'category_select'], 13);
+        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'category_select'], 13, 2);
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3);
-        
+
         // tag selection addon
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'tag_select'], 13);
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_tag_on_save_and_check'], 10, 3);
@@ -67,13 +67,18 @@ class Block
                 'title' => __('Front editor settings', 'front-editor'),
                 'post_image' => __('Post image', 'front-editor'),
                 'post_category' => __('Post category', 'front-editor'),
+                'show_empty_category' => __('Show empty categories', 'front-editor'),
+                'category_multiple' => __('Choose multiple category', 'front-editor'),
+                'category_settings_title' => __('Category settings', 'front-editor'),
                 'post_tags' => __('Post tags', 'front-editor'),
+                'tags_settings_title' => __('Tags settings', 'front-editor'),
+                'tags_add_new' => __('Ability to add new tags', 'front-editor'),
                 'display' => __('Display', 'front-editor'),
                 'always_display' => __('Always display', 'front-editor'),
                 'add_new_button' => __('Add new button', 'front-editor'),
                 'require' => __('Display and require', 'front-editor'),
                 'disable' => __('Disable this field', 'front-editor'),
-                'editor_settings_title' => __('Editor plugins', 'front-editor')
+                'editor_settings_title' => __('Editor plugins', 'front-editor'),
             ],
             'editor_pro_settings' => [
                 'table_block' => false,
@@ -133,7 +138,7 @@ class Block
      */
     public static function add_post_status_check($post_data, $data, $file)
     {
-        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta', 1);
         $post_status = sanitize_text_field($settings['editor_post_status']);
 
         if (empty($post_status)) {
@@ -153,7 +158,7 @@ class Block
     public static function add_post_image_selection($post_id)
     {
 
-        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta',1);
+        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', 1);
         $post_image = sanitize_text_field($settings['post_image']);
 
         if ($post_image === 'disable') {
@@ -174,7 +179,7 @@ class Block
     public static function image_on_save_check($post_data, $data, $file)
     {
 
-        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta', 1);
         $post_image = sanitize_text_field($settings['post_image']);
         $is_featured_image_exist = $_POST['thumb_exist'] ?? 0;
 
@@ -198,9 +203,9 @@ class Block
      *
      * @return void
      */
-    public static function category_select($post_id)
+    public static function category_select($post_id, $attributes)
     {
-        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta',1);
+        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', 1);
         $post_category = sanitize_text_field($settings['post_category']);
 
         if ($post_category === 'disable') {
@@ -221,11 +226,11 @@ class Block
      */
     public static function add_category_on_save_and_check($post_data, $data, $file)
     {
-        if(empty($_POST['category'])){
+        if (empty($_POST['category'])) {
             return $post_data;
         }
 
-        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta', 1);
         $post_category_settings = sanitize_text_field($settings['post_category']);
         $post_category_val = sanitize_text_field($_POST['category']);
         $post_id = intval(sanitize_text_field($_POST['post_id']));
@@ -238,9 +243,9 @@ class Block
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if($post_category_val === 'null'){
-            if($post_id){
-                wp_delete_object_term_relationships($post_id,'category');
+        if ($post_category_val === 'null') {
+            if ($post_id) {
+                wp_delete_object_term_relationships($post_id, 'category');
             }
         }
 
@@ -258,7 +263,7 @@ class Block
      */
     public static function tag_select($post_id)
     {
-        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta',1);
+        $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', 1);
         $post_tags = sanitize_text_field($settings['post_tags']);
 
         if ($post_tags === 'disable') {
@@ -280,12 +285,12 @@ class Block
     public static function add_tag_on_save_and_check($post_data, $data, $file)
     {
 
-        if(empty($_POST['tags'])){
+        if (empty($_POST['tags'])) {
             return $post_data;
         }
 
-        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
-        $post_tags= sanitize_text_field($settings['post_tags']);
+        $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta', 1);
+        $post_tags = sanitize_text_field($settings['post_tags']);
 
         if ($post_tags === 'disable') {
             return $post_data;
@@ -295,7 +300,7 @@ class Block
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if(sanitize_text_field($_POST['tags']) === 'null'){
+        if (sanitize_text_field($_POST['tags']) === 'null') {
             $post_data['tags_input'] = [];
         }
 

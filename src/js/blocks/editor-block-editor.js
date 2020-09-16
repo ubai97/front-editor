@@ -9,6 +9,7 @@ import { withState } from '@wordpress/compose';
         Button = components.Button,
         BlockControls = blockEditor.BlockControls,
         Disabled = blockEditor.Disabled,
+        InputControl = components.__experimentalInputControl,
         SelectControl = components.SelectControl,
         withState = compose.withState,
         translations = editor_block_data.translations,
@@ -33,9 +34,21 @@ import { withState } from '@wordpress/compose';
                 type: 'string',
                 default: 'display'
             },
+            category_show_empty: {
+                type: 'boolean',
+                default: true
+            },
+            category_multiple: {
+                type: 'boolean',
+                default: false
+            },
             post_tags: {
                 type: 'string',
                 default: 'display'
+            },
+            tags_add_new: {
+                type: 'boolean',
+                default: false
             },
             add_new_button: {
                 type: 'string',
@@ -97,9 +110,81 @@ import { withState } from '@wordpress/compose';
                 type: 'boolean',
                 default: false
             },
-            
+
         },
         edit: function (props) {
+
+            /**
+             * Category show empty
+             */
+            const CategoryShowEmpty = withState({
+                checked: props.attributes.category_show_empty,
+            })(({ checked, setState }) => (
+                <ToggleControl
+                    label={translations.show_empty_category}
+                    id="category_show_empty"
+                    checked={checked}
+                    onChange={() => setState(state => {
+                        props.setAttributes({
+                            category_show_empty: !state.checked,
+                        })
+                        return (
+                            {
+                                checked: !state.checked
+                            }
+                        )
+                    }
+                    )}
+                />
+            ));
+
+            /**
+            * Category multiple settings
+            */
+            const CategoryMultiple = withState({
+                checked: props.attributes.category_multiple,
+            })(({ checked, setState }) => (
+                <ToggleControl
+                    label={translations.category_multiple}
+                    id="category_multiple"
+                    checked={checked}
+                    onChange={() => setState(state => {
+                        props.setAttributes({
+                            category_multiple: !state.checked,
+                        })
+                        return (
+                            {
+                                checked: !state.checked
+                            }
+                        )
+                    }
+                    )}
+                />
+            ));
+
+            /**
+             * Tags can add new one
+             */
+            const TagsAddNew = withState({
+                checked: props.attributes.tags_add_new,
+            })(({ checked, setState }) => (
+                <ToggleControl
+                    label={translations.tags_add_new}
+                    id="tags_add_new"
+                    checked={checked}
+                    onChange={() => setState(state => {
+                        props.setAttributes({
+                            tags_add_new: !state.checked,
+                        })
+                        return (
+                            {
+                                checked: !state.checked
+                            }
+                        )
+                    }
+                    )}
+                />
+            ));
 
             /**
              * EditorJS image plugin 
@@ -109,7 +194,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Image block"
-                    help={checked ? 'Activate image block.' : 'Disable image block.'}
                     id="editor_image_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -134,7 +218,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Header block"
-                    help={checked ? 'Activate header block.' : 'Disable header block.'}
                     id="editor_header_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -159,7 +242,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Embed block"
-                    help={checked ? 'Activate embed block.' : 'Disable embed block.'}
                     id="editor_embed_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -184,7 +266,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="List block"
-                    help={checked ? 'Activate list block.' : 'Disable list block.'}
                     id="editor_list_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -209,7 +290,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Checklist block"
-                    help={checked ? 'Activate checklist block.' : 'Disable checklist block.'}
                     id="editor_checklist_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -234,7 +314,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Quote block"
-                    help={checked ? 'Activate quote block.' : 'Disable quote block.'}
                     id="editor_quote_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -259,7 +338,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Marker block"
-                    help={checked ? 'Activate marker block.' : 'Disable marker block.'}
                     id="editor_marker_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -284,7 +362,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Code block"
-                    help={checked ? 'Activate code block.' : 'Disable code block.'}
                     id="editor_code_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -309,7 +386,6 @@ import { withState } from '@wordpress/compose';
             })(({ checked, setState }) => (
                 <ToggleControl
                     label="Delimiter block"
-                    help={checked ? 'Activate delimiter block.' : 'Disable delimiter block.'}
                     id="editor_delimiter_plugin"
                     checked={checked}
                     onChange={() => setState(state => {
@@ -414,7 +490,6 @@ import { withState } from '@wordpress/compose';
 
 
             return (
-
                 <div className="editor-block-settings">
                     <h3 className="title">{translations.title}</h3>
                     <div className="setting-wrap header-settings">
@@ -460,6 +535,7 @@ import { withState } from '@wordpress/compose';
                                 { value: 'disable', label: translations.disable }
                             ]}
                         />
+
                         <SelectControl
                             label={translations.post_tags}
                             value={props.attributes.post_tags}
@@ -489,6 +565,19 @@ import { withState } from '@wordpress/compose';
                             ]}
                         />
                     </div>
+                    {(props.attributes.post_category !== 'disable') && <div>
+                        <h5>{translations.category_settings_title}</h5>
+                        <div className="setting-wrap">
+                            <CategoryShowEmpty />
+                            <CategoryMultiple />
+                        </div>
+                    </div>}
+                    {(props.attributes.post_tags !== 'disable') && <div>
+                        <h5>{translations.tags_settings_title}</h5>
+                        <div className="setting-wrap">
+                            <TagsAddNew />
+                        </div>
+                    </div>}
                     <h4 className="title">{translations.editor_settings_title}</h4>
                     <div className="setting-wrap editor-settings">
                         <EditorImagePlugin />
@@ -504,8 +593,7 @@ import { withState } from '@wordpress/compose';
                         <EditorTablePlugin />
                         <EditorGalleryPlugin />
                     </div>
-
-                </div>
+                </div >
             );
         },
         save: function (props) {

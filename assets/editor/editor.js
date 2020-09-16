@@ -111,6 +111,7 @@ __webpack_require__.r(__webpack_exports__);
       Button = components.Button,
       BlockControls = blockEditor.BlockControls,
       Disabled = blockEditor.Disabled,
+      InputControl = components.__experimentalInputControl,
       SelectControl = components.SelectControl,
       withState = compose.withState,
       translations = editor_block_data.translations,
@@ -134,9 +135,21 @@ __webpack_require__.r(__webpack_exports__);
         type: 'string',
         default: 'display'
       },
+      category_show_empty: {
+        type: 'boolean',
+        default: true
+      },
+      category_multiple: {
+        type: 'boolean',
+        default: false
+      },
       post_tags: {
         type: 'string',
         default: 'display'
+      },
+      tags_add_new: {
+        type: 'boolean',
+        default: false
       },
       add_new_button: {
         type: 'string',
@@ -201,16 +214,90 @@ __webpack_require__.r(__webpack_exports__);
     },
     edit: function edit(props) {
       /**
-       * EditorJS image plugin 
+       * Category show empty
        */
-      var EditorImagePlugin = withState({
-        checked: props.attributes.editor_image_plugin
+      var CategoryShowEmpty = withState({
+        checked: props.attributes.category_show_empty
       })(function (_ref) {
         var checked = _ref.checked,
             setState = _ref.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+          label: translations.show_empty_category,
+          id: "category_show_empty",
+          checked: checked,
+          onChange: function onChange() {
+            return setState(function (state) {
+              props.setAttributes({
+                category_show_empty: !state.checked
+              });
+              return {
+                checked: !state.checked
+              };
+            });
+          }
+        });
+      });
+      /**
+      * Category multiple settings
+      */
+
+      var CategoryMultiple = withState({
+        checked: props.attributes.category_multiple
+      })(function (_ref2) {
+        var checked = _ref2.checked,
+            setState = _ref2.setState;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+          label: translations.category_multiple,
+          id: "category_multiple",
+          checked: checked,
+          onChange: function onChange() {
+            return setState(function (state) {
+              props.setAttributes({
+                category_multiple: !state.checked
+              });
+              return {
+                checked: !state.checked
+              };
+            });
+          }
+        });
+      });
+      /**
+       * Tags can add new one
+       */
+
+      var TagsAddNew = withState({
+        checked: props.attributes.tags_add_new
+      })(function (_ref3) {
+        var checked = _ref3.checked,
+            setState = _ref3.setState;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+          label: translations.tags_add_new,
+          id: "tags_add_new",
+          checked: checked,
+          onChange: function onChange() {
+            return setState(function (state) {
+              props.setAttributes({
+                tags_add_new: !state.checked
+              });
+              return {
+                checked: !state.checked
+              };
+            });
+          }
+        });
+      });
+      /**
+       * EditorJS image plugin 
+       */
+
+      var EditorImagePlugin = withState({
+        checked: props.attributes.editor_image_plugin
+      })(function (_ref4) {
+        var checked = _ref4.checked,
+            setState = _ref4.setState;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Image block",
-          help: checked ? 'Activate image block.' : 'Disable image block.',
           id: "editor_image_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -231,12 +318,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorHeaderPlugin = withState({
         checked: props.attributes.editor_header_plugin
-      })(function (_ref2) {
-        var checked = _ref2.checked,
-            setState = _ref2.setState;
+      })(function (_ref5) {
+        var checked = _ref5.checked,
+            setState = _ref5.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Header block",
-          help: checked ? 'Activate header block.' : 'Disable header block.',
           id: "editor_header_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -257,12 +343,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorEmbedPlugin = withState({
         checked: props.attributes.editor_embed_plugin
-      })(function (_ref3) {
-        var checked = _ref3.checked,
-            setState = _ref3.setState;
+      })(function (_ref6) {
+        var checked = _ref6.checked,
+            setState = _ref6.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Embed block",
-          help: checked ? 'Activate embed block.' : 'Disable embed block.',
           id: "editor_embed_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -283,12 +368,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorListPlugin = withState({
         checked: props.attributes.editor_list_plugin
-      })(function (_ref4) {
-        var checked = _ref4.checked,
-            setState = _ref4.setState;
+      })(function (_ref7) {
+        var checked = _ref7.checked,
+            setState = _ref7.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "List block",
-          help: checked ? 'Activate list block.' : 'Disable list block.',
           id: "editor_list_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -309,12 +393,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorChecklistPlugin = withState({
         checked: props.attributes.editor_checklist_plugin
-      })(function (_ref5) {
-        var checked = _ref5.checked,
-            setState = _ref5.setState;
+      })(function (_ref8) {
+        var checked = _ref8.checked,
+            setState = _ref8.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Checklist block",
-          help: checked ? 'Activate checklist block.' : 'Disable checklist block.',
           id: "editor_checklist_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -335,12 +418,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorQuotePlugin = withState({
         checked: props.attributes.editor_quote_plugin
-      })(function (_ref6) {
-        var checked = _ref6.checked,
-            setState = _ref6.setState;
+      })(function (_ref9) {
+        var checked = _ref9.checked,
+            setState = _ref9.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Quote block",
-          help: checked ? 'Activate quote block.' : 'Disable quote block.',
           id: "editor_quote_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -361,12 +443,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorMarkerPlugin = withState({
         checked: props.attributes.editor_marker_plugin
-      })(function (_ref7) {
-        var checked = _ref7.checked,
-            setState = _ref7.setState;
+      })(function (_ref10) {
+        var checked = _ref10.checked,
+            setState = _ref10.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Marker block",
-          help: checked ? 'Activate marker block.' : 'Disable marker block.',
           id: "editor_marker_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -387,12 +468,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorCodePlugin = withState({
         checked: props.attributes.editor_code_plugin
-      })(function (_ref8) {
-        var checked = _ref8.checked,
-            setState = _ref8.setState;
+      })(function (_ref11) {
+        var checked = _ref11.checked,
+            setState = _ref11.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Code block",
-          help: checked ? 'Activate code block.' : 'Disable code block.',
           id: "editor_code_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -413,12 +493,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorDelimiterPlugin = withState({
         checked: props.attributes.editor_delimiter_plugin
-      })(function (_ref9) {
-        var checked = _ref9.checked,
-            setState = _ref9.setState;
+      })(function (_ref12) {
+        var checked = _ref12.checked,
+            setState = _ref12.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Delimiter block",
-          help: checked ? 'Activate delimiter block.' : 'Disable delimiter block.',
           id: "editor_delimiter_plugin",
           checked: checked,
           onChange: function onChange() {
@@ -439,9 +518,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorTablePlugin = withState({
         checked: props.attributes.editor_table_plugin
-      })(function (_ref10) {
-        var checked = _ref10.checked,
-            setState = _ref10.setState;
+      })(function (_ref13) {
+        var checked = _ref13.checked,
+            setState = _ref13.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
           className: "editor_table_plugin  pro_version"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
@@ -468,9 +547,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorWarningPlugin = withState({
         checked: props.attributes.editor_warning_plugin
-      })(function (_ref11) {
-        var checked = _ref11.checked,
-            setState = _ref11.setState;
+      })(function (_ref14) {
+        var checked = _ref14.checked,
+            setState = _ref14.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
           className: "editor_warning_plugin  pro_version"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
@@ -497,9 +576,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var EditorGalleryPlugin = withState({
         checked: props.attributes.editor_gallery_plugin
-      })(function (_ref12) {
-        var checked = _ref12.checked,
-            setState = _ref12.setState;
+      })(function (_ref15) {
+        var checked = _ref15.checked,
+            setState = _ref15.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
           className: "editor_gallery_plugin pro_version"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
@@ -614,7 +693,11 @@ __webpack_require__.r(__webpack_exports__);
           value: 'disable',
           label: translations.disable
         }]
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h4", {
+      })), props.attributes.post_category !== 'disable' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h5", null, translations.category_settings_title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        className: "setting-wrap"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(CategoryShowEmpty, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(CategoryMultiple, null))), props.attributes.post_tags !== 'disable' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h5", null, translations.tags_settings_title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        className: "setting-wrap"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagsAddNew, null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h4", {
         className: "title"
       }, translations.editor_settings_title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
         className: "setting-wrap editor-settings"
