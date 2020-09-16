@@ -144,22 +144,26 @@ import { withState } from '@wordpress/compose';
             const CategoryMultiple = withState({
                 checked: props.attributes.category_multiple,
             })(({ checked, setState }) => (
-                <ToggleControl
-                    label={translations.category_multiple}
-                    id="category_multiple"
-                    checked={checked}
-                    onChange={() => setState(state => {
-                        props.setAttributes({
-                            category_multiple: !state.checked,
-                        })
-                        return (
-                            {
-                                checked: !state.checked
-                            }
-                        )
-                    }
-                    )}
-                />
+                <div className="editor_table_plugin  pro_version">
+                    <ToggleControl
+                        label={translations.category_multiple}
+                        id="category_multiple"
+                        help={translations.only_in_pro}
+                        checked={checked}
+                        className={editor_pro_settings.category_multiple ? '' : "disabled"}
+                        onChange={() => setState(state => {
+                            props.setAttributes({
+                                category_multiple: !state.checked,
+                            })
+                            return (
+                                {
+                                    checked: !state.checked
+                                }
+                            )
+                        }
+                        )}
+                    />
+                </div>
             ));
 
             /**
@@ -412,7 +416,7 @@ import { withState } from '@wordpress/compose';
                 <div className="editor_table_plugin  pro_version">
                     <ToggleControl
                         label="Table block (PRO)"
-                        help={'You need pro version.'}
+                        help={translations.only_in_pro}
                         id="editor_table_plugin"
                         checked={checked}
                         className={editor_pro_settings.table_block ? '' : "disabled"}
@@ -440,7 +444,7 @@ import { withState } from '@wordpress/compose';
                 <div className="editor_warning_plugin  pro_version">
                     <ToggleControl
                         label="Warning block (PRO)"
-                        help={'You need pro version.'}
+                        help={translations.only_in_pro}
                         id="editor_warning_plugin"
                         checked={checked}
                         className={editor_pro_settings.warning_block ? '' : "disabled"}

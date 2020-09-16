@@ -136,6 +136,7 @@ class Editor
 				'editor_delimiter_plugin' => $attributes['editor_delimiter_plugin'] ?? true,
 				'editor_inlineCode_plugin' => $attributes['editor_inlineCode_plugin'] ?? true,
 				'editor_linkTool_plugin' => $attributes['editor_linkTool_plugin'] ?? true,
+				'tags_add_new' => $attributes['tags_add_new'] ?? false,
 				'editor_warning_plugin' => false, // pro
 				'editor_table_plugin' => false, // pro
 				'editor_gallery_plugin' => false, // pro

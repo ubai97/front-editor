@@ -30,7 +30,7 @@ class Block
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3);
 
         // tag selection addon
-        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'tag_select'], 13);
+        add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'tag_select'], 13, 2);
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_tag_on_save_and_check'], 10, 3);
     }
 
@@ -68,7 +68,7 @@ class Block
                 'post_image' => __('Post image', 'front-editor'),
                 'post_category' => __('Post category', 'front-editor'),
                 'show_empty_category' => __('Show empty categories', 'front-editor'),
-                'category_multiple' => __('Choose multiple category', 'front-editor'),
+                'category_multiple' => __('Choose multiple categories', 'front-editor'),
                 'category_settings_title' => __('Category settings', 'front-editor'),
                 'post_tags' => __('Post tags', 'front-editor'),
                 'tags_settings_title' => __('Tags settings', 'front-editor'),
@@ -79,11 +79,13 @@ class Block
                 'require' => __('Display and require', 'front-editor'),
                 'disable' => __('Disable this field', 'front-editor'),
                 'editor_settings_title' => __('Editor plugins', 'front-editor'),
+                'only_in_pro' => __('Available only in pro version.', 'front-editor'),
             ],
             'editor_pro_settings' => [
                 'table_block' => false,
                 'warning_block' => false,
-                'gallery_block' => false
+                'gallery_block' => false,
+                'category_multiple' => false
             ]
         ];
 
@@ -261,7 +263,7 @@ class Block
      *
      * @return void
      */
-    public static function tag_select($post_id)
+    public static function tag_select($post_id, $attributes)
     {
         $settings = get_post_meta(get_the_ID(), 'save_editor_attributes_to_meta', 1);
         $post_tags = sanitize_text_field($settings['post_tags']);

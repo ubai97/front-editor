@@ -5,10 +5,13 @@ import SlimSelect from 'slim-select';
 var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
+    const fe_data = window.editor_data;
 
+    console.log(fe_data);
     let category_select = $('#bfe-category'),
         tags_select = $('#bfe-tags'),
-        deselectLabel = '<span >✖</span>';
+        deselectLabel = '<span >✖</span>',
+        is_addable_tags = fe_data.editor_settings.tags_add_new;
 
     /**
      * SlimSelect for category
@@ -32,9 +35,12 @@ if ($("#bfe-editor-block")[0]) {
             placeholder: tags_select.data('placeholder'),
             hideSelectedOption: true,
             deselectLabel: deselectLabel,
-            addable:(value)=>{return AddableSlimSelect(value)}
+            ...(is_addable_tags
+                && { addable: (value) => { return AddableSlimSelect(value) } }
+            )
         })
     }
+
 
     /**
      * New value adding function

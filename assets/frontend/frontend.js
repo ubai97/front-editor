@@ -409,23 +409,34 @@ var i=function(){function e(t){var n=t.data,r=t.config,o=t.api;!function(e,t){if
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _inc_class_bfe_editor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../inc/class-bfe-editor.js */ "./src/js/inc/class-bfe-editor.js");
-/* harmony import */ var slim_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! slim-select */ "./node_modules/slim-select/dist/slimselect.min.js");
-/* harmony import */ var slim_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(slim_select__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _inc_class_bfe_editor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../inc/class-bfe-editor.js */ "./src/js/inc/class-bfe-editor.js");
+/* harmony import */ var slim_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! slim-select */ "./node_modules/slim-select/dist/slimselect.min.js");
+/* harmony import */ var slim_select__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(slim_select__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
+  var fe_data = window.editor_data;
+  console.log(fe_data);
   var category_select = $('#bfe-category'),
       tags_select = $('#bfe-tags'),
-      deselectLabel = '<span >✖</span>';
+      deselectLabel = '<span >✖</span>',
+      is_addable_tags = fe_data.editor_settings.tags_add_new;
   /**
    * SlimSelect for category
    */
 
   if (category_select.length > 0) {
-    new slim_select__WEBPACK_IMPORTED_MODULE_1___default.a({
+    new slim_select__WEBPACK_IMPORTED_MODULE_2___default.a({
       select: '#bfe-category',
       placeholder: category_select.data('placeholder'),
       deselectLabel: deselectLabel,
@@ -439,15 +450,16 @@ if ($("#bfe-editor-block")[0]) {
 
 
   if (tags_select.length > 0) {
-    new slim_select__WEBPACK_IMPORTED_MODULE_1___default.a({
+    new slim_select__WEBPACK_IMPORTED_MODULE_2___default.a(_objectSpread({
       select: '#bfe-tags',
       placeholder: tags_select.data('placeholder'),
       hideSelectedOption: true,
-      deselectLabel: deselectLabel,
+      deselectLabel: deselectLabel
+    }, is_addable_tags && {
       addable: function addable(value) {
         return AddableSlimSelect(value);
       }
-    });
+    }));
   }
   /**
    * New value adding function
@@ -491,7 +503,7 @@ if ($("#bfe-editor-block")[0]) {
    * @see docs/installation.md for mode details
    */
 
-  var bfe_page_editor = new _inc_class_bfe_editor_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  var bfe_page_editor = new _inc_class_bfe_editor_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
   /**
    * on title click open caret to fist block
    */

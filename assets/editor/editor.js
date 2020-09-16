@@ -246,10 +246,14 @@ __webpack_require__.r(__webpack_exports__);
       })(function (_ref2) {
         var checked = _ref2.checked,
             setState = _ref2.setState;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+          className: "editor_table_plugin  pro_version"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: translations.category_multiple,
           id: "category_multiple",
+          help: translations.only_in_pro,
           checked: checked,
+          className: editor_pro_settings.category_multiple ? '' : "disabled",
           onChange: function onChange() {
             return setState(function (state) {
               props.setAttributes({
@@ -260,7 +264,7 @@ __webpack_require__.r(__webpack_exports__);
               };
             });
           }
-        });
+        }));
       });
       /**
        * Tags can add new one
@@ -525,7 +529,7 @@ __webpack_require__.r(__webpack_exports__);
           className: "editor_table_plugin  pro_version"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Table block (PRO)",
-          help: 'You need pro version.',
+          help: translations.only_in_pro,
           id: "editor_table_plugin",
           checked: checked,
           className: editor_pro_settings.table_block ? '' : "disabled",
@@ -554,7 +558,7 @@ __webpack_require__.r(__webpack_exports__);
           className: "editor_warning_plugin  pro_version"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
           label: "Warning block (PRO)",
-          help: 'You need pro version.',
+          help: translations.only_in_pro,
           id: "editor_warning_plugin",
           checked: checked,
           className: editor_pro_settings.warning_block ? '' : "disabled",
