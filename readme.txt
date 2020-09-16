@@ -35,8 +35,6 @@ We using a next-generation block styled editor!
 
 All these features can be enabled or disabled 
 
-EditorJs is similar to Gutenberg editor and we made integration with it!
-
 *Boost your site value with user-generated content!*
 
 **Post Management**
@@ -44,6 +42,11 @@ EditorJs is similar to Gutenberg editor and we made integration with it!
 * One-click filtering of submitted posts on the Admin Posts page
 * Edit button on every your post to make editing efficient
 * Display or disable WordPress admin bar for only user or for all
+
+== DEMO LOGIN DETAILS ==
+* [Login Here](https://demo.wpfronteditor.com/wp-login.php)
+* Username: Demo
+* Password: Demo
 
 
 == Please help us to improve the plugin ==
