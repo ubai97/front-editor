@@ -28,6 +28,7 @@ class Block
         // category selection addon
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'category_select'], 13);
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_category_on_save_and_check'], 10, 3);
+        
         // tag selection addon
         add_action('bfe_editor_sub_header_parts_form', [__CLASS__, 'tag_select'], 13);
         add_filter('bfe_ajax_before_front_editor_post_update_or_creation', [__CLASS__, 'add_tag_on_save_and_check'], 10, 3);
@@ -220,26 +221,31 @@ class Block
      */
     public static function add_category_on_save_and_check($post_data, $data, $file)
     {
+        if(empty($_POST['category'])){
+            return $post_data;
+        }
 
         $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
         $post_category_settings = sanitize_text_field($settings['post_category']);
-        $post_category_id = sanitize_text_field($_POST['category']);
-
-
-        if(empty($post_category_id)){
-            return $post_data;
-        }
+        $post_category_val = sanitize_text_field($_POST['category']);
+        $post_id = intval(sanitize_text_field($_POST['post_id']));
 
         if ($post_category_settings === 'disable') {
             return $post_data;
         }
 
-        if ($post_category_settings === 'require' && empty($post_category_id)) {
+        if ($post_category_settings === 'require' && empty($post_category_val)) {
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if (!empty($post_category_id)) {
-            $post_data['post_category'] = [$post_category_id];
+        if($post_category_val === 'null'){
+            if($post_id){
+                wp_delete_object_term_relationships($post_id,'category');
+            }
+        }
+
+        if (!empty($post_category_val) && $post_category_val !== 'null') {
+            $post_data['post_category'] = explode(",", $post_category_val);
         }
 
         return $post_data;
@@ -274,6 +280,10 @@ class Block
     public static function add_tag_on_save_and_check($post_data, $data, $file)
     {
 
+        if(empty($_POST['tags'])){
+            return $post_data;
+        }
+
         $settings = get_post_meta($_POST['editor_post_id'], 'save_editor_attributes_to_meta',1);
         $post_tags= sanitize_text_field($settings['post_tags']);
 
@@ -281,15 +291,15 @@ class Block
             return $post_data;
         }
 
-        if(sanitize_text_field($_POST['tags']) === 'null'){
-            return $post_data;
-        }
-
         if ($post_tags === 'require' && empty($_POST['tags'])) {
             wp_send_json_error(['message' => __('The category selection is required', 'front-editor')]);
         }
 
-        if (!empty($_POST['tags']) || $_POST['tags']) {
+        if(sanitize_text_field($_POST['tags']) === 'null'){
+            $post_data['tags_input'] = [];
+        }
+
+        if (!empty($_POST['tags']) && sanitize_text_field($_POST['tags']) !== 'null') {
             $post_data['tags_input'] = explode(",", sanitize_text_field($_POST['tags']));
         }
 

@@ -1,43 +1,66 @@
 import BfeEditor from './../inc/class-bfe-editor.js';
 
+import SlimSelect from 'slim-select';
+
 var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
 
-    /**
-     * Select2 for category
-     */
-    $('#bfe-category').select2({
-        theme: 'material',
-        placeholder: () => {
-            $(this).data('placeholder');
-        }
-    });
-
-    $(".select2-selection__arrow")
-        .addClass("material-icons")
-        .html("arrow_drop_down");
+    let category_select = $('#bfe-category'),
+        tags_select = $('#bfe-tags'),
+        deselectLabel = '<span >✖</span>';
 
     /**
-     * Select2 for tags
+     * SlimSelect for category
      */
-    $('#bfe-tags').select2({
-        theme: 'material',
-        multiple: true,
-        width: 'resolve',
-        //tags: true,
-        placeholder: () => {
-            $(this).data('placeholder');
+    if (category_select.length > 0) {
+        new SlimSelect({
+            select: '#bfe-category',
+            placeholder: category_select.data('placeholder'),
+            deselectLabel: deselectLabel,
+            allowDeselect: true,
+            //addable:(value)=>{return AddableSlimSelect(value)}
+        })
+    }
+
+    /**
+     * SlimSelect for tags
+     */
+    if (tags_select.length > 0) {
+        new SlimSelect({
+            select: '#bfe-tags',
+            placeholder: tags_select.data('placeholder'),
+            hideSelectedOption: true,
+            deselectLabel: deselectLabel,
+            addable:(value)=>{return AddableSlimSelect(value)}
+        })
+    }
+
+    /**
+     * New value adding function
+     * @param {*} value 
+     */
+    function AddableSlimSelect(value) {
+        // // return false or null if you do not want to allow value to be submitted
+        // if (value.length < 3) {
+        //     callback('Need 3 characters')
+        //     return
+        // }
+
+        // Optional - Return a valid data object. See methods/setData for list of valid options
+        return {
+            text: value,
+            value: value.toLowerCase()
         }
-    });
+    }
 
     let button_menu = $('#bfe-editor-block-header .sub-header.top'),
         fixmeTop = button_menu.offset().top;
 
     $(window).scroll(function () {
 
-        var currentScroll = $(window).scrollTop(); 
-        if (currentScroll >= fixmeTop) {           
+        var currentScroll = $(window).scrollTop();
+        if (currentScroll >= fixmeTop) {
             button_menu.addClass('sticky');
         } else {                                   // apply position: static
             button_menu.removeClass('sticky');

@@ -110,14 +110,22 @@ export default class BfeEditor {
         }
 
         if (category) {
-            let selected_category = category.options[category.selectedIndex].value;
-            console.log(selected_category);
-            formData.append('category', selected_category);
+            let category_val = jQuery(category).val();
+            if (category_val) {
+                let selected_category = category_val.toString();
+                formData.append('category', selected_category);
+            } else {
+                formData.append('category', 'null');
+            }
         }
 
         if (tags) {
-            let selected_tags = jQuery(tags).select2("val");
-            formData.append('tags', selected_tags);
+            let selected_tags = jQuery(tags).val();
+            if (selected_tags) {
+                formData.append('tags', selected_tags.toString());
+            } else {
+                formData.append('tags', 'null');
+            }
         }
 
         if (post_type) {
@@ -274,9 +282,9 @@ export default class BfeEditor {
                                         };
                                     })
                                 }
-    
+
                             }
-    
+
                         }
                     }
                 }),

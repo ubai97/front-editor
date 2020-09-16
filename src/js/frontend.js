@@ -9,8 +9,6 @@
  * Webpack is compiling as the input file.
  */
 
-import 'select2';
-
 import './inc/editor-block-thumb-logic.js';
 
 import './blocks/editor-block-front.js';

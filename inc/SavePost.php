@@ -134,6 +134,8 @@ class SavePost
 			$post_id                  = self::insert_post($post_data);
 		}
 
+		add_action('bfe_ajax_after_front_editor_post_update_or_creation', $post_id);
+
 		/**
 		 * Adding to meta json string.
 		 */
