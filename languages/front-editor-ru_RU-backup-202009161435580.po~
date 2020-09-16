@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 17:28+0000\n"
-"PO-Revision-Date: 2020-09-13 18:56+0000\n"
+"POT-Creation-Date: 2020-09-14 16:22+0000\n"
+"PO-Revision-Date: 2020-09-14 16:25+0000\n"
 "Last-Translator: \n"
-"Language-Team: Русский\n"
+"Language-Team: Russian\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Edit in front editor"
 msgstr "Редактировать в Front Editor"
 
-#: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:123
+#: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:122
 msgid "Publish"
 msgstr "Опубликовать"
 
@@ -55,19 +55,31 @@ msgstr "Теги записи"
 msgid "Display"
 msgstr "Отобразить"
 
-#: inc/Blocks.php:71 inc/MenuSettings.php:27
+#: inc/Blocks.php:71
+msgid "Always display"
+msgstr "Всегда показывать"
+
+#: inc/Blocks.php:72
+msgid "Add new button"
+msgstr "Кнопка \"Добавить запись\""
+
+#: inc/Blocks.php:73 inc/MenuSettings.php:27
 msgid "Display and require"
 msgstr "Отобразить и сделать обязательным"
 
-#: inc/Blocks.php:72 inc/MenuSettings.php:28
+#: inc/Blocks.php:74 inc/MenuSettings.php:28
 msgid "Disable this field"
 msgstr "Отключить данное поле"
 
-#: inc/Blocks.php:181
+#: inc/Blocks.php:75
+msgid "Editor plugins"
+msgstr "Плагины редактора"
+
+#: inc/Blocks.php:189
 msgid "The featured image is required"
 msgstr "Изображение записи обязательна"
 
-#: inc/Blocks.php:224 inc/Blocks.php:271
+#: inc/Blocks.php:238 inc/Blocks.php:289
 msgid "The category selection is required"
 msgstr "Выбор категории обязателен "
 
@@ -75,26 +87,25 @@ msgstr "Выбор категории обязателен "
 msgid "Add content"
 msgstr "Приступить к написанию"
 
-#: inc/Editor.php:76 inc/Editor.php:80 inc/SavePost.php:104
-#: inc/SavePost.php:108
+#: inc/Editor.php:76 inc/Editor.php:80 inc/SavePost.php:95 inc/SavePost.php:99
 msgid "The post you trying to edit is not exist, please create a new one"
 msgstr ""
 "Страница которую вы пытаетесь редактировать не существует пожалуйста "
 "создайте новую "
 
-#: inc/Editor.php:85 inc/SavePost.php:137
+#: inc/Editor.php:85 inc/SavePost.php:128
 msgid "You do not have permission to edit this post"
 msgstr "Недостаточно прав для редактирования записи"
 
-#: inc/Editor.php:89
-msgid "Add new"
-msgstr "Добавить запись"
-
-#: inc/Editor.php:111 inc/Editor.php:125
+#: inc/Editor.php:109 inc/Editor.php:124
 msgid "Update"
 msgstr "Обновить"
 
-#: inc/Editor.php:124
+#: inc/Editor.php:120
+msgid "Start writing or enter Tab to choose a block"
+msgstr "Начните писать или нажмите Tab, чтобы выбрать блок"
+
+#: inc/Editor.php:123
 msgid "Updating"
 msgstr "Обновление"
 
@@ -106,7 +117,6 @@ msgstr "Редактировать"
 msgid "Buy pro version to use this functionality"
 msgstr "Обновите до PRO версии, чтобы использовать эту функцию"
 
-#. Name of the plugin
 #: inc/MenuSettings.php:37 inc/MenuSettings.php:38
 msgid "Front Editor"
 msgstr "Front Editor"
@@ -194,35 +204,39 @@ msgstr "Новые"
 msgid "Previous"
 msgstr "Предыдущие"
 
-#: inc/SavePost.php:83
+#: inc/SavePost.php:74
 msgid "Security error, please update page"
 msgstr "Ошибка безопасности, пожалуйста, обновите страницу"
 
-#: inc/SavePost.php:87
+#: inc/SavePost.php:78
 msgid "Please add post title"
 msgstr "Пожалуйста, добавьте заголовок записи"
 
-#: inc/SavePost.php:92
+#: inc/SavePost.php:83
 msgid "Please add correct post title"
 msgstr "Исправьте заголовок поста"
 
-#: inc/SavePost.php:161
+#: inc/SavePost.php:152
 msgid "New post created"
 msgstr "Новая запись успешно создана"
 
-#: inc/SavePost.php:161
+#: inc/SavePost.php:152
 msgid "Post updated"
 msgstr "Запись обновлена"
 
-#: inc/SavePost.php:235
+#: inc/SavePost.php:291
 msgid "Image type is not supported, please select another image"
 msgstr "Тип изображения не поддерживается, выберите другое изображение"
 
 #: templates/block-editor.php:8
+msgid "Add new"
+msgstr "Добавить запись"
+
+#: templates/block-editor.php:10
 msgid "View Post"
 msgstr "Посмотреть запись"
 
-#: templates/block-editor.php:16
+#: templates/block-editor.php:18
 msgid "Add Title"
 msgstr "Добавить заголовок"
 
@@ -237,6 +251,10 @@ msgstr "Выберите картинку"
 #: templates/front-editor/tags.php:2 templates/front-editor/tags.php:3
 msgid "Select tags"
 msgstr "Выберите теги"
+
+#. Name of the plugin
+msgid "Front Editor & publisher"
+msgstr "Front Editor & publisher"
 
 #. Description of the plugin
 msgid ""

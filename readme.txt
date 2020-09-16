@@ -4,7 +4,7 @@ Tags: user post,front editor,post editor,frontend post,guest author,guest post
 Requires at least: 4.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,12 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Changelog ==
 
+= 2.0.3 =
+* Hide or show empty categories https://github.com/Aharonyan/front-editor/issues/42
+* Add ability to add new tags https://github.com/Aharonyan/front-editor/issues/46
+* The select js library changed
+* Added settings to select multiple categories
+
 = 2.0.2 =
 * Always show a “null” bug solved https://github.com/Aharonyan/front-editor/issues/45
 * Warning block fixed https://github.com/Aharonyan/front-editor/issues/25
@@ -149,6 +155,12 @@ Works perfectly with or without Gutenberg Block Editor
 * Added post type selector.
 
 == Upgrade Notice ==
+
+= 2.0.3 =
+* Hide or show empty categories https://github.com/Aharonyan/front-editor/issues/42
+* Add ability to add new tags https://github.com/Aharonyan/front-editor/issues/46
+* The select js library changed
+* Added settings to select multiple categories
 
 = 2.0.2 =
 * Always show a “null” bug solved https://github.com/Aharonyan/front-editor/issues/45

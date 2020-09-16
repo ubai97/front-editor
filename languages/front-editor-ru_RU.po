@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 16:22+0000\n"
-"PO-Revision-Date: 2020-09-14 16:25+0000\n"
+"POT-Creation-Date: 2020-09-16 14:33+0000\n"
+"PO-Revision-Date: 2020-09-16 14:35+0000\n"
 "Last-Translator: \n"
-"Language-Team: Russian\n"
+"Language-Team: Русский\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
@@ -19,67 +19,91 @@ msgstr ""
 msgid "Edit in front editor"
 msgstr "Редактировать в Front Editor"
 
-#: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:122
+#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:122
 msgid "Publish"
 msgstr "Опубликовать"
 
-#: inc/Blocks.php:63
+#: inc/Blocks.php:64
 msgid "Pending"
 msgstr "Ожидает подтверждения"
 
-#: inc/Blocks.php:64
+#: inc/Blocks.php:65
 msgid "Post status"
 msgstr "Статус записи"
 
-#: inc/Blocks.php:65
+#: inc/Blocks.php:66
 msgid "when user is adding the post what status it must have"
 msgstr "когда пользователь добавляет пост, какой статус он должен иметь"
 
-#: inc/Blocks.php:66
+#: inc/Blocks.php:67
 msgid "Front editor settings"
 msgstr "Настройки редактора"
 
-#: inc/Blocks.php:67
+#: inc/Blocks.php:68
 msgid "Post image"
 msgstr "Изображение записи"
 
-#: inc/Blocks.php:68
+#: inc/Blocks.php:69
 msgid "Post category"
 msgstr "Категория записи"
 
-#: inc/Blocks.php:69
+#: inc/Blocks.php:70
+msgid "Show empty categories"
+msgstr "Показывать пустые категории"
+
+#: inc/Blocks.php:71
+msgid "Choose multiple categories"
+msgstr "Выбирать несколько категорий"
+
+#: inc/Blocks.php:72
+msgid "Category settings"
+msgstr "Настройки категории"
+
+#: inc/Blocks.php:73
 msgid "Post tags"
 msgstr "Теги записи"
 
-#: inc/Blocks.php:70 inc/MenuSettings.php:26 inc/MenuSettings.php:208
+#: inc/Blocks.php:74
+msgid "Tags settings"
+msgstr "Настройки тегов"
+
+#: inc/Blocks.php:75
+msgid "Ability to add new tags"
+msgstr "Возможность добавлять новые теги"
+
+#: inc/Blocks.php:76 inc/MenuSettings.php:26 inc/MenuSettings.php:208
 msgid "Display"
 msgstr "Отобразить"
 
-#: inc/Blocks.php:71
+#: inc/Blocks.php:77
 msgid "Always display"
 msgstr "Всегда показывать"
 
-#: inc/Blocks.php:72
+#: inc/Blocks.php:78
 msgid "Add new button"
 msgstr "Кнопка \"Добавить запись\""
 
-#: inc/Blocks.php:73 inc/MenuSettings.php:27
+#: inc/Blocks.php:79 inc/MenuSettings.php:27
 msgid "Display and require"
 msgstr "Отобразить и сделать обязательным"
 
-#: inc/Blocks.php:74 inc/MenuSettings.php:28
+#: inc/Blocks.php:80 inc/MenuSettings.php:28
 msgid "Disable this field"
 msgstr "Отключить данное поле"
 
-#: inc/Blocks.php:75
+#: inc/Blocks.php:81
 msgid "Editor plugins"
 msgstr "Плагины редактора"
 
-#: inc/Blocks.php:189
+#: inc/Blocks.php:82
+msgid "Available only in pro version."
+msgstr "Доступно в про версии."
+
+#: inc/Blocks.php:197
 msgid "The featured image is required"
 msgstr "Изображение записи обязательна"
 
-#: inc/Blocks.php:238 inc/Blocks.php:289
+#: inc/Blocks.php:245 inc/Blocks.php:302
 msgid "The category selection is required"
 msgstr "Выбор категории обязателен "
 
@@ -216,15 +240,15 @@ msgstr "Пожалуйста, добавьте заголовок записи"
 msgid "Please add correct post title"
 msgstr "Исправьте заголовок поста"
 
-#: inc/SavePost.php:152
+#: inc/SavePost.php:154
 msgid "New post created"
 msgstr "Новая запись успешно создана"
 
-#: inc/SavePost.php:152
+#: inc/SavePost.php:154
 msgid "Post updated"
 msgstr "Запись обновлена"
 
-#: inc/SavePost.php:291
+#: inc/SavePost.php:293
 msgid "Image type is not supported, please select another image"
 msgstr "Тип изображения не поддерживается, выберите другое изображение"
 
