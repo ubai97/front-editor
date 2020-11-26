@@ -20,7 +20,21 @@ class Shortcodes
      */
     public static function editor_js($atts)
     {
-        return Editor::show_front_editor();
+        /**
+         * If exist true and false string it is changing it to the boolean
+         */
+        foreach ($atts as $att_name => $attribute) {
+            if (
+                filter_var($attribute, FILTER_VALIDATE_BOOLEAN) !== null 
+                && $attribute!=="display"
+                && $attribute!=="require"
+                && $attribute!=="disable"
+                ) {
+                $atts[$att_name] = filter_var($attribute, FILTER_VALIDATE_BOOLEAN);
+            }
+        }
+
+        return Editor::show_front_editor($atts);
     }
 
     /**
@@ -33,7 +47,6 @@ class Shortcodes
     {
         return PostList::user_posts_list($atts);
     }
-
 }
 
 Shortcodes::init();

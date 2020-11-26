@@ -44,7 +44,7 @@ class Editor
 	 *
 	 * @return string
 	 */
-	public static function show_front_editor($attributes, $content)
+	public static function show_front_editor($attributes, $content = '')
 	{
 		/**
 		 * Adding post meta to know the editor page if no page founded
@@ -63,7 +63,7 @@ class Editor
 			'editor_post_status' => $attributes['editor_post_status'] ?? 'pending',
 			'post_image' => $attributes['post_image'] ?? 'display',
 			'post_category' => $attributes['post_category'] ?? 'display',
-			'post_tags' => $attributes['post_category'] ?? 'display',
+			'post_tags' => $attributes['post_tags'] ?? 'display',
 		]);
 
 		do_action('bfe_before_editor_block_front_print', $attributes);
@@ -110,6 +110,7 @@ class Editor
 		} else {
 			$editor_data = self::example_editor_data();
 		}
+		
 
 		$data = [
 			'ajax_url'          => admin_url('admin-ajax.php'),
@@ -297,7 +298,7 @@ class Editor
 				break;
 
 			case 'warning':
-				$html = sprintf('<figure class="warning"><figcaption>%s</figcaption><p>%s</p></figure>',$data['title'],$data['message']);
+				$html = sprintf('<figure class="warning"><figcaption>%s</figcaption><p>%s</p></figure>', $data['title'], $data['message']);
 				break;
 
 			case 'table':
