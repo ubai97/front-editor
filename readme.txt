@@ -4,7 +4,7 @@ Tags: user post,front editor,post editor,frontend post,guest author,guest post
 Requires at least: 4.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,8 @@ Please check if you've specified the max upload size on setting
 Yes! plugins are localized/ translatable by default. For translating I recommend the awesome plugin [Loco Translate](https://wordpress.org/plugins/loco-translate/).
 **Is working with Gutenberg Block Editor ?**
 Works perfectly with or without Gutenberg Block Editor
+**How to use Shortcode with settings ?**
+Please check this article [https://wpfronteditor.com/how-to-use-shortcode/](https://wpfronteditor.com/how-to-use-shortcode/)
 
 == Screenshots ==
 1. Front editor
@@ -97,6 +99,10 @@ Works perfectly with or without Gutenberg Block Editor
 3. Block settings
 
 == Changelog ==
+
+= 2.0.4 =
+* Shortcode error fixed and added all setting https://wpfronteditor.com/how-to-use-shortcode/
+* EditorJS updated
 
 = 2.0.3 =
 * Hide or show empty categories https://github.com/Aharonyan/front-editor/issues/42
@@ -159,6 +165,10 @@ Works perfectly with or without Gutenberg Block Editor
 
 == Upgrade Notice ==
 
+= 2.0.4 =
+* Shortcode error fixed and added all setting https://wpfronteditor.com/how-to-use-shortcode/
+* EditorJS updated
+
 = 2.0.3 =
 * Hide or show empty categories https://github.com/Aharonyan/front-editor/issues/42
 * Add ability to add new tags https://github.com/Aharonyan/front-editor/issues/46
@@ -171,7 +181,6 @@ Works perfectly with or without Gutenberg Block Editor
 * Added editor plugins settings
 * Category selection bug fixed
 * Added "Add New" button settings https://github.com/Aharonyan/front-editor/commit/7830fc5d79d6eddee4026b440f660f6252bb2672
-
 
 = 2.0.1 =
 * Plugin title changed
