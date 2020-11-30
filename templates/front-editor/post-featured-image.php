@@ -5,6 +5,7 @@ if (has_post_thumbnail($post_id)) {
     $class = 'chosen';
     $thumb_exist = 1;
 }
+
 ?>
 <div class="image_loader editor-button <?= $class ?? '' ?>" thumb_exist="<?= $thumb_exist ?? 0 ?>">
     <input name="post_thumbnail" type='file' id="img_inp" accept="image/*" title="<?php echo __('Set featured image', 'front-editor'); ?>"/>

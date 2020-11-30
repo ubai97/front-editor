@@ -106,4 +106,6 @@ if ($("#bfe-editor-block")[0]) {
             bfe_page_editor.save_data(savedData);
         });
     });
-} 
+}
+
+

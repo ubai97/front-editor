@@ -50,6 +50,10 @@ import { withState } from '@wordpress/compose';
                 type: 'boolean',
                 default: false
             },
+            wp_media_uploader: {
+                type: 'boolean',
+                default: false
+            },
             add_new_button: {
                 type: 'string',
                 default: 'display'
@@ -188,6 +192,34 @@ import { withState } from '@wordpress/compose';
                     }
                     )}
                 />
+            ));
+
+            /**
+             * WP Media Uploader can add new one
+             */
+            const WP_Media_Uploader = withState({
+                checked: props.attributes.wp_media_uploader,
+            })(({ checked, setState }) => (
+                <div className="editor_table_plugin  pro_version">
+                    <ToggleControl
+                        label={translations.wp_media_uploader}
+                        id="wp_media_uploader"
+                        className={editor_pro_settings.wp_media_uploader ? '' : "disabled"}
+                        checked={checked}
+                        help={translations.only_in_pro}
+                        onChange={() => setState(state => {
+                            props.setAttributes({
+                                wp_media_uploader: !state.checked,
+                            })
+                            return (
+                                {
+                                    checked: !state.checked
+                                }
+                            )
+                        }
+                        )}
+                    />
+                </div>
             ));
 
             /**
@@ -568,6 +600,7 @@ import { withState } from '@wordpress/compose';
                                 { value: 'disable', label: translations.disable }
                             ]}
                         />
+                        <WP_Media_Uploader />
                     </div>
                     {(props.attributes.post_category !== 'disable') && <div>
                         <h5>{translations.category_settings_title}</h5>

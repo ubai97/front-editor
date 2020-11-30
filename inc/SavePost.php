@@ -145,7 +145,11 @@ class SavePost
 		/**
 		 * Adding post thumbnail
 		 */
-		self::add_post_thumbnail($post_id, self::fe_sanitize_image() ?? '', intval(sanitize_text_field($_POST['thumb_exist'])) ?? 0);
+		if(empty($_POST['thumb_img_id'])){
+			self::add_post_thumbnail($post_id, self::fe_sanitize_image() ?? '', intval(sanitize_text_field($_POST['thumb_exist'])) ?? 0);
+		} else {
+			set_post_thumbnail($post_id, (int) $_POST['thumb_img_id']);
+		}
 
 		wp_send_json_success(
 			array(

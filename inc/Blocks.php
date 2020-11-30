@@ -80,12 +80,14 @@ class Block
                 'disable' => __('Disable this field', 'front-editor'),
                 'editor_settings_title' => __('Editor plugins', 'front-editor'),
                 'only_in_pro' => __('Available only in pro version.', 'front-editor'),
+                'wp_media_uploader' => __('Use wp media uploader', 'front-editor')
             ],
             'editor_pro_settings' => [
                 'table_block' => false,
                 'warning_block' => false,
                 'gallery_block' => false,
-                'category_multiple' => false
+                'category_multiple' => false,
+                'wp_media_uploader' => false,
             ]
         ];
 
@@ -193,7 +195,7 @@ class Block
             return $post_data;
         }
 
-        if ($post_image === 'require' && empty($_FILES['image'])) {
+        if ($post_image === 'require' && empty($_FILES['image']) && empty($_POST['thumb_img_id'])) {
             wp_send_json_error(['message' => __('The featured image is required', 'front-editor')]);
         }
 

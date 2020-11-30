@@ -110,7 +110,7 @@ class Editor
 		} else {
 			$editor_data = self::example_editor_data();
 		}
-		
+
 
 		$data = [
 			'ajax_url'          => admin_url('admin-ajax.php'),
@@ -138,13 +138,22 @@ class Editor
 				'editor_inlineCode_plugin' => $attributes['editor_inlineCode_plugin'] ?? true,
 				'editor_linkTool_plugin' => $attributes['editor_linkTool_plugin'] ?? true,
 				'tags_add_new' => $attributes['tags_add_new'] ?? false,
+				'wp_media_uploader' => false, // pro
 				'editor_warning_plugin' => false, // pro
 				'editor_table_plugin' => false, // pro
 				'editor_gallery_plugin' => false, // pro
 			]
 		];
 
-		wp_localize_script('bfee-editor.js', 'editor_data', apply_filters('bfe_front_editor_localize_data', $data, $attributes));
+		$wp_localize_data = apply_filters('bfe_front_editor_localize_data', $data, $attributes);
+		wp_localize_script('bfee-editor.js', 'editor_data', $wp_localize_data);
+
+		/**
+		 * Activating wp media uploader
+		 */
+		if ($wp_localize_data['editor_settings']['wp_media_uploader']) {
+			wp_enqueue_media();
+		}
 
 		wp_enqueue_script('bfee-editor.js');
 

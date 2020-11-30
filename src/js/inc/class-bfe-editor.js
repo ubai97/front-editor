@@ -83,7 +83,8 @@ export default class BfeEditor {
             tags = document.querySelector("#bfe-tags"),
             post_type = document.querySelector("#bfe-post-type"),
             bfe_selected_file = document.querySelector('#img_inp').files[0],
-            editor_post_id = document.querySelector('#bfe-editor').getAttribute('editor_post_id');
+            editor_post_id = document.querySelector('#bfe-editor').getAttribute('editor_post_id'),
+            post_thumbnail_image_id = document.querySelector('#post_thumbnail_image').getAttribute('att-id');
 
         const formData = new FormData();
 
@@ -107,6 +108,13 @@ export default class BfeEditor {
             formData.append('thumb_exist', thumb_exist.getAttribute('thumb_exist'));
         } else {
             formData.append('thumb_exist', 0);
+        }
+
+        /**
+         * If wp media uploader is enabled
+         */
+        if(this.bfee_data.editor_settings.wp_media_uploader && post_thumbnail_image_id){
+            formData.append('thumb_img_id', post_thumbnail_image_id);
         }
 
         if (category) {

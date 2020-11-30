@@ -2,12 +2,12 @@
     <div id="bfe-editor-block-header">
         <div class="sub-header top">
             <a class="editor-button big" id="save-editor-block" title="<?php echo $button_text ?>"><?php echo $button_text ?></a>
-            <?php 
-            $attributes['add_new_button'] = $attributes['add_new_button']??false;
-            if (($post_id !=='new' && $attributes['add_new_button'] !== 'disable') || $attributes['add_new_button'] === 'always_display') : ?>
+            <?php
+            $attributes['add_new_button'] = $attributes['add_new_button'] ?? false;
+            if (($post_id !== 'new' && $attributes['add_new_button'] !== 'disable') || $attributes['add_new_button'] === 'always_display') : ?>
                 <a target="_blank" class="editor-button" href="<?= $new_post_link ?>" title="<?= __('Add new', 'front-editor') ?>"><?= __('Add new', 'front-editor') ?></a>
             <?php endif; ?>
-            <a target="_blank" class="editor-button view-page <?php echo $post_id === 'new'? 'hide': '';?>" href="<?php the_permalink($post_id) ?? ''; ?>" title="<?php echo __('View Post', 'front-editor') ?>">
+            <a target="_blank" class="editor-button view-page <?php echo $post_id === 'new' ? 'hide' : ''; ?>" href="<?php the_permalink($post_id) ?? ''; ?>" title="<?php echo __('View Post', 'front-editor') ?>">
                 <img src="<?= FE_PLUGIN_URL . '/assets/img/see.svg' ?>" class="button-icon">
             </a>
         </div>
