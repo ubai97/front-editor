@@ -20,17 +20,21 @@ class Shortcodes
      */
     public static function editor_js($atts)
     {
+
         /**
          * If exist true and false string it is changing it to the boolean
          */
-        foreach ($atts as $att_name => $attribute) {
-            if (
-                filter_var($attribute, FILTER_VALIDATE_BOOLEAN) !== null 
-                && $attribute!=="display"
-                && $attribute!=="require"
-                && $attribute!=="disable"
+        if (!empty($atts)) {
+            foreach ($atts as $att_name => $attribute) {
+                if (
+                    filter_var($attribute, FILTER_VALIDATE_BOOLEAN) !== null
+                    && $attribute !== "display"
+                    && $attribute !== "require"
+                    && $attribute !== "disable"
+                    && $attribute !== "always_display"
                 ) {
-                $atts[$att_name] = filter_var($attribute, FILTER_VALIDATE_BOOLEAN);
+                    $atts[$att_name] = filter_var($attribute, FILTER_VALIDATE_BOOLEAN);
+                }
             }
         }
 
