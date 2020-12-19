@@ -424,7 +424,6 @@ var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
   var fe_data = window.editor_data;
-  console.log(fe_data);
   var category_select = $('#bfe-category'),
       tags_select = $('#bfe-tags'),
       deselectLabel = '<span >✖</span>',
@@ -599,6 +598,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editorjs_table__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_editorjs_table__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _editorjs_checklist__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @editorjs/checklist */ "../../../../../node_modules/@editorjs/checklist/dist/bundle.js");
 /* harmony import */ var _editorjs_checklist__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_editorjs_checklist__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _class_wp_image__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./class-wp-image */ "./src/js/inc/class-wp-image.js");
 
 
 
@@ -608,6 +608,7 @@ __webpack_require__.r(__webpack_exports__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 
@@ -799,7 +800,7 @@ var BfeEditor = /*#__PURE__*/function () {
         holder: 'bfe-editor-block',
         placeholder: this.bfee_data.translations.editor_field_placeholder,
         autofocus: true,
-        tools: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, editor_settings.editor_header_plugin && {
+        tools: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, editor_settings.editor_header_plugin && {
           header: {
             class: _editorjs_header__WEBPACK_IMPORTED_MODULE_4___default.a,
             inlineToolbar: true,
@@ -810,60 +811,15 @@ var BfeEditor = /*#__PURE__*/function () {
             },
             shortcut: 'CMD+SHIFT+H'
           }
-        }), editor_settings.editor_image_plugin && {
+        }), {}, {
           image: {
-            class: _editorjs_image__WEBPACK_IMPORTED_MODULE_5___default.a,
+            class: _class_wp_image__WEBPACK_IMPORTED_MODULE_18__["default"],
             inlineToolbar: true,
             config: {
-              uploader: {
-                uploadByFile: function uploadByFile(file) {
-                  return BfeEditor.uploadImage(file).then(function (data) {
-                    if (!data.success) {
-                      var _data$data$message2;
-
-                      BfeEditor.bfee_editor.notifier.show({
-                        message: (_data$data$message2 = data.data.message) !== null && _data$data$message2 !== void 0 ? _data$data$message2 : 'Something goes wrong try later',
-                        style: 'error'
-                      });
-                      return {
-                        "success": 0
-                      };
-                    }
-
-                    return {
-                      "success": 1,
-                      "file": {
-                        "url": data.data.url
-                      }
-                    };
-                  });
-                },
-                uploadByUrl: function uploadByUrl(url) {
-                  return BfeEditor.uploadImage(null, url).then(function (data) {
-                    if (!data.success) {
-                      var _data$data$message3;
-
-                      BfeEditor.bfee_editor.notifier.show({
-                        message: (_data$data$message3 = data.data.message) !== null && _data$data$message3 !== void 0 ? _data$data$message3 : 'Something goes wrong try later',
-                        style: 'error'
-                      });
-                      return {
-                        "success": 0
-                      };
-                    }
-
-                    return {
-                      "success": 1,
-                      "file": {
-                        "url": data.data.url
-                      }
-                    };
-                  });
-                }
-              }
+              wp_media_uploader: BfeEditor.wpMediaUploader
             }
           }
-        }), editor_settings.editor_list_plugin && {
+        }, editor_settings.editor_list_plugin && {
           list: {
             class: _editorjs_list__WEBPACK_IMPORTED_MODULE_11___default.a,
             inlineToolbar: true,
@@ -964,6 +920,37 @@ var BfeEditor = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "wpMediaUploader",
+    value: function wpMediaUploader() {
+      var file_frame;
+
+      if (file_frame) {
+        file_frame.open();
+        return;
+      } // Create the media frame.
+
+
+      file_frame = wp.media.frames.file_frame = wp.media({
+        title: jQuery(this).data('uploader_title'),
+        button: {
+          text: jQuery(this).data('uploader_button_text')
+        },
+        multiple: false // Set to true to allow multiple files to be selected
+
+      }); // When an image is selected, run a callback.
+
+      file_frame.on('select', function () {
+        // We set multiple to false so only get one image from the uploader
+        var selection = file_frame.state().get('selection').first().toJSON();
+        console.log(selection.url); // var attachment_ids = selection.map(function (attachment) {
+        //     attachment = attachment.toJSON();
+        //     var array = {id:attachment.id,url:attachment.url}
+        //     return array;
+        // }).join();
+      });
+      file_frame.open();
+    }
+  }, {
     key: "get_bfee_data",
     get: function get() {
       var data;
@@ -979,6 +966,145 @@ var BfeEditor = /*#__PURE__*/function () {
   }]);
 
   return BfeEditor;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/inc/class-wp-image.js":
+/*!**************************************!*\
+  !*** ./src/js/inc/class-wp-image.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return WPImage; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var WPImage = /*#__PURE__*/function () {
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(WPImage, null, [{
+    key: "toolbox",
+    get: function get() {
+      return {
+        title: 'WP Image',
+        icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>'
+      };
+    }
+  }]);
+
+  function WPImage(_ref) {
+    var data = _ref.data,
+        api = _ref.api,
+        config = _ref.config;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, WPImage);
+
+    this.api = api;
+    this.config = config || {}; // ... this.data
+    // ... this.wrapper
+    // ... this.settings
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(WPImage, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      this.wrapper = document.createElement('div');
+      this.wrapper.classList.add('wp_image_wrap'); // Uploading files
+
+      var file_frame; // TODO remove jquery in the future
+
+      var $ = window.jQuery;
+      var wp_image_wrap = this.wrapper;
+
+      if (this.data && this.data.url) {
+        this._createImage(this.data.url, this.data.caption);
+
+        return this.wrapper;
+      }
+
+      var wp_media_button = document.createElement('button');
+      wp_media_button.classList.add('image_loader');
+      wp_media_button.innerHTML = 'Click to upload';
+      wp_media_button.addEventListener('click', function (event) {
+        event.preventDefault();
+        _this.config.wp_media_uploader; // If the media frame already exists, reopen it.
+
+        if (file_frame) {
+          file_frame.open();
+          return;
+        } // Create the media frame.
+
+
+        file_frame = window.wp.media.frames.file_frame = wp.media({
+          title: $(_this).data('uploader_title'),
+          button: {
+            text: $(_this).data('uploader_button_text')
+          },
+          multiple: true // Set to true to allow multiple files to be selected
+
+        }); // When an image is selected, run a callback.
+
+        file_frame.on('select', function () {
+          // We set multiple to false so only get one image from the uploader
+          var selection = file_frame.state().get('selection'),
+              f_this = this;
+          console.log(f_this.wrapper);
+          var attachment_ids = selection.map(function (attachment) {
+            attachment = attachment.toJSON();
+            var array = {
+              id: attachment.id,
+              url: attachment.url
+            };
+            var image = document.createElement('img');
+            var caption = document.createElement('input');
+            image.src = attachment.url;
+            caption.placeholder = 'Caption...';
+            wp_image_wrap.appendChild(image);
+            wp_image_wrap.appendChild(caption);
+            console.log(attachment.url); //this._createImage(attachment.url);
+
+            return array;
+          }).join();
+        });
+        file_frame.open();
+      });
+      this.wrapper.appendChild(wp_media_button);
+      return this.wrapper;
+    }
+  }, {
+    key: "_createImage",
+    value: function _createImage(url) {
+      var image = document.createElement('img');
+      var caption = document.createElement('input');
+      image.src = url;
+      caption.placeholder = 'Caption...';
+      this.wrapper.innerHTML = '';
+      this.wrapper.appendChild(image);
+      this.wrapper.appendChild(caption);
+    }
+  }, {
+    key: "save",
+    value: function save(blockContent) {
+      var image = blockContent.querySelector('img');
+      var caption = blockContent.querySelector('input');
+      return {
+        url: image.src,
+        caption: caption.value
+      };
+    }
+  }]);
+
+  return WPImage;
 }();
 
 

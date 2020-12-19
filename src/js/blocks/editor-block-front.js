@@ -6,8 +6,6 @@ var $ = jQuery;
 
 if ($("#bfe-editor-block")[0]) {
     const fe_data = window.editor_data;
-
-    console.log(fe_data);
     let category_select = $('#bfe-category'),
         tags_select = $('#bfe-tags'),
         deselectLabel = '<span >✖</span>',

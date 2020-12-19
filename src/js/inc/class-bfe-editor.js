@@ -30,6 +30,8 @@ import Table from '@editorjs/table';
 
 import Checklist from '@editorjs/checklist';
 
+import WPImage from './class-wp-image';
+
 export default class BfeEditor {
 
 
@@ -113,7 +115,7 @@ export default class BfeEditor {
         /**
          * If wp media uploader is enabled
          */
-        if(this.bfee_data.editor_settings.wp_media_uploader && post_thumbnail_image_id){
+        if (this.bfee_data.editor_settings.wp_media_uploader && post_thumbnail_image_id) {
             formData.append('thumb_img_id', post_thumbnail_image_id);
         }
 
@@ -226,6 +228,41 @@ export default class BfeEditor {
         })
     }
 
+    static wpMediaUploader(){
+        var file_frame;
+        
+        if (file_frame) {
+            file_frame.open();
+            return;
+        }
+
+        // Create the media frame.
+        file_frame = wp.media.frames.file_frame = wp.media({
+            title: jQuery(this).data('uploader_title'),
+            button: {
+                text: jQuery(this).data('uploader_button_text'),
+            },
+            multiple: false  // Set to true to allow multiple files to be selected
+        });
+
+        // When an image is selected, run a callback.
+        file_frame.on('select', function () {
+            // We set multiple to false so only get one image from the uploader
+            var selection = file_frame.state().get('selection').first().toJSON();
+
+            console.log(selection.url)
+
+            // var attachment_ids = selection.map(function (attachment) {
+            //     attachment = attachment.toJSON();
+            //     var array = {id:attachment.id,url:attachment.url}
+            //     return array;
+            // }).join();
+
+
+        });
+        file_frame.open();
+    }
+
 
     /**
      * Setting is set here
@@ -250,52 +287,59 @@ export default class BfeEditor {
                     }
                 }),
 
-                ...(editor_settings.editor_image_plugin && {
-                    image: {
-                        class: ImageTool,
-                        inlineToolbar: true,
-                        config: {
-                            uploader: {
-                                uploadByFile(file) {
-                                    return BfeEditor.uploadImage(file).then(data => {
-                                        if (!data.success) {
-                                            BfeEditor.bfee_editor.notifier.show({
-                                                message: data.data.message ?? 'Something goes wrong try later',
-                                                style: 'error',
-                                            });
-                                            return { "success": 0 };
-                                        }
-                                        return {
-                                            "success": 1,
-                                            "file": {
-                                                "url": data.data.url,
-                                            }
-                                        };
-                                    })
-                                },
-                                uploadByUrl(url) {
-                                    return BfeEditor.uploadImage(null, url).then(data => {
-                                        if (!data.success) {
-                                            BfeEditor.bfee_editor.notifier.show({
-                                                message: data.data.message ?? 'Something goes wrong try later',
-                                                style: 'error',
-                                            });
-                                            return { "success": 0 };
-                                        }
-                                        return {
-                                            "success": 1,
-                                            "file": {
-                                                "url": data.data.url,
-                                            }
-                                        };
-                                    })
-                                }
-
-                            }
-
-                        }
+                image: {
+                    class: WPImage,
+                    inlineToolbar: true,
+                    config: {
+                        wp_media_uploader: BfeEditor.wpMediaUploader
                     }
-                }),
+                },
+                // ...(editor_settings.editor_image_plugin && {
+                //     image: {
+                //         class: ImageTool,
+                //         inlineToolbar: true,
+                //         config: {
+                //             uploader: {
+                //                 uploadByFile(file) {
+                //                     return BfeEditor.uploadImage(file).then(data => {
+                //                         if (!data.success) {
+                //                             BfeEditor.bfee_editor.notifier.show({
+                //                                 message: data.data.message ?? 'Something goes wrong try later',
+                //                                 style: 'error',
+                //                             });
+                //                             return { "success": 0 };
+                //                         }
+                //                         return {
+                //                             "success": 1,
+                //                             "file": {
+                //                                 "url": data.data.url,
+                //                             }
+                //                         };
+                //                     })
+                //                 },
+                //                 uploadByUrl(url) {
+                //                     return BfeEditor.uploadImage(null, url).then(data => {
+                //                         if (!data.success) {
+                //                             BfeEditor.bfee_editor.notifier.show({
+                //                                 message: data.data.message ?? 'Something goes wrong try later',
+                //                                 style: 'error',
+                //                             });
+                //                             return { "success": 0 };
+                //                         }
+                //                         return {
+                //                             "success": 1,
+                //                             "file": {
+                //                                 "url": data.data.url,
+                //                             }
+                //                         };
+                //                     })
+                //                 }
+
+                //             }
+
+                //         }
+                //     }
+                // }),
 
                 ...(editor_settings.editor_list_plugin && {
                     list: {
