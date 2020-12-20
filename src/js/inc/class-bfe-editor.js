@@ -273,6 +273,7 @@ export default class BfeEditor {
             holder: 'bfe-editor-block',
             placeholder: this.bfee_data.translations.editor_field_placeholder,
             autofocus: true,
+            i18n : this.bfee_data.translations.i18n,
             tools: {
                 ...(editor_settings.editor_header_plugin && {
                     header: {
@@ -287,7 +288,7 @@ export default class BfeEditor {
                     }
                 }),
 
-                image: {
+                wp_image: {
                     class: WPImage,
                     inlineToolbar: true,
                     config: {

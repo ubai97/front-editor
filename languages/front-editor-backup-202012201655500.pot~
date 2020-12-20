@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 16:22+0000\n"
+"POT-Creation-Date: 2020-12-20 16:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -19,67 +19,95 @@ msgstr ""
 msgid "Edit in front editor"
 msgstr ""
 
-#: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:122
+#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:124
 msgid "Publish"
 msgstr ""
 
-#: inc/Blocks.php:63
+#: inc/Blocks.php:64
 msgid "Pending"
 msgstr ""
 
-#: inc/Blocks.php:64
+#: inc/Blocks.php:65
 msgid "Post status"
 msgstr ""
 
-#: inc/Blocks.php:65
+#: inc/Blocks.php:66
 msgid "when user is adding the post what status it must have"
 msgstr ""
 
-#: inc/Blocks.php:66
+#: inc/Blocks.php:67
 msgid "Front editor settings"
 msgstr ""
 
-#: inc/Blocks.php:67
+#: inc/Blocks.php:68
 msgid "Post image"
 msgstr ""
 
-#: inc/Blocks.php:68
+#: inc/Blocks.php:69
 msgid "Post category"
 msgstr ""
 
-#: inc/Blocks.php:69
-msgid "Post tags"
-msgstr ""
-
-#: inc/Blocks.php:70 inc/MenuSettings.php:26 inc/MenuSettings.php:208
-msgid "Display"
+#: inc/Blocks.php:70
+msgid "Show empty categories"
 msgstr ""
 
 #: inc/Blocks.php:71
-msgid "Always display"
+msgid "Choose multiple categories"
 msgstr ""
 
 #: inc/Blocks.php:72
-msgid "Add new button"
+msgid "Category settings"
 msgstr ""
 
-#: inc/Blocks.php:73 inc/MenuSettings.php:27
-msgid "Display and require"
+#: inc/Blocks.php:73
+msgid "Post tags"
 msgstr ""
 
-#: inc/Blocks.php:74 inc/MenuSettings.php:28
-msgid "Disable this field"
+#: inc/Blocks.php:74
+msgid "Tags settings"
 msgstr ""
 
 #: inc/Blocks.php:75
+msgid "Ability to add new tags"
+msgstr ""
+
+#: inc/Blocks.php:76 inc/MenuSettings.php:26 inc/MenuSettings.php:208
+msgid "Display"
+msgstr ""
+
+#: inc/Blocks.php:77
+msgid "Always display"
+msgstr ""
+
+#: inc/Blocks.php:78
+msgid "Add new button"
+msgstr ""
+
+#: inc/Blocks.php:79 inc/MenuSettings.php:27
+msgid "Display and require"
+msgstr ""
+
+#: inc/Blocks.php:80 inc/MenuSettings.php:28
+msgid "Disable this field"
+msgstr ""
+
+#: inc/Blocks.php:81
 msgid "Editor plugins"
 msgstr ""
 
-#: inc/Blocks.php:189
+#: inc/Blocks.php:82
+msgid "Available only in pro version."
+msgstr ""
+
+#: inc/Blocks.php:83
+msgid "Use wp media uploader"
+msgstr ""
+
+#: inc/Blocks.php:199
 msgid "The featured image is required"
 msgstr ""
 
-#: inc/Blocks.php:238 inc/Blocks.php:289
+#: inc/Blocks.php:247 inc/Blocks.php:304
 msgid "The category selection is required"
 msgstr ""
 
@@ -95,16 +123,120 @@ msgstr ""
 msgid "You do not have permission to edit this post"
 msgstr ""
 
-#: inc/Editor.php:109 inc/Editor.php:124
+#: inc/Editor.php:110 inc/Editor.php:126
 msgid "Update"
 msgstr ""
 
-#: inc/Editor.php:120
+#: inc/Editor.php:122
 msgid "Start writing or enter Tab to choose a block"
 msgstr ""
 
-#: inc/Editor.php:123
+#: inc/Editor.php:125
 msgid "Updating"
+msgstr ""
+
+#: inc/Editor.php:133
+msgid "Click to tune"
+msgstr ""
+
+#: inc/Editor.php:134
+msgid "or drag to move"
+msgstr ""
+
+#: inc/Editor.php:139
+msgid "Convert to"
+msgstr ""
+
+#: inc/Editor.php:145
+msgid "Add"
+msgstr ""
+
+#: inc/Editor.php:150
+msgid "Text"
+msgstr ""
+
+#: inc/Editor.php:151
+msgid "Heading"
+msgstr ""
+
+#: inc/Editor.php:152
+msgid "List"
+msgstr ""
+
+#: inc/Editor.php:153
+msgid "Warning"
+msgstr ""
+
+#: inc/Editor.php:154
+msgid "Checklist"
+msgstr ""
+
+#: inc/Editor.php:155
+msgid "Quote"
+msgstr ""
+
+#: inc/Editor.php:156
+msgid "Code"
+msgstr ""
+
+#: inc/Editor.php:157
+msgid "Delimiter"
+msgstr ""
+
+#: inc/Editor.php:158
+msgid "Raw HTML"
+msgstr ""
+
+#: inc/Editor.php:159
+msgid "Table"
+msgstr ""
+
+#: inc/Editor.php:160
+msgid "Link"
+msgstr ""
+
+#: inc/Editor.php:161
+msgid "Marker"
+msgstr ""
+
+#: inc/Editor.php:162
+msgid "Bold"
+msgstr ""
+
+#: inc/Editor.php:163
+msgid "Italic"
+msgstr ""
+
+#: inc/Editor.php:164
+msgid "InlineCode"
+msgstr ""
+
+#: inc/Editor.php:168
+msgid "Title"
+msgstr ""
+
+#: inc/Editor.php:169
+msgid "Message"
+msgstr ""
+
+#: inc/Editor.php:172
+msgid "Add a link"
+msgstr ""
+
+#: inc/Editor.php:175
+msgid "The block can not be displayed correctly."
+msgstr ""
+
+#: inc/Editor.php:180
+msgid "Delete"
+msgstr ""
+
+#: inc/Editor.php:183
+msgid "Move up"
+msgstr ""
+
+#: inc/Editor.php:186
+msgid "Move down"
 msgstr ""
 
 #: inc/EditorWidget.php:41 inc/PostsList.php:59
@@ -206,15 +338,15 @@ msgstr ""
 msgid "Please add correct post title"
 msgstr ""
 
-#: inc/SavePost.php:152
+#: inc/SavePost.php:158
 msgid "New post created"
 msgstr ""
 
-#: inc/SavePost.php:152
+#: inc/SavePost.php:158
 msgid "Post updated"
 msgstr ""
 
-#: inc/SavePost.php:291
+#: inc/SavePost.php:297
 msgid "Image type is not supported, please select another image"
 msgstr ""
 
@@ -234,7 +366,7 @@ msgstr ""
 msgid "Select category"
 msgstr ""
 
-#: templates/front-editor/post-featured-image.php:10
+#: templates/front-editor/post-featured-image.php:11
 msgid "Set featured image"
 msgstr ""
 

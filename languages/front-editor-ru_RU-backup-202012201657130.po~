@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 16:22+0000\n"
-"PO-Revision-Date: 2020-09-14 16:25+0000\n"
+"POT-Creation-Date: 2020-12-20 16:40+0000\n"
+"PO-Revision-Date: 2020-12-20 16:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -13,73 +13,101 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.3; wp-5.5.1"
+"X-Loco-Version: 2.4.3; wp-5.5.3"
 
 #: front-editor.php:144
 msgid "Edit in front editor"
 msgstr "Редактировать в Front Editor"
 
-#: inc/Blocks.php:62 inc/Editor.php:58 inc/Editor.php:122
+#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:124
 msgid "Publish"
 msgstr "Опубликовать"
 
-#: inc/Blocks.php:63
+#: inc/Blocks.php:64
 msgid "Pending"
 msgstr "Ожидает подтверждения"
 
-#: inc/Blocks.php:64
+#: inc/Blocks.php:65
 msgid "Post status"
 msgstr "Статус записи"
 
-#: inc/Blocks.php:65
+#: inc/Blocks.php:66
 msgid "when user is adding the post what status it must have"
 msgstr "когда пользователь добавляет пост, какой статус он должен иметь"
 
-#: inc/Blocks.php:66
+#: inc/Blocks.php:67
 msgid "Front editor settings"
 msgstr "Настройки редактора"
 
-#: inc/Blocks.php:67
+#: inc/Blocks.php:68
 msgid "Post image"
 msgstr "Изображение записи"
 
-#: inc/Blocks.php:68
+#: inc/Blocks.php:69
 msgid "Post category"
 msgstr "Категория записи"
 
-#: inc/Blocks.php:69
+#: inc/Blocks.php:70
+msgid "Show empty categories"
+msgstr "Показывать пустые категории"
+
+#: inc/Blocks.php:71
+msgid "Choose multiple categories"
+msgstr "Выбирать несколько категорий"
+
+#: inc/Blocks.php:72
+msgid "Category settings"
+msgstr "Настройки категории"
+
+#: inc/Blocks.php:73
 msgid "Post tags"
 msgstr "Теги записи"
 
-#: inc/Blocks.php:70 inc/MenuSettings.php:26 inc/MenuSettings.php:208
+#: inc/Blocks.php:74
+msgid "Tags settings"
+msgstr "Настройки тегов"
+
+#: inc/Blocks.php:75
+msgid "Ability to add new tags"
+msgstr "Возможность добавлять новые теги"
+
+#: inc/Blocks.php:76 inc/MenuSettings.php:26 inc/MenuSettings.php:208
 msgid "Display"
 msgstr "Отобразить"
 
-#: inc/Blocks.php:71
+#: inc/Blocks.php:77
 msgid "Always display"
 msgstr "Всегда показывать"
 
-#: inc/Blocks.php:72
+#: inc/Blocks.php:78
 msgid "Add new button"
 msgstr "Кнопка \"Добавить запись\""
 
-#: inc/Blocks.php:73 inc/MenuSettings.php:27
+#: inc/Blocks.php:79 inc/MenuSettings.php:27
 msgid "Display and require"
 msgstr "Отобразить и сделать обязательным"
 
-#: inc/Blocks.php:74 inc/MenuSettings.php:28
+#: inc/Blocks.php:80 inc/MenuSettings.php:28
 msgid "Disable this field"
 msgstr "Отключить данное поле"
 
-#: inc/Blocks.php:75
+#: inc/Blocks.php:81
 msgid "Editor plugins"
 msgstr "Плагины редактора"
 
-#: inc/Blocks.php:189
+#: inc/Blocks.php:82
+msgid "Available only in pro version."
+msgstr "Доступно в про версии."
+
+#: inc/Blocks.php:83
+msgid "Use wp media uploader"
+msgstr ""
+
+#: inc/Blocks.php:199
 msgid "The featured image is required"
 msgstr "Изображение записи обязательна"
 
-#: inc/Blocks.php:238 inc/Blocks.php:289
+#: inc/Blocks.php:247 inc/Blocks.php:304
 msgid "The category selection is required"
 msgstr "Выбор категории обязателен "
 
@@ -97,17 +125,121 @@ msgstr ""
 msgid "You do not have permission to edit this post"
 msgstr "Недостаточно прав для редактирования записи"
 
-#: inc/Editor.php:109 inc/Editor.php:124
+#: inc/Editor.php:110 inc/Editor.php:126
 msgid "Update"
 msgstr "Обновить"
 
-#: inc/Editor.php:120
+#: inc/Editor.php:122
 msgid "Start writing or enter Tab to choose a block"
 msgstr "Начните писать или нажмите Tab, чтобы выбрать блок"
 
-#: inc/Editor.php:123
+#: inc/Editor.php:125
 msgid "Updating"
 msgstr "Обновление"
+
+#: inc/Editor.php:133
+msgid "Click to tune"
+msgstr "Нажмите, чтобы настроить"
+
+#: inc/Editor.php:134
+msgid "or drag to move"
+msgstr "или перетащите"
+
+#: inc/Editor.php:139
+msgid "Convert to"
+msgstr "Конвертировать в"
+
+#: inc/Editor.php:145
+msgid "Add"
+msgstr "Добавить"
+
+#: inc/Editor.php:150
+msgid "Text"
+msgstr "Параграф"
+
+#: inc/Editor.php:151
+msgid "Heading"
+msgstr "Заголовок"
+
+#: inc/Editor.php:152
+msgid "List"
+msgstr "Список"
+
+#: inc/Editor.php:153
+msgid "Warning"
+msgstr "Примечание"
+
+#: inc/Editor.php:154
+msgid "Checklist"
+msgstr "Чеклист"
+
+#: inc/Editor.php:155
+msgid "Quote"
+msgstr "Цитата"
+
+#: inc/Editor.php:156
+msgid "Code"
+msgstr "Код"
+
+#: inc/Editor.php:157
+msgid "Delimiter"
+msgstr "Разделитель"
+
+#: inc/Editor.php:158
+msgid "Raw HTML"
+msgstr "HTML-фрагмент"
+
+#: inc/Editor.php:159
+msgid "Table"
+msgstr "Таблица"
+
+#: inc/Editor.php:160
+msgid "Link"
+msgstr "Ссылка"
+
+#: inc/Editor.php:161
+msgid "Marker"
+msgstr "Маркер"
+
+#: inc/Editor.php:162
+msgid "Bold"
+msgstr "Полужирный"
+
+#: inc/Editor.php:163
+msgid "Italic"
+msgstr "Курсив"
+
+#: inc/Editor.php:164
+msgid "InlineCode"
+msgstr "Моноширинный"
+
+#: inc/Editor.php:168
+msgid "Title"
+msgstr "Название"
+
+#: inc/Editor.php:169
+msgid "Message"
+msgstr "Сообщение"
+
+#: inc/Editor.php:172
+msgid "Add a link"
+msgstr "Вставьте ссылку"
+
+#: inc/Editor.php:175
+msgid "The block can not be displayed correctly."
+msgstr "Блок не может быть отображен"
+
+#: inc/Editor.php:180
+msgid "Delete"
+msgstr "Удалить"
+
+#: inc/Editor.php:183
+msgid "Move up"
+msgstr "Переместить вверх"
+
+#: inc/Editor.php:186
+msgid "Move down"
+msgstr "Переместить вниз"
 
 #: inc/EditorWidget.php:41 inc/PostsList.php:59
 msgid "Edit"
@@ -216,15 +348,15 @@ msgstr "Пожалуйста, добавьте заголовок записи"
 msgid "Please add correct post title"
 msgstr "Исправьте заголовок поста"
 
-#: inc/SavePost.php:152
+#: inc/SavePost.php:158
 msgid "New post created"
 msgstr "Новая запись успешно создана"
 
-#: inc/SavePost.php:152
+#: inc/SavePost.php:158
 msgid "Post updated"
 msgstr "Запись обновлена"
 
-#: inc/SavePost.php:291
+#: inc/SavePost.php:297
 msgid "Image type is not supported, please select another image"
 msgstr "Тип изображения не поддерживается, выберите другое изображение"
 
@@ -244,7 +376,7 @@ msgstr "Добавить заголовок"
 msgid "Select category"
 msgstr "Выберите категорию"
 
-#: templates/front-editor/post-featured-image.php:10
+#: templates/front-editor/post-featured-image.php:11
 msgid "Set featured image"
 msgstr "Выберите картинку"
 

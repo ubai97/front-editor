@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 14:33+0000\n"
-"PO-Revision-Date: 2020-09-16 14:35+0000\n"
+"POT-Creation-Date: 2020-12-20 16:55+0000\n"
+"PO-Revision-Date: 2020-12-20 16:57+0000\n"
 "Last-Translator: \n"
-"Language-Team: Русский\n"
+"Language-Team: Russian\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
@@ -13,13 +13,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.3; wp-5.5.1"
+"X-Loco-Version: 2.4.3; wp-5.5.3"
 
 #: front-editor.php:144
 msgid "Edit in front editor"
 msgstr "Редактировать в Front Editor"
 
-#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:122
+#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:124
 msgid "Publish"
 msgstr "Опубликовать"
 
@@ -99,11 +99,15 @@ msgstr "Плагины редактора"
 msgid "Available only in pro version."
 msgstr "Доступно в про версии."
 
-#: inc/Blocks.php:197
+#: inc/Blocks.php:83
+msgid "Use wp media uploader"
+msgstr ""
+
+#: inc/Blocks.php:199
 msgid "The featured image is required"
 msgstr "Изображение записи обязательна"
 
-#: inc/Blocks.php:245 inc/Blocks.php:302
+#: inc/Blocks.php:247 inc/Blocks.php:304
 msgid "The category selection is required"
 msgstr "Выбор категории обязателен "
 
@@ -121,17 +125,125 @@ msgstr ""
 msgid "You do not have permission to edit this post"
 msgstr "Недостаточно прав для редактирования записи"
 
-#: inc/Editor.php:109 inc/Editor.php:124
+#: inc/Editor.php:110 inc/Editor.php:126
 msgid "Update"
 msgstr "Обновить"
 
-#: inc/Editor.php:120
+#: inc/Editor.php:122
 msgid "Start writing or enter Tab to choose a block"
 msgstr "Начните писать или нажмите Tab, чтобы выбрать блок"
 
-#: inc/Editor.php:123
+#: inc/Editor.php:125
 msgid "Updating"
 msgstr "Обновление"
+
+#: inc/Editor.php:133
+msgid "Click to tune"
+msgstr "Нажмите, чтобы настроить"
+
+#: inc/Editor.php:134
+msgid "or drag to move"
+msgstr "или перетащите"
+
+#: inc/Editor.php:139
+msgid "Convert to"
+msgstr "Конвертировать в"
+
+#: inc/Editor.php:145
+msgid "Add"
+msgstr "Добавить"
+
+#: inc/Editor.php:150
+msgid "Text"
+msgstr "Параграф"
+
+#: inc/Editor.php:151
+msgid "Heading"
+msgstr "Заголовок"
+
+#: inc/Editor.php:152
+msgid "List"
+msgstr "Список"
+
+#: inc/Editor.php:153
+msgid "Warning"
+msgstr "Примечание"
+
+#: inc/Editor.php:154
+msgid "Checklist"
+msgstr "Чеклист"
+
+#: inc/Editor.php:155
+msgid "Quote"
+msgstr "Цитата"
+
+#: inc/Editor.php:156
+msgid "Code"
+msgstr "Код"
+
+#: inc/Editor.php:157
+msgid "Delimiter"
+msgstr "Разделитель"
+
+#: inc/Editor.php:158
+msgid "Raw HTML"
+msgstr "HTML-фрагмент"
+
+#: inc/Editor.php:159
+msgid "Table"
+msgstr "Таблица"
+
+#: inc/Editor.php:160
+msgid "Link"
+msgstr "Ссылка"
+
+#: inc/Editor.php:161
+msgid "Marker"
+msgstr "Маркер"
+
+#: inc/Editor.php:162
+msgid "Bold"
+msgstr "Полужирный"
+
+#: inc/Editor.php:163
+msgid "Italic"
+msgstr "Курсив"
+
+#: inc/Editor.php:164
+msgid "InlineCode"
+msgstr "Моноширинный"
+
+#: inc/Editor.php:165
+msgid "Image & Gallery"
+msgstr "Картинка & Галерея"
+
+#: inc/Editor.php:169
+msgid "Title"
+msgstr "Название"
+
+#: inc/Editor.php:170
+msgid "Message"
+msgstr "Сообщение"
+
+#: inc/Editor.php:173
+msgid "Add a link"
+msgstr "Вставьте ссылку"
+
+#: inc/Editor.php:176
+msgid "The block can not be displayed correctly."
+msgstr "Блок не может быть отображен"
+
+#: inc/Editor.php:181
+msgid "Delete"
+msgstr "Удалить"
+
+#: inc/Editor.php:184
+msgid "Move up"
+msgstr "Переместить вверх"
+
+#: inc/Editor.php:187
+msgid "Move down"
+msgstr "Переместить вниз"
 
 #: inc/EditorWidget.php:41 inc/PostsList.php:59
 msgid "Edit"
@@ -240,15 +352,15 @@ msgstr "Пожалуйста, добавьте заголовок записи"
 msgid "Please add correct post title"
 msgstr "Исправьте заголовок поста"
 
-#: inc/SavePost.php:154
+#: inc/SavePost.php:158
 msgid "New post created"
 msgstr "Новая запись успешно создана"
 
-#: inc/SavePost.php:154
+#: inc/SavePost.php:158
 msgid "Post updated"
 msgstr "Запись обновлена"
 
-#: inc/SavePost.php:293
+#: inc/SavePost.php:297
 msgid "Image type is not supported, please select another image"
 msgstr "Тип изображения не поддерживается, выберите другое изображение"
 
@@ -268,7 +380,7 @@ msgstr "Добавить заголовок"
 msgid "Select category"
 msgstr "Выберите категорию"
 
-#: templates/front-editor/post-featured-image.php:10
+#: templates/front-editor/post-featured-image.php:11
 msgid "Set featured image"
 msgstr "Выберите картинку"
 

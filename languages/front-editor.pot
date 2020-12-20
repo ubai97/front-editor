@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 14:33+0000\n"
+"POT-Creation-Date: 2020-12-20 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Edit in front editor"
 msgstr ""
 
-#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:122
+#: inc/Blocks.php:63 inc/Editor.php:58 inc/Editor.php:124
 msgid "Publish"
 msgstr ""
 
@@ -99,11 +99,15 @@ msgstr ""
 msgid "Available only in pro version."
 msgstr ""
 
-#: inc/Blocks.php:197
+#: inc/Blocks.php:83
+msgid "Use wp media uploader"
+msgstr ""
+
+#: inc/Blocks.php:199
 msgid "The featured image is required"
 msgstr ""
 
-#: inc/Blocks.php:245 inc/Blocks.php:302
+#: inc/Blocks.php:247 inc/Blocks.php:304
 msgid "The category selection is required"
 msgstr ""
 
@@ -119,16 +123,124 @@ msgstr ""
 msgid "You do not have permission to edit this post"
 msgstr ""
 
-#: inc/Editor.php:109 inc/Editor.php:124
+#: inc/Editor.php:110 inc/Editor.php:126
 msgid "Update"
 msgstr ""
 
-#: inc/Editor.php:120
+#: inc/Editor.php:122
 msgid "Start writing or enter Tab to choose a block"
 msgstr ""
 
-#: inc/Editor.php:123
+#: inc/Editor.php:125
 msgid "Updating"
+msgstr ""
+
+#: inc/Editor.php:133
+msgid "Click to tune"
+msgstr ""
+
+#: inc/Editor.php:134
+msgid "or drag to move"
+msgstr ""
+
+#: inc/Editor.php:139
+msgid "Convert to"
+msgstr ""
+
+#: inc/Editor.php:145
+msgid "Add"
+msgstr ""
+
+#: inc/Editor.php:150
+msgid "Text"
+msgstr ""
+
+#: inc/Editor.php:151
+msgid "Heading"
+msgstr ""
+
+#: inc/Editor.php:152
+msgid "List"
+msgstr ""
+
+#: inc/Editor.php:153
+msgid "Warning"
+msgstr ""
+
+#: inc/Editor.php:154
+msgid "Checklist"
+msgstr ""
+
+#: inc/Editor.php:155
+msgid "Quote"
+msgstr ""
+
+#: inc/Editor.php:156
+msgid "Code"
+msgstr ""
+
+#: inc/Editor.php:157
+msgid "Delimiter"
+msgstr ""
+
+#: inc/Editor.php:158
+msgid "Raw HTML"
+msgstr ""
+
+#: inc/Editor.php:159
+msgid "Table"
+msgstr ""
+
+#: inc/Editor.php:160
+msgid "Link"
+msgstr ""
+
+#: inc/Editor.php:161
+msgid "Marker"
+msgstr ""
+
+#: inc/Editor.php:162
+msgid "Bold"
+msgstr ""
+
+#: inc/Editor.php:163
+msgid "Italic"
+msgstr ""
+
+#: inc/Editor.php:164
+msgid "InlineCode"
+msgstr ""
+
+#: inc/Editor.php:165
+msgid "Image & Gallery"
+msgstr ""
+
+#: inc/Editor.php:169
+msgid "Title"
+msgstr ""
+
+#: inc/Editor.php:170
+msgid "Message"
+msgstr ""
+
+#: inc/Editor.php:173
+msgid "Add a link"
+msgstr ""
+
+#: inc/Editor.php:176
+msgid "The block can not be displayed correctly."
+msgstr ""
+
+#: inc/Editor.php:181
+msgid "Delete"
+msgstr ""
+
+#: inc/Editor.php:184
+msgid "Move up"
+msgstr ""
+
+#: inc/Editor.php:187
+msgid "Move down"
 msgstr ""
 
 #: inc/EditorWidget.php:41 inc/PostsList.php:59
@@ -230,15 +342,15 @@ msgstr ""
 msgid "Please add correct post title"
 msgstr ""
 
-#: inc/SavePost.php:154
+#: inc/SavePost.php:158
 msgid "New post created"
 msgstr ""
 
-#: inc/SavePost.php:154
+#: inc/SavePost.php:158
 msgid "Post updated"
 msgstr ""
 
-#: inc/SavePost.php:293
+#: inc/SavePost.php:297
 msgid "Image type is not supported, please select another image"
 msgstr ""
 
@@ -258,7 +370,7 @@ msgstr ""
 msgid "Select category"
 msgstr ""
 
-#: templates/front-editor/post-featured-image.php:10
+#: templates/front-editor/post-featured-image.php:11
 msgid "Set featured image"
 msgstr ""
 

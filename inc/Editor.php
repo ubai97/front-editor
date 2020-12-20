@@ -92,6 +92,7 @@ class Editor
 			$editor_data = '';
 			if (get_post_meta($post_id, 'bfe_editor_js_data', true)) {
 				$editor_data                = get_post_meta($post_id, 'bfe_editor_js_data', true);
+				//$editor_data_json = 
 				$editor_data                = json_decode($editor_data, true);
 				$front_edited_modified_time = $editor_data['time'] / 1000;
 				$admin_post_modified_time   = get_the_modified_time('U', $post_id);
@@ -124,6 +125,70 @@ class Editor
 					'updating' => sprintf('%s...', __('Updating', 'front-editor')),
 					'update'   => __('Update', 'front-editor'),
 				],
+				'i18n' => [
+					'messages' => [
+						'ui' => [
+							"blockTunes" => [
+								"toggler" => [
+									"Click to tune" => __("Click to tune", 'front-editor'),
+									"or drag to move" => __("or drag to move", 'front-editor')
+								]
+							],
+							'inlineToolbar' => [
+								'converter' => [
+									"Convert to" => __("Convert to", 'front-editor')
+
+								]
+							],
+							"toolbar" => [
+								"toolbox" => [
+									"Add" => __("Add", 'front-editor')
+								]
+							]
+						],
+						'toolNames' => [
+							"Text" => __("Text", 'front-editor'),
+							"Heading" => __("Heading", 'front-editor'),
+							"List" => __("List", 'front-editor'),
+							"Warning" => __("Warning", 'front-editor'),
+							"Checklist" => __("Checklist", 'front-editor'),
+							"Quote" => __("Quote", 'front-editor'),
+							"Code" => __("Code", 'front-editor'),
+							"Delimiter" => __("Delimiter", 'front-editor'),
+							"Raw HTML" => __("Raw HTML", 'front-editor'),
+							"Table" => __("Table", 'front-editor'),
+							"Link" => __("Link", 'front-editor'),
+							"Marker" => __("Marker", 'front-editor'),
+							"Bold" => __("Bold", 'front-editor'),
+							"Italic" => __("Italic", 'front-editor'),
+							"InlineCode" => __("InlineCode", 'front-editor'),
+							"Image & Gallery" => __("Image & Gallery", 'front-editor')
+						],
+						'tools' => [
+							'warning' => [
+								"Title" => __("Title", 'front-editor'),
+								"Message" => __("Message", 'front-editor')
+							],
+							'link' => [
+								"Add a link" => __("Add a link", 'front-editor'),
+							],
+							'stub' => [
+								"The block can not be displayed correctly." => __("The block can not be displayed correctly.", 'front-editor'),
+							]
+							],
+							'blockTunes' => [
+								'delete' => [
+									"Delete" => __("Delete", 'front-editor'),
+								],
+								'moveUp' => [
+									"Move up" => __("Move up", 'front-editor'),
+								],
+								'moveDown' => [
+									"Move down" => __("Move down", 'front-editor'),
+								]
+							]
+					]
+				]
 			],
 			'editor_settings' => [
 				'editor_image_plugin' => $attributes['editor_image_plugin'] ?? true,
@@ -256,7 +321,7 @@ class Editor
 			case 'header';
 				$guten_type = 'heading';
 				$html       = sprintf(
-					'<!-- wp:%s {"level":%s} --><h%s>%s</h%s><!-- /wp:%s -->',
+					'<!-- wp:%s {"level" =>%s} --><h%s>%s</h%s><!-- /wp:%s -->',
 					$guten_type,
 					$data['level'],
 					$data['level'],
@@ -293,10 +358,19 @@ class Editor
 				break;
 
 			case 'image':
-				$image_url = $data['file']['url'];
-				$image_id  = attachment_url_to_postid($image_url);
 				ob_start();
-				require FE_Template_PATH . 'editor/image.php';
+				if (!empty($data['file']['url'])) {
+					$image_url = $data['file']['url'];
+					$image_id  = attachment_url_to_postid($image_url);
+					require FE_Template_PATH . 'editor/image.php';
+				} elseif (!empty($data) && count($data) > 1) {
+					$image_ids = $data;
+					require FE_Template_PATH . 'editor/gallery.php';
+				} else {
+					$image_id  = $data[0];
+					require FE_Template_PATH . 'editor/image.php';
+				}
+
 				$html = trim(ob_get_clean());
 				break;
 
