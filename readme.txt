@@ -33,9 +33,9 @@ We using a next-generation block styled editor!
 * Inline Code
 
 == Pro version futures ==
-* Gallery block using WP Media Uploader
+* Gallery using WP Media Uploader
 * Image uploading via WP Media Uploader
-* WP Media Uploader
+* Thumbnail using WP Media Uploader
 * Multiple categories selection
 * Warning
 * Table 
