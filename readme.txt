@@ -181,6 +181,15 @@ Please check this article [https://wpfronteditor.com/how-to-use-shortcode/](http
 
 == Upgrade Notice ==
 
+= 2.1.0 =
+* Editor translation issue solved https://wordpress.org/support/topic/%d0%bd%d0%b5%d0%b2%d0%be%d0%b7%d0%bc%d0%be%d0%b6%d0%bd%d0%be-%d0%bf%d0%b5%d1%80%d0%b5%d0%b2%d0%b5%d1%81%d1%82%d0%b8/
+* Small fixes solved
+* Added Image & Gallery block (Pro version)
+* Added WP Media Uploader (Pro version)
+* Added WP Media Uploader Settings for thumbnail (Pro version)
+* Enable Subscriber role to upload files
+* Users can see only there attachments in media uploader
+
 = 2.0.4 =
 * Shortcode error fixed and added all setting https://wpfronteditor.com/how-to-use-shortcode/
 * EditorJS updated

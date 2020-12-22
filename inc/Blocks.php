@@ -58,9 +58,6 @@ class Block
             $asset['version']
         );
 
-
-
-
         $data = [
             'fe_edit_link' => Editor::get_post_edit_link(get_the_ID()),
             'translations' => [
