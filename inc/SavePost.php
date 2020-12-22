@@ -26,8 +26,18 @@ class SavePost
 	 */
 	public static function init()
 	{
-		add_action('wp_ajax_bfe_update_post', array(__CLASS__, 'update_or_add_post'));
-		add_action('wp_ajax_bfe_uploading_image', array(__CLASS__, 'bfe_uploading_image'));
+		/**
+		 * Update or add post
+		 */
+		add_action('wp_ajax_bfe_update_post', [__CLASS__, 'update_or_add_post']);
+		/**
+		 * Image uploading ajax
+		 */
+		add_action('wp_ajax_bfe_uploading_image', [__CLASS__, 'bfe_uploading_image']);
+		/**
+		 * When saving from Gutenberg
+		 */
+		add_action('save_post', [__CLASS__, 'gutenberg_save_post'], 10, 3);
 	}
 
 	/**
@@ -145,7 +155,7 @@ class SavePost
 		/**
 		 * Adding post thumbnail
 		 */
-		if(empty($_POST['thumb_img_id'])){
+		if (empty($_POST['thumb_img_id'])) {
 			self::add_post_thumbnail($post_id, self::fe_sanitize_image() ?? '', intval(sanitize_text_field($_POST['thumb_exist'])) ?? 0);
 		} else {
 			set_post_thumbnail($post_id, (int) $_POST['thumb_img_id']);
@@ -260,14 +270,14 @@ class SavePost
 
 		if ($attach_id) {
 			$attach = get_post($attach_id);
-			$medias = get_attached_media( '', $_POST['post_id'] );
-			foreach($medias as $media){
+			$medias = get_attached_media('', $_POST['post_id']);
+			foreach ($medias as $media) {
 				if ($attach_id === $media->ID) {
 					return false;
 				}
 			}
 
-			if($attach->post_author === get_post($_POST['post_id'])->post_author){
+			if ($attach->post_author === get_post($_POST['post_id'])->post_author) {
 				return false;
 			}
 
@@ -278,7 +288,7 @@ class SavePost
 	}
 
 	/**
-	 * Undocumented function
+	 * Uploading image logic
 	 *
 	 * @param array  $image image array.
 	 * @param string $image_url image url.
@@ -338,6 +348,25 @@ class SavePost
 			'upload'      => $upload,
 			'attach_id'   => $attach_id,
 		);
+	}
+
+	/**
+	 * On post update from admin panel
+	 *
+	 * @param [type] $post_ID
+	 * @param [type] $post
+	 * @param [type] $update
+	 * @return void
+	 */
+	public static function gutenberg_save_post($post_ID, $post, $update)
+	{
+		// Bail if we're doing an auto save
+		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+
+		if ($_POST['action'] === 'bfe_update_post')
+			return;
+
+		update_post_meta($post_ID, 'fe_post_updated_from_admin', 1);
 	}
 }
 

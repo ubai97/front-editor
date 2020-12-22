@@ -57,6 +57,49 @@ class MenuSettings
 		 * short information and instruction
 		 */
 		add_action('bfe_front_editor_settings_before_form', [__CLASS__, 'short_information_and_instruction']);
+
+		/**
+		 * Adding notice
+		 */
+		add_action('admin_notices', [__CLASS__, 'options_instructions_example']);
+	}
+
+
+	/**
+	 * Add admin message to edit page
+	 *
+	 * @return void
+	 */
+	public static function options_instructions_example()
+	{
+		global $my_admin_page;
+		$screen = get_current_screen();
+
+		if (is_admin()) {
+			/**
+			 * If post edited with Front Editor
+			 */
+			if (get_post_meta(get_the_ID(), 'bfe_editor_js_data', true)) {
+				add_action('edit_form_after_title', [__CLASS__, 'add_content_after_editor']);
+			}
+		}
+	}
+
+	/**
+	 * Print admin message
+	 *
+	 * @return void
+	 */
+	public static function add_content_after_editor()
+	{
+		global $post;
+		$id = $post->ID;
+		$class = 'notice notice-error';
+		$message = sprintf(
+			__('This post created with the Front Editor plugin. Please edit it using Front Editor to not have issues with the plugin!', 'front-editor')
+		);
+
+		printf('<div class="%s"><p>%s</p><a href="%s">%s</a></div>', esc_attr($class), $message,Editor::get_post_edit_link($id),__('Edit in front editor', 'front-editor'));
 	}
 
 	/**
@@ -140,7 +183,9 @@ class MenuSettings
 				'If you have some ideas or questions please contact me. 
 				The contact information you can find on our website %s',
 				'front-editor'
-			),'<strong><a href="https://wpfronteditor.com" target="_blank">wpfronteditor.com</a></strong>');
+			),
+			'<strong><a href="https://wpfronteditor.com" target="_blank">wpfronteditor.com</a></strong>'
+		);
 		printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
 
 		$github_link = '<a  target="_blank" href="https://github.com/Aharonyan/front-editor">GitHub</a>';

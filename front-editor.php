@@ -15,7 +15,7 @@
  * Tested up to: 5.5.3
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version: 2.0.4
+ * Version: 2.1.0
  */
 
 namespace BFE;
@@ -48,6 +48,10 @@ class BestFrontEndEditor
     add_action('plugins_loaded', [__CLASS__, 'add_components']);
 
     add_filter('post_row_actions', [__CLASS__, 'add_link_to_edit_this_post'], 10, 2);
+
+    add_action('BFE_activate', [__CLASS__, 'activate_user_ability_to_upload_files']);
+
+    add_action('BFE_deactivate', [__CLASS__, 'disable_user_ability_to_upload_files']);
   }
 
   /**
@@ -147,6 +151,18 @@ class BestFrontEndEditor
     }
 
     return $actions;
+  }
+
+  public static function activate_user_ability_to_upload_files()
+  {
+    $contributor = get_role('subscriber');
+    $contributor->add_cap('upload_files');
+  }
+
+  public static function disable_user_ability_to_upload_files()
+  {
+    $contributor = get_role('subscriber');
+    $contributor->remove_cap('upload_files');
   }
 }
 

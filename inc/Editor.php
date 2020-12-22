@@ -92,15 +92,14 @@ class Editor
 			$editor_data = '';
 			if (get_post_meta($post_id, 'bfe_editor_js_data', true)) {
 				$editor_data                = get_post_meta($post_id, 'bfe_editor_js_data', true);
-				//$editor_data_json = 
 				$editor_data                = json_decode($editor_data, true);
-				$front_edited_modified_time = $editor_data['time'] / 1000;
-				$admin_post_modified_time   = get_the_modified_time('U', $post_id);
+				$admin_post_modified_from_admin   = get_post_meta($post_id, 'fe_post_updated_from_admin', true);
 				/**
 				 * If is the post is changed from admin we will use html content
 				 */
-				if ($admin_post_modified_time > $front_edited_modified_time) {
+				if ($admin_post_modified_from_admin) {
 					$editor_data = '';
+					update_post_meta($post_id, 'fe_post_updated_from_admin', 0);
 				}
 			}
 
@@ -116,7 +115,7 @@ class Editor
 		$data = [
 			'ajax_url'          => admin_url('admin-ajax.php'),
 			'nonce'             => wp_create_nonce('bfe_nonce'),
-			'data'              => $editor_data,
+			'data'              => apply_filters('fe_localize_editor_content_data', $editor_data),
 			'html_post_content' => $html_content,
 			'translations'      => [
 				'editor_field_placeholder' => __('Start writing or enter Tab to choose a block', 'front-editor'),
@@ -162,7 +161,8 @@ class Editor
 							"Bold" => __("Bold", 'front-editor'),
 							"Italic" => __("Italic", 'front-editor'),
 							"InlineCode" => __("InlineCode", 'front-editor'),
-							"Image & Gallery" => __("Image & Gallery", 'front-editor')
+							"Image & Gallery" => __("Image & Gallery", 'front-editor'),
+							"Image" => __("Image", 'front-editor')
 						],
 						'tools' => [
 							'warning' => [
@@ -175,18 +175,18 @@ class Editor
 							'stub' => [
 								"The block can not be displayed correctly." => __("The block can not be displayed correctly.", 'front-editor'),
 							]
+						],
+						'blockTunes' => [
+							'delete' => [
+								"Delete" => __("Delete", 'front-editor'),
 							],
-							'blockTunes' => [
-								'delete' => [
-									"Delete" => __("Delete", 'front-editor'),
-								],
-								'moveUp' => [
-									"Move up" => __("Move up", 'front-editor'),
-								],
-								'moveDown' => [
-									"Move down" => __("Move down", 'front-editor'),
-								]
+							'moveUp' => [
+								"Move up" => __("Move up", 'front-editor'),
+							],
+							'moveDown' => [
+								"Move down" => __("Move down", 'front-editor'),
 							]
+						]
 					]
 				]
 			],
@@ -293,15 +293,11 @@ class Editor
 			),
 		);
 
-		$editor_page = new \WP_Query($args);
+		$query = new \WP_Query;
+		$editor_pages = $query->query($args);
 
-		if ($editor_page->have_posts()) {
-
-			while ($editor_page->have_posts()) {
-				$editor_page->the_post();
-
-				return get_the_permalink();
-			}
+		foreach ($editor_pages as $editor_page) {
+			return get_the_permalink($editor_page->ID);
 		}
 
 		return false;
@@ -363,7 +359,13 @@ class Editor
 					$image_url = $data['file']['url'];
 					$image_id  = attachment_url_to_postid($image_url);
 					require FE_Template_PATH . 'editor/image.php';
-				} elseif (!empty($data) && count($data) > 1) {
+				}
+				$html = trim(ob_get_clean());
+				break;
+
+			case 'wpImageGallery':
+				ob_start();
+				if (!empty($data) && count($data) > 1) {
 					$image_ids = $data;
 					require FE_Template_PATH . 'editor/gallery.php';
 				} else {

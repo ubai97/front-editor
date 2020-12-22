@@ -1,6 +1,6 @@
 import { withState } from '@wordpress/compose';
 
-(function (blocks, i18n, element, blockEditor, components, compose, editor_block_data) {
+(function (blocks, i18n, element, blockEditor, components, compose, editor_block_data, wp) {
     var el = element.createElement,
         __ = i18n.__,
         AlignmentToolbar = blockEditor.AlignmentToolbar,
@@ -14,6 +14,27 @@ import { withState } from '@wordpress/compose';
         withState = compose.withState,
         translations = editor_block_data.translations,
         editor_pro_settings = editor_block_data.editor_pro_settings;
+
+        /**
+         * Message in post
+         */
+    if (editor_block_data.fe_show_warning_message) {
+        wp.data.dispatch('core/notices').createNotice(
+            'error', // Can be one of: success, info, warning, error.
+            translations.fe_edit_message, // Text string to display.
+            {
+                isDismissible: false, // Whether the user can dismiss the notice.
+                // Any actions the user can perform.
+                actions: [
+                    {
+                        url: editor_block_data.fe_edit_link,
+                        label: translations.fe_edit_link_text,
+                    },
+                ],
+            }
+        );
+    }
+
 
     blocks.registerBlockType('bfe/bfe-block', {
         title: __('Front Editor', 'front-editor'),
@@ -103,10 +124,6 @@ import { withState } from '@wordpress/compose';
                 default: true
             },
             editor_table_plugin: {
-                type: 'boolean',
-                default: false
-            },
-            editor_gallery_plugin: {
                 type: 'boolean',
                 default: false
             },
@@ -495,34 +512,6 @@ import { withState } from '@wordpress/compose';
                 </div>
             ));
 
-            /**
-             * EditorJS gallery plugin 
-             */
-            const EditorGalleryPlugin = withState({
-                checked: props.attributes.editor_gallery_plugin,
-            })(({ checked, setState }) => (
-                <div className="editor_gallery_plugin pro_version">
-                    <ToggleControl
-                        label="Gallery block (PRO)"
-                        help={'Will be soon'}
-                        id="editor_gallery_plugin"
-                        checked={checked}
-                        className={editor_pro_settings.gallery_block ? '' : "disabled"}
-                        onChange={() => setState(state => {
-                            props.setAttributes({
-                                editor_gallery_plugin: !state.checked,
-                            })
-                            return (
-                                {
-                                    checked: !state.checked
-                                }
-                            )
-                        }
-                        )}
-                    />
-                </div>
-            ));
-
 
 
             return (
@@ -628,7 +617,6 @@ import { withState } from '@wordpress/compose';
                         <EditorDelimiterPlugin />
                         <EditorWarningPlugin />
                         <EditorTablePlugin />
-                        <EditorGalleryPlugin />
                     </div>
                 </div >
             );
@@ -637,4 +625,4 @@ import { withState } from '@wordpress/compose';
             return null;
         },
     });
-})(window.wp.blocks, window.wp.i18n, window.wp.element, wp.blockEditor, window.wp.components, window.wp.compose, window.editor_block_data);
+})(window.wp.blocks, window.wp.i18n, window.wp.element, wp.blockEditor, window.wp.components, window.wp.compose, window.editor_block_data, window.wp);

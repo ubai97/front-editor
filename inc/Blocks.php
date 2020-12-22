@@ -58,8 +58,14 @@ class Block
             $asset['version']
         );
 
+
+
+
         $data = [
+            'fe_edit_link' => Editor::get_post_edit_link(get_the_ID()),
             'translations' => [
+                'fe_edit_link_text' => __('Edit in front editor', 'front-editor'),
+                'fe_edit_message' => __('This post created with the Front Editor plugin. Please edit it using Front Editor to not have issues with the plugin!', 'front-editor'),
                 'publish' => __('Publish', 'front-editor'),
                 'pending' => __('Pending', 'front-editor'),
                 'post_status' => __('Post status', 'front-editor'),
@@ -80,7 +86,7 @@ class Block
                 'disable' => __('Disable this field', 'front-editor'),
                 'editor_settings_title' => __('Editor plugins', 'front-editor'),
                 'only_in_pro' => __('Available only in pro version.', 'front-editor'),
-                'wp_media_uploader' => __('Use wp media uploader', 'front-editor')
+                'wp_media_uploader' => __('Image and Gallery using WP Media Uploader', 'front-editor')
             ],
             'editor_pro_settings' => [
                 'table_block' => false,
@@ -90,6 +96,14 @@ class Block
                 'wp_media_uploader' => false,
             ]
         ];
+
+        /**
+         * If post edited with Front Editor
+         */
+        if (get_post_meta(get_the_ID(), 'bfe_editor_js_data', true)) {
+            $data['fe_show_warning_message'] = 1;
+        }
+
 
         wp_enqueue_script('bfe-block-script');
 

@@ -228,9 +228,9 @@ export default class BfeEditor {
         })
     }
 
-    static wpMediaUploader(){
+    static wpMediaUploader() {
         var file_frame;
-        
+
         if (file_frame) {
             file_frame.open();
             return;
@@ -273,7 +273,7 @@ export default class BfeEditor {
             holder: 'bfe-editor-block',
             placeholder: this.bfee_data.translations.editor_field_placeholder,
             autofocus: true,
-            i18n : this.bfee_data.translations.i18n,
+            i18n: this.bfee_data.translations.i18n,
             tools: {
                 ...(editor_settings.editor_header_plugin && {
                     header: {
@@ -287,60 +287,61 @@ export default class BfeEditor {
                         shortcut: 'CMD+SHIFT+H'
                     }
                 }),
-
-                wp_image: {
-                    class: WPImage,
-                    inlineToolbar: true,
-                    config: {
-                        wp_media_uploader: BfeEditor.wpMediaUploader
+                ...(editor_settings.wp_media_uploader && {
+                    wpImageGallery: {
+                        class: WPImage,
+                        inlineToolbar: true,
+                        config: {
+                            wp_media_uploader: BfeEditor.wpMediaUploader
+                        }
                     }
-                },
-                // ...(editor_settings.editor_image_plugin && {
-                //     image: {
-                //         class: ImageTool,
-                //         inlineToolbar: true,
-                //         config: {
-                //             uploader: {
-                //                 uploadByFile(file) {
-                //                     return BfeEditor.uploadImage(file).then(data => {
-                //                         if (!data.success) {
-                //                             BfeEditor.bfee_editor.notifier.show({
-                //                                 message: data.data.message ?? 'Something goes wrong try later',
-                //                                 style: 'error',
-                //                             });
-                //                             return { "success": 0 };
-                //                         }
-                //                         return {
-                //                             "success": 1,
-                //                             "file": {
-                //                                 "url": data.data.url,
-                //                             }
-                //                         };
-                //                     })
-                //                 },
-                //                 uploadByUrl(url) {
-                //                     return BfeEditor.uploadImage(null, url).then(data => {
-                //                         if (!data.success) {
-                //                             BfeEditor.bfee_editor.notifier.show({
-                //                                 message: data.data.message ?? 'Something goes wrong try later',
-                //                                 style: 'error',
-                //                             });
-                //                             return { "success": 0 };
-                //                         }
-                //                         return {
-                //                             "success": 1,
-                //                             "file": {
-                //                                 "url": data.data.url,
-                //                             }
-                //                         };
-                //                     })
-                //                 }
+                }),
+                ...(editor_settings.editor_image_plugin && {
+                    image: {
+                        class: ImageTool,
+                        inlineToolbar: true,
+                        config: {
+                            uploader: {
+                                uploadByFile(file) {
+                                    return BfeEditor.uploadImage(file).then(data => {
+                                        if (!data.success) {
+                                            BfeEditor.bfee_editor.notifier.show({
+                                                message: data.data.message ?? 'Something goes wrong try later',
+                                                style: 'error',
+                                            });
+                                            return { "success": 0 };
+                                        }
+                                        return {
+                                            "success": 1,
+                                            "file": {
+                                                "url": data.data.url,
+                                            }
+                                        };
+                                    })
+                                },
+                                uploadByUrl(url) {
+                                    return BfeEditor.uploadImage(null, url).then(data => {
+                                        if (!data.success) {
+                                            BfeEditor.bfee_editor.notifier.show({
+                                                message: data.data.message ?? 'Something goes wrong try later',
+                                                style: 'error',
+                                            });
+                                            return { "success": 0 };
+                                        }
+                                        return {
+                                            "success": 1,
+                                            "file": {
+                                                "url": data.data.url,
+                                            }
+                                        };
+                                    })
+                                }
 
-                //             }
+                            }
 
-                //         }
-                //     }
-                // }),
+                        }
+                    }
+                }),
 
                 ...(editor_settings.editor_list_plugin && {
                     list: {
