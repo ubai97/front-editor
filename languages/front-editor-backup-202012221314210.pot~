@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Best Front End Editor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-20 16:40+0000\n"
+"POT-Creation-Date: 2020-12-20 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -211,31 +211,35 @@ msgstr ""
 msgid "InlineCode"
 msgstr ""
 
-#: inc/Editor.php:168
-msgid "Title"
+#: inc/Editor.php:165
+msgid "Image & Gallery"
 msgstr ""
 
 #: inc/Editor.php:169
+msgid "Title"
+msgstr ""
+
+#: inc/Editor.php:170
 msgid "Message"
 msgstr ""
 
-#: inc/Editor.php:172
+#: inc/Editor.php:173
 msgid "Add a link"
 msgstr ""
 
-#: inc/Editor.php:175
+#: inc/Editor.php:176
 msgid "The block can not be displayed correctly."
 msgstr ""
 
-#: inc/Editor.php:180
+#: inc/Editor.php:181
 msgid "Delete"
 msgstr ""
 
-#: inc/Editor.php:183
+#: inc/Editor.php:184
 msgid "Move up"
 msgstr ""
 
-#: inc/Editor.php:186
+#: inc/Editor.php:187
 msgid "Move down"
 msgstr ""
 
