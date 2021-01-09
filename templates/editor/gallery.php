@@ -20,13 +20,15 @@ ob_start();
 ?>
 <figure class="wp-block-gallery columns-2">
     <ul class="blocks-gallery-grid">
-        <?php foreach ($image_ids as $image_array) : 
+        <?php foreach ($image_ids as $image_array) :
             $image_id = $image_array['id'];
             $clean_img_ids[] = $image_id;
             $attachment_url = wp_get_attachment_image_url($image_id, 'large');
-            ?>
+
+            do_action('fe_before_gallery_block_images_html_render', $image_id, $_POST['post_id']);
+        ?>
             <li class="blocks-gallery-item">
-                <?php 
+                <?php
                 printf(
                     '<figure><img src="%s" alt="" class="wp-image-%s" data-id="%s" data-full-url="%s" data-link="http://front-editor.local/?attachment_id=%s"></figure>',
                     $attachment_url,
@@ -55,7 +57,7 @@ $block = [
     'innerContent' => [$innerHTML]
 ];
 
-$block = filter_block_kses($block,'post');
+$block = filter_block_kses($block, 'post');
 
 echo serialize_block($block);
 ?>

@@ -21,6 +21,8 @@ $innerHTML = sprintf(
     $image_id
 );
 
+do_action('fe_before_simple_image_block_images_html_render', $image_id, $_POST['post_id']);
+
 $block = [
     'blockName' => 'core/image',
     'attrs' =>

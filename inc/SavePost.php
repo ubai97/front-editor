@@ -38,6 +38,12 @@ class SavePost
 		 * When saving from Gutenberg
 		 */
 		add_action('save_post', [__CLASS__, 'gutenberg_save_post'], 10, 3);
+
+		/**
+         * Updating attachment parent
+         */
+		add_action('fe_before_gallery_block_images_html_render',[__CLASS__, 'update_attachment_parent'], 13, 2);
+		add_action('fe_before_simple_image_block_images_html_render',[__CLASS__, 'update_attachment_parent'], 13, 2);
 	}
 
 	/**
@@ -361,12 +367,35 @@ class SavePost
 	public static function gutenberg_save_post($post_ID, $post, $update)
 	{
 		// Bail if we're doing an auto save
-		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+
+		if (empty($_POST['action']))
+			return;
 
 		if ($_POST['action'] === 'bfe_update_post')
 			return;
 
 		update_post_meta($post_ID, 'fe_post_updated_from_admin', 1);
+	}
+
+	/**
+	 * Updating parent post for attachments
+	 *
+	 * @param [type] $media_id
+	 * @param [type] $parent_id
+	 * @return void
+	 */
+	public static function update_attachment_parent($media_id, $parent_id)
+	{
+
+		$media_post = wp_update_post([
+			'ID'            => $media_id,
+			'post_parent'   => $parent_id,
+		], true);
+
+		if (is_wp_error($media_post)) {
+			error_log(print_r($media_post, 1));
+		}
 	}
 }
 
