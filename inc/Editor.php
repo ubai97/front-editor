@@ -303,6 +303,18 @@ class Editor
 		return false;
 	}
 
+
+	/**
+	 * Escape brackets function
+	 *
+	 * @param string $text
+	 * @return void
+	 */
+	public static function esc_brackets($text = '')
+	{
+		return str_replace(["[", "]"], ["[ ", " ]"], $text);
+	}
+
 	/**
 	 * Generating html from post data
 	 *
@@ -340,7 +352,14 @@ class Editor
 				break;
 
 			case 'code';
-				$html = sprintf('<!-- wp:code --><pre class="bfe-code wp-block-code"><code>%s</code></pre><!-- /wp:code -->', $data['code']);
+				$editor_data      = json_decode(stripslashes($_POST['editor_data']), true)['blocks'];
+				foreach ($editor_data as $block) {
+					if ($block['type'] === 'code') {
+						$editor_data = htmlentities(self::esc_brackets($block['data']['code']));
+					}
+				}
+
+				$html = sprintf('<!-- wp:code --><pre class="bfe-code wp-block-code"><code>%s</code></pre><!-- /wp:code -->', $editor_data);
 				break;
 
 			case 'delimiter':
