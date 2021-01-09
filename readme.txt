@@ -4,7 +4,7 @@ Tags: user post,front editor,post editor,frontend post,guest author,guest post
 Requires at least: 4.0
 Tested up to: 5.6
 Requires PHP: 5.6
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,11 @@ Please check this article [https://wpfronteditor.com/how-to-use-shortcode/](http
 
 == Changelog ==
 
+= 2.1.1 =
+* #48 media attachment issue solved
+* #57 code block bugs solved
+* #58 Disable the Save/Publish Button While Saving
+
 = 2.1.0 =
 * Editor translation issue solved https://wordpress.org/support/topic/%d0%bd%d0%b5%d0%b2%d0%be%d0%b7%d0%bc%d0%be%d0%b6%d0%bd%d0%be-%d0%bf%d0%b5%d1%80%d0%b5%d0%b2%d0%b5%d1%81%d1%82%d0%b8/
 * Small fixes solved
@@ -180,6 +185,11 @@ Please check this article [https://wpfronteditor.com/how-to-use-shortcode/](http
 * Added post type selector.
 
 == Upgrade Notice ==
+
+= 2.1.1 =
+* #48 media attachment issue solved
+* #57 code block bugs solved
+* #58 Disable the Save/Publish Button While Saving
 
 = 2.1.0 =
 * Editor translation issue solved https://wordpress.org/support/topic/%d0%bd%d0%b5%d0%b2%d0%be%d0%b7%d0%bc%d0%be%d0%b6%d0%bd%d0%be-%d0%bf%d0%b5%d1%80%d0%b5%d0%b2%d0%b5%d1%81%d1%82%d0%b8/
