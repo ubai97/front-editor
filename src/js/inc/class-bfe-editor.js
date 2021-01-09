@@ -150,6 +150,7 @@ export default class BfeEditor {
         formData.append('editor_data', JSON.stringify(data));
 
         save_button.innerHTML = save_button_messages.updating;
+        save_button.disabled = true;
 
         fetch(BfeEditor.get_bfee_data.ajax_url, {
             method: 'POST',
@@ -160,6 +161,7 @@ export default class BfeEditor {
                 console.log(data);
                 if (data.success) {
                     save_button.innerHTML = save_button_messages.update;
+                    save_button.disabled = false;
 
                     /**
                      * New post add link and show the button
@@ -174,6 +176,8 @@ export default class BfeEditor {
                     });
                 } else {
                     save_button.innerHTML = save_button_messages.update;
+                    save_button.disabled = false;
+                    
                     this.bfee_editor.notifier.show({
                         message: data.data.message ?? 'Something goes wrong try later',
                         style: 'error',

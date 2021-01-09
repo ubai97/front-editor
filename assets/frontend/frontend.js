@@ -888,6 +888,7 @@ var BfeEditor = /*#__PURE__*/function () {
       formData.append('nonce', BfeEditor.get_bfee_data.nonce);
       formData.append('editor_data', JSON.stringify(data));
       save_button.innerHTML = save_button_messages.updating;
+      save_button.disabled = true;
       fetch(BfeEditor.get_bfee_data.ajax_url, {
         method: 'POST',
         body: formData
@@ -898,6 +899,7 @@ var BfeEditor = /*#__PURE__*/function () {
 
         if (data.success) {
           save_button.innerHTML = save_button_messages.update;
+          save_button.disabled = false;
           /**
            * New post add link and show the button
            */
@@ -914,6 +916,7 @@ var BfeEditor = /*#__PURE__*/function () {
           var _data$data$message;
 
           save_button.innerHTML = save_button_messages.update;
+          save_button.disabled = false;
 
           _this.bfee_editor.notifier.show({
             message: (_data$data$message = data.data.message) !== null && _data$data$message !== void 0 ? _data$data$message : 'Something goes wrong try later',

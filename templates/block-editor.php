@@ -1,7 +1,7 @@
 <div class="bfe-editor" id="bfe-editor" post_id="<?= $post_id ?>" editor_post_id="<?= get_the_ID() ?>">
     <div id="bfe-editor-block-header">
         <div class="sub-header top">
-            <a class="editor-button big" id="save-editor-block" title="<?php echo $button_text ?>"><?php echo $button_text ?></a>
+            <button class="editor-button big" id="save-editor-block" title="<?php echo $button_text ?>"><?php echo $button_text ?></button>
             <?php
             $add_new_button = $attributes['add_new_button'] ?? false;
             if (($post_id !== 'new' && $add_new_button !== 'disable') || $add_new_button === 'always_display') : ?>
