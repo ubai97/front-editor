@@ -355,7 +355,7 @@ class Editor
 				$editor_data      = json_decode(stripslashes($_POST['editor_data']), true)['blocks'];
 				foreach ($editor_data as $block) {
 					if ($block['type'] === 'code') {
-						$editor_data = htmlentities(self::esc_brackets($block['data']['code']));
+						$editor_data = htmlentities($block['data']['code']);
 					}
 				}
 
@@ -423,7 +423,7 @@ class Editor
 		 * HTML that generated type of block and data of
 		 * that block you can use this filter for make your html elements
 		 */
-		$html = apply_filters('bfe_editor_data_to_html_filter', $html, $type, $data);
+		$html = apply_filters('bfe_editor_data_to_html_filter', self::esc_brackets($html), $type, $data);
 
 		return $html;
 	}
