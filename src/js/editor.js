@@ -10,3 +10,6 @@
  */
 
 import './blocks/editor-block-editor.js';
+
+import admin_post_form from './admin-post-form.js';
+admin_post_form(jQuery);

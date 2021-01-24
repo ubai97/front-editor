@@ -25,15 +25,15 @@ class PostFormCPT
          */
         add_action('init', [__CLASS__, 'register_post_types']);
 
-        // /**
-        //  * Adding metabox with front_editor fields
-        //  */
-        // add_action('add_meta_boxes', [__CLASS__, 'front_editor_add_custom_box']);
+        /**
+         * Adding metabox with post form settings fields
+         */
+        add_action('add_meta_boxes', [__CLASS__, 'front_editor_add_custom_box']);
 
-        // /**
-        //  * Adding scripts to custom post type
-        //  */
-        // add_action('admin_enqueue_scripts', [__CLASS__, 'add_admin_scripts'], 10, 1);
+        /**
+         * Adding scripts to custom post type
+         */
+        add_action('admin_enqueue_scripts', [__CLASS__, 'add_admin_scripts'], 10, 1);
 
         // /**
         //  * When saving save fields
@@ -75,7 +75,7 @@ class PostFormCPT
         /**
          * Form template for CPT
          */
-        //require FE_PLUGIN_DIR_PATH . 'templates/front_editor-form-template-cpt.php';
+        require FE_PLUGIN_DIR_PATH . 'templates/post-form.php';
     }
 
     public static function save_front_editor_data($post_ID, $post, $update)
@@ -124,10 +124,18 @@ class PostFormCPT
     {
 
         global $post;
-
+        $asset = require FE_PLUGIN_DIR_PATH . 'assets/frontend/frontend.asset.php';
         if ($hook == 'post-new.php' || $hook == 'post.php') {
             if ('fe_post_form' === $post->post_type) {
-                wp_enqueue_style('CPT-front_editor-block-front', FE_PLUGIN_URL . '/assets/editor/main.css');
+                wp_enqueue_style('fe_post_form_CPT', FE_PLUGIN_URL . '/assets/editor/main.css', [], $asset['version']);
+                wp_register_script(
+                    'bfe-block-script',
+                    plugins_url('assets/editor/editor.js', dirname(__FILE__)),
+                    $asset['dependencies'],
+                    $asset['version'],
+                    true
+                );
+                wp_enqueue_script('bfe-block-script');
             }
         }
     }

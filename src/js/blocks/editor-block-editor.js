@@ -1,6 +1,11 @@
 import { withState } from '@wordpress/compose';
 
 (function (blocks, i18n, element, blockEditor, components, compose, editor_block_data, wp) {
+    
+    if(element === undefined){
+        return
+    }
+
     var el = element.createElement,
         __ = i18n.__,
         AlignmentToolbar = blockEditor.AlignmentToolbar,
