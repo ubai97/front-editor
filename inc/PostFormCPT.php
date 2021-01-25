@@ -135,7 +135,18 @@ class PostFormCPT
                     $asset['version'],
                     true
                 );
+                $data = [
+                    'formBuilder_options' => [
+                        'fields' => [], // New field creation
+                        'typeUserAttrs' => [], // Custom attr settings for fields,
+                        'disabledFieldButtons' => [],
+                        'defaultFields' => [],
+                        'typeUserDisabledAttrs'=>[], // Disable attributes
+                    ]
+                ];
                 wp_enqueue_script('bfe-block-script');
+
+                wp_localize_script('bfe-block-script', 'fe_post_form_data', apply_filters('bfe_fe_post_form_backend_block_localize_data', $data));
             }
         }
     }

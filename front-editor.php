@@ -88,6 +88,7 @@ class BestFrontEndEditor
     require_once __DIR__ . '/inc/Editor.php';
     require_once __DIR__ . '/inc/EditorWidget.php';
     require_once __DIR__ . '/inc/PostFormCPT.php';
+    require_once __DIR__ . '/inc/form-builder-fields/EditorJsField.php';
 
     add_action('wp_enqueue_scripts', [__CLASS__, 'add_scripts']);
   }

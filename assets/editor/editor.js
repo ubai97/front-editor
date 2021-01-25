@@ -86,6 +86,32 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/typeof.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
@@ -122,69 +148,35 @@ module.exports = _typeof;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vendors_form_builder_min__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vendors/form-builder.min */ "./src/js/vendors/form-builder.min.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vendors_form_builder_min__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vendors/form-builder.min */ "./src/js/vendors/form-builder.min.js");
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function ($) {
-  jQuery(function ($) {
-    var container = document.getElementById('formeo-editor');
-    var fields;
-    var templates = {};
-    var options = {
-      fields: [{
-        label: 'EditorJS',
-        attrs: {
-          type: 'EditorJS'
-        },
-        icon: '<svg width="84" height="84" viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="editorjs-logo-a"><stop stop-color="#39FFD7" offset="0%"></stop><stop stop-color="#308EFF" offset="100%"></stop></linearGradient></defs><g fill-rule="nonzero" fill="none"><circle fill="url(#editorjs-logo-a)" cx="42" cy="42" r="42"></circle><rect fill="#FFF" x="38" y="17" width="8" height="50" rx="4"></rect><rect fill="#FFF" x="17" y="38" width="50" height="8" rx="4"></rect></g></svg>'
-      }],
-      templates: {
-        EditorJS: function EditorJS(fieldData) {
-          return {
-            field: '<span id="' + fieldData.name + '">',
-            onRender: function onRender() {
-              $(document.getElementById(fieldData.name)).html('hi');
-            }
-          };
-        }
-      },
-      disabledFieldButtons: {
-        text: ['remove'],
-        select: ['edit']
-      },
-      defaultFields: [{
-        className: "form-control",
-        label: "Title",
-        placeholder: "Enter post title",
-        name: "post-title",
-        required: true,
-        type: "text"
-      }],
-      // Добовление настроек эелемента
-      typeUserAttrs: {
-        EditorJS: {
-          className: {
-            label: 'Class',
-            options: {
-              'red form-control': 'Red',
-              'green form-control': 'Green',
-              'blue form-control': 'Blue'
-            },
-            style: 'border: 1px solid red'
-          },
-          activateTable: {
-            label: 'Activate Table',
-            value: false,
-            type: 'checkbox'
+  var container = document.getElementById('form-builder');
+  var localizeData = window.fe_post_form_data;
+  var formBuilderOptions = localizeData.formBuilder_options;
+  console.log(formBuilderOptions);
+  var options = {
+    templates: {
+      EditorJS: function EditorJS(fieldData) {
+        return {
+          field: '<div id="EditorJS" class="' + fieldData.name + '"></div>',
+          onRender: function onRender() {
+            $('.' + fieldData.name);
           }
-        }
-      },
-      // Удаление настроект элемента
-      typeUserDisabledAttrs: {
-        'EditorJS': ['name', 'description', 'required', 'inline', 'toggle', 'placeholder', 'access', 'value']
+        };
       }
-    };
-    $(container).formBuilder(options);
-  });
+    }
+  };
+  console.log(_objectSpread(_objectSpread({}, options), formBuilderOptions));
+  $(container).formBuilder(_objectSpread(_objectSpread({}, options), formBuilderOptions));
 });
 
 /***/ }),
