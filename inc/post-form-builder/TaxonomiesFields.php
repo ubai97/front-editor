@@ -46,7 +46,8 @@ class TaxonomiesFields
              */
             $data['formBuilder_options']['temp_back'][$tax_type] = [
                 'field' => sprintf('<div class="%s tax" name="%s"></div>', $tax->name, $tax->name),
-                'onRender' => ''
+                'onRender' => '',
+                'max_in_form' => 1
             ];
 
             /**

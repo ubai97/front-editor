@@ -1,12 +1,46 @@
 import './vendors/form-builder.min'
 
-export default ($) => {
+export default ($, Swal) => {
     let localizeData = window.fe_post_form_data,
         admin_form_builder_nonce = $('#admin_form_builder_nonce').val(),
         formBuilderContainer = false,
         current_forBuilder_controls,
         updated_forBuilder_controls,
-        formBuilderOptions;
+        formBuilderOptions,
+        options = {
+            notify: {
+                error: function (message) {
+                    return Swal.fire(message, '', 'error');
+                },
+                success: function (message) {
+                    return Swal.fire(message, '', 'success');
+
+                },
+                warning: function (message) {
+                    return Swal.fire(message);
+
+                }
+            },
+            onAddField: function (fieldId) {
+                const currentFieldId = fieldId,
+                    field = $(`#${fieldId}`),
+                    field_type = field.attr('type'),
+                    field_count_in_form = $(`.form-field[type="${field_type}"]`).length;
+
+                /**
+                 * Check for max of type exactable for form
+                 */
+                if ((field_type in formBuilderOptions.temp_back)
+                    && ('max_in_form' in formBuilderOptions.temp_back[field_type])
+                    && formBuilderOptions.temp_back[field_type].max_in_form < field_count_in_form) {
+                    formBuilderContainer.actions.removeField(currentFieldId);
+                    Swal.fire(`Oops...`,formBuilderOptions.messages.max_fields_warning);
+                }
+
+                //TODO Add logic for pro version fields
+
+            }
+        };
 
 
 
@@ -51,13 +85,14 @@ export default ($) => {
                 * Init formBuilder
                 */
                 formBuilderContainer = $(`#${formBuilderId}`).formBuilder(
-                    formBuilderOptions
-                ).promise.then(formBuilder => {
+                    { ...options, ...formBuilderOptions }
+                );
+                formBuilderContainer.promise.then(formBuilder => {
 
                     // Remove controls on ajax request if there do not needed
                     builder_control_controls(formBuilderOptions);
 
-                    //
+                    // Add groups
                     add_groups()
 
                     // Disable pro fields
@@ -111,16 +146,18 @@ export default ($) => {
          */
         let difference = current_forBuilder_controls.filter(x => !updated_forBuilder_controls.includes(x));
 
-        difference.map((val)=>{
+        difference.map((val) => {
             $(`[data-type="${val}"]`).remove();
         })
     }
 
-    function add_groups(){
+    /**
+     * Adding group fields
+     */
+    function add_groups() {
         let controls_group = formBuilderOptions.controls_group
         Object.keys(controls_group).map((key, index) => {
             $(`<p class="group-name ${key}">${controls_group[key].label}</p>`).insertBefore(`[data-type="${controls_group[key].types[0]}"]`);
         })
-        //jQuery("<p>Test</p>").insertBefore('[data-type="tax_post_tag"]');
     }
 }

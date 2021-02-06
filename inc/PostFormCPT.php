@@ -20,6 +20,7 @@ class PostFormCPT
      */
     public static function init()
     {
+        require_once __DIR__ . '/post-form-builder/PostTitleField.php';
         require_once __DIR__ . '/post-form-builder/EditorJsField.php';
         require_once __DIR__ . '/post-form-builder/TaxonomiesFields.php';
 
@@ -86,7 +87,7 @@ class PostFormCPT
                 'post_type' => esc_html($_POST['post_type']),
             ],
             'formBuilder_options' => [
-                'prepend' => sprintf('<h2>%s</h2>', __('Post Title', 'front-editor')),
+                //'prepend' => sprintf('<h2>%s</h2>', __('Post Title', 'front-editor')),
                 'fields' => [], // New field creation
                 'typeUserAttrs' => [], // Custom attr settings for fields,
                 'disabledFieldButtons' => [],
@@ -98,23 +99,26 @@ class PostFormCPT
                 'templates' => [],
                 'temp_back' => [],
                 'disableFields' => ['autocomplete', 'button', 'checkbox-group', 'date', 'file', 'header', 'hidden', 'radio-group', 'select', 'number'],
-                'defaultControls' => ['paragraph','text','textarea'],
+                'defaultControls' => ['paragraph', 'text', 'textarea'],
                 'controls_group' => [
                     'post_fields' => [
-                        'label' => __('Post Fields','front-editor'),
+                        'label' => __('Post Fields', 'front-editor'),
                         'types' => []
                     ],
                     'taxonomies' => [
-                        'label' => __('Taxonomies','front-editor'),
+                        'label' => __('Taxonomies', 'front-editor'),
                         'types' => []
                     ],
-                    'custom_fields' =>[
-                        'label' => __('Custom Fields','front-editor'),
+                    'custom_fields' => [
+                        'label' => __('Custom Fields', 'front-editor'),
                         'types' => []
                     ],
                 ],
-                'controlOrder' => []
-            ]
+                'controlOrder' => [],
+                'messages' => [
+                    'max_fields_warning' => __('You already have this field in the form', 'front-editor')
+                ]
+            ],
         ];
 
         /**
@@ -125,20 +129,20 @@ class PostFormCPT
         /**
          * Ability to add custom group
          */
-        $data['formBuilder_options']['controls_group'] = apply_filters('admin_post_form_formBuilder_add_controls_group',$data['formBuilder_options']['controls_group']);
+        $data['formBuilder_options']['controls_group'] = apply_filters('admin_post_form_formBuilder_add_controls_group', $data['formBuilder_options']['controls_group']);
 
-        $filter_data = apply_filters('admin_post_form_formBuilder_settings',$data);
+        $filter_data = apply_filters('admin_post_form_formBuilder_settings', $data);
 
         /**
          * Order Elements in control bar
          */
-        foreach($filter_data['formBuilder_options']['controls_group'] as $group){
+        foreach ($filter_data['formBuilder_options']['controls_group'] as $group) {
 
-            if(empty($group['types'])){
+            if (empty($group['types'])) {
                 continue;
             }
 
-            foreach($group['types'] as $types){
+            foreach ($group['types'] as $types) {
                 $filter_data['formBuilder_options']['controlOrder'][] = $types;
             }
         }
