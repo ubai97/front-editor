@@ -86,29 +86,94 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
   }
 
-  return obj;
+  return arr2;
 }
 
-module.exports = _defineProperty;
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
 
 /***/ }),
 
@@ -139,6 +204,28 @@ module.exports = _typeof;
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+
+/***/ }),
+
 /***/ "./src/js/admin-post-form.js":
 /*!***********************************!*\
   !*** ./src/js/admin-post-form.js ***!
@@ -148,35 +235,117 @@ module.exports = _typeof;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _vendors_form_builder_min__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vendors/form-builder.min */ "./src/js/vendors/form-builder.min.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-
 /* harmony default export */ __webpack_exports__["default"] = (function ($) {
-  var container = document.getElementById('form-builder');
-  var localizeData = window.fe_post_form_data;
-  var formBuilderOptions = localizeData.formBuilder_options;
-  console.log(formBuilderOptions);
-  var options = {
-    templates: {
-      EditorJS: function EditorJS(fieldData) {
-        return {
-          field: '<div id="EditorJS" class="' + fieldData.name + '"></div>',
-          onRender: function onRender() {
-            $('.' + fieldData.name);
-          }
-        };
+  var localizeData = window.fe_post_form_data,
+      admin_form_builder_nonce = $('#admin_form_builder_nonce').val(),
+      formBuilderContainer = false,
+      current_forBuilder_controls,
+      updated_forBuilder_controls,
+      formBuilderOptions;
+  $(window).on('load', function () {
+    updateFormBuilder();
+  });
+
+  function updateFormBuilder() {
+    var post_type_update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var post_type = $('#fe_settings_post_type').val();
+    wp.ajax.send('fe_get_formBuilder_data', {
+      data: {
+        post_id: localizeData.post_id,
+        post_type: post_type,
+        admin_form_builder_nonce: admin_form_builder_nonce
+      },
+      success: function success(response) {
+        var formBuilderId = "form-builder";
+        $("#".concat(formBuilderId)).remove();
+        $('.formBuilder-wrapper').empty().append("<div id=\"".concat(formBuilderId, "\"></div>"));
+        formBuilderOptions = response.formBuilder_options;
+        var templates_obj = formBuilderOptions.temp_back;
+        /**
+         * Creating templates using data form backend
+         */
+
+        Object.keys(templates_obj).map(function (key, index) {
+          formBuilderOptions.templates[key] = function (fieldData) {
+            return {
+              field: templates_obj[key].field,
+              onRender: function onRender() {
+                $(document.getElementById(fieldData.name));
+              }
+            };
+          };
+        });
+        /**
+        * Init formBuilder
+        */
+
+        formBuilderContainer = $("#".concat(formBuilderId)).formBuilder(formBuilderOptions).promise.then(function (formBuilder) {
+          // Remove controls on ajax request if there do not needed
+          builder_control_controls(formBuilderOptions);
+          jQuery("<p>Test</p>").insertBefore('[data-type="tax_post_tag"]');
+          $(document).find('[data_type="tax_category"]').before("<p>Test</p>"); // Disable pro fields
+
+          formBuilderOptions.disable_attr.map(function (val) {
+            $(document).find(val).prop('disabled', true);
+          });
+        });
+      },
+      error: function error(_error) {
+        console.log(_error);
       }
-    }
-  };
-  console.log(_objectSpread(_objectSpread({}, options), formBuilderOptions));
-  $(container).formBuilder(_objectSpread(_objectSpread({}, options), formBuilderOptions));
+    });
+  }
+  /**
+   * Update for builder on post type update
+   */
+
+
+  $('#fe_settings_post_type').on('change', function (ev) {
+    ev.preventDefault();
+    updateFormBuilder(true);
+  });
+  /**
+   * Remove controls on ajax request if there do not needed
+   * @param {*} formBuilderOptions 
+   */
+
+  function builder_control_controls(formBuilderOptions) {
+    var post_type_update = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    current_forBuilder_controls = [];
+    updated_forBuilder_controls = []; // Getting current controls
+
+    $('.frmb-control li').each(function (index, elem) {
+      var data_type = $(elem).attr('data-type');
+      current_forBuilder_controls.push(data_type);
+    });
+    /**
+     * Creat array with updated controls
+     */
+
+    Object.keys(formBuilderOptions.temp_back).map(function (key, index) {
+      updated_forBuilder_controls.push(key);
+    });
+    /**
+     *  default fields and custom fields
+     */
+
+    updated_forBuilder_controls = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(formBuilderOptions.defaultControls), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(updated_forBuilder_controls));
+    /**
+     * Find difference between controls
+     */
+
+    var difference = current_forBuilder_controls.filter(function (x) {
+      return !updated_forBuilder_controls.includes(x);
+    });
+    difference.map(function (val) {
+      $("[data-type=\"".concat(val, "\"]")).remove();
+    });
+  }
 });
 
 /***/ }),

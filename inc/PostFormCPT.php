@@ -20,6 +20,9 @@ class PostFormCPT
      */
     public static function init()
     {
+        require_once __DIR__ . '/post-form-builder/EditorJsField.php';
+        require_once __DIR__ . '/post-form-builder/TaxonomiesFields.php';
+
         /**
          * Registering custom post type
          */
@@ -34,6 +37,8 @@ class PostFormCPT
          * Adding scripts to custom post type
          */
         add_action('admin_enqueue_scripts', [__CLASS__, 'add_admin_scripts'], 10, 1);
+
+        add_action('wp_ajax_fe_get_formBuilder_data', [__CLASS__, 'fe_get_formBuilder_data']);
 
         // /**
         //  * When saving save fields
@@ -52,6 +57,61 @@ class PostFormCPT
         add_meta_box('front_editor_metabox', 'Post Form Data', [__CLASS__, 'front_editor_meta_box_callback'], $screens);
     }
 
+    public static function fe_get_formBuilder_data()
+    {
+
+        // /**
+        //  * If ajax working
+        //  */
+        // if (wp_doing_ajax())
+        //     return;
+
+        /**
+         * Check wp nonce
+         */
+        if (!wp_verify_nonce($_POST['admin_form_builder_nonce'], 'admin_form_builder_nonce'))
+            return;
+
+        /**
+         * If this is auto save do nothing
+         */
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+
+        $post_ID = (int) esc_html($_POST['post_id']);
+
+        /**
+         * Check user roles
+         */
+        if (!current_user_can('edit_post', $post_ID))
+            return;
+
+
+        $data = [
+            'settings' => [
+                'post_type' => esc_html($_POST['post_type']),
+            ],
+            'formBuilder_options' => [
+                'prepend' => sprintf('<h2>%s</h2>', __('Post Title', 'front-editor')),
+                'fields' => [], // New field creation
+                'typeUserAttrs' => [], // Custom attr settings for fields,
+                'disabledFieldButtons' => [],
+                'defaultFields' => [],
+                'typeUserDisabledAttrs' => [ // Disable attributes
+                    'paragraph' => ['access']
+                ],
+                'disable_attr' => [],
+                'templates' => [],
+                'temp_back' => [],
+                'disableFields' => ['autocomplete', 'button', 'checkbox-group', 'date', 'file', 'header', 'hidden', 'radio-group', 'select', 'number'],
+                'defaultControls' => ['paragraph','text','textarea']
+            ]
+        ];
+
+        $filter_data = apply_filters('admin_post_form_formBuilder_settings',$data);
+        wp_send_json_success($filter_data);
+    }
+
     /**
      * Metabox showing function
      *
@@ -64,13 +124,20 @@ class PostFormCPT
         $screens = $meta['args'];
 
         // wp nonce for security
-        wp_nonce_field('front_editor_nonce_cpt', 'front_editor_nonce_cpt');
+        wp_nonce_field('admin_form_builder_nonce', 'admin_form_builder_nonce');
 
-        $first_name = get_post_meta($post->ID, 'front_editor_first_name', 1);
+        $post_type = get_post_meta($post->ID, 'front_editor_first_name', 1) ?? 'post';
         $last_name = get_post_meta($post->ID, 'front_editor_last_name', 1);
         $email = get_post_meta($post->ID, 'front_editor_email', 1);
         $subject = get_post_meta($post->ID, 'front_editor_subject', 1);
         $message = get_post_meta($post->ID, 'front_editor_message', 1);
+
+        $data = [
+            'post_id' => $post->ID,
+            'ajax_url' => admin_url('admin-ajax.php'),
+        ];
+
+        wp_localize_script('bfe-block-script', 'fe_post_form_data', apply_filters('bfe_fe_post_form_backend_block_localize_data', $data));
 
         /**
          * Form template for CPT
@@ -89,7 +156,7 @@ class PostFormCPT
         /**
          * Check wp nonce
          */
-        if (!wp_verify_nonce($_POST['front_editor_nonce_cpt'], 'front_editor_nonce_cpt'))
+        if (!wp_verify_nonce($_POST['admin_form_builder_nonce'], 'admin_form_builder_nonce'))
             return;
 
         /**
@@ -135,18 +202,8 @@ class PostFormCPT
                     $asset['version'],
                     true
                 );
-                $data = [
-                    'formBuilder_options' => [
-                        'fields' => [], // New field creation
-                        'typeUserAttrs' => [], // Custom attr settings for fields,
-                        'disabledFieldButtons' => [],
-                        'defaultFields' => [],
-                        'typeUserDisabledAttrs'=>[], // Disable attributes
-                    ]
-                ];
-                wp_enqueue_script('bfe-block-script');
 
-                wp_localize_script('bfe-block-script', 'fe_post_form_data', apply_filters('bfe_fe_post_form_backend_block_localize_data', $data));
+                wp_enqueue_script('bfe-block-script');
             }
         }
     }

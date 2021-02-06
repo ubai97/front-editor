@@ -1,0 +1,8 @@
+.formeo-stage-wrap {
+  float: right;
+
+  .formeo-stage {
+    padding-left: space();
+    padding-right: $icon-size - 1;
+  }
+}
