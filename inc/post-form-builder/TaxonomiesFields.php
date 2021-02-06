@@ -50,6 +50,11 @@ class TaxonomiesFields
             ];
 
             /**
+             * Adding field to group
+             */
+            $data['formBuilder_options']['controls_group']['taxonomies']['types'][] = $tax_type;
+
+            /**
              * Adding attribute settings 
              */
             $data['formBuilder_options']['typeUserAttrs'][$tax->name] =

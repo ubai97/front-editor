@@ -14,7 +14,7 @@ export default ($) => {
         updateFormBuilder();
     })
 
-    function updateFormBuilder(post_type_update = false) {
+    function updateFormBuilder() {
         let post_type = $('#fe_settings_post_type').val();
         wp.ajax.send('fe_get_formBuilder_data', {
             data: {
@@ -23,6 +23,7 @@ export default ($) => {
                 admin_form_builder_nonce: admin_form_builder_nonce
             },
             success: function (response) {
+                console.log(response)
                 let formBuilderId = `form-builder`;
 
                 $(`#${formBuilderId}`).remove();
@@ -56,9 +57,9 @@ export default ($) => {
                     // Remove controls on ajax request if there do not needed
                     builder_control_controls(formBuilderOptions);
 
-                    jQuery("<p>Test</p>").insertBefore('[data-type="tax_post_tag"]');
+                    //
+                    add_groups()
 
-                    $(document).find('[data_type="tax_category"]').before("<p>Test</p>");
                     // Disable pro fields
                     formBuilderOptions.disable_attr.map((val) => {
                         $(document).find(val).prop('disabled', true)
@@ -76,14 +77,14 @@ export default ($) => {
      */
     $('#fe_settings_post_type').on('change', function (ev) {
         ev.preventDefault();
-        updateFormBuilder(true);
+        updateFormBuilder();
     });
 
     /**
      * Remove controls on ajax request if there do not needed
      * @param {*} formBuilderOptions 
      */
-    function builder_control_controls(formBuilderOptions, post_type_update = false) {
+    function builder_control_controls(formBuilderOptions) {
         current_forBuilder_controls = [];
         updated_forBuilder_controls = [];
 
@@ -113,5 +114,13 @@ export default ($) => {
         difference.map((val)=>{
             $(`[data-type="${val}"]`).remove();
         })
+    }
+
+    function add_groups(){
+        let controls_group = formBuilderOptions.controls_group
+        Object.keys(controls_group).map((key, index) => {
+            $(`<p class="group-name ${key}">${controls_group[key].label}</p>`).insertBefore(`[data-type="${controls_group[key].types[0]}"]`);
+        })
+        //jQuery("<p>Test</p>").insertBefore('[data-type="tax_post_tag"]');
     }
 }

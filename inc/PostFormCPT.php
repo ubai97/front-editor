@@ -60,12 +60,6 @@ class PostFormCPT
     public static function fe_get_formBuilder_data()
     {
 
-        // /**
-        //  * If ajax working
-        //  */
-        // if (wp_doing_ajax())
-        //     return;
-
         /**
          * Check wp nonce
          */
@@ -104,11 +98,50 @@ class PostFormCPT
                 'templates' => [],
                 'temp_back' => [],
                 'disableFields' => ['autocomplete', 'button', 'checkbox-group', 'date', 'file', 'header', 'hidden', 'radio-group', 'select', 'number'],
-                'defaultControls' => ['paragraph','text','textarea']
+                'defaultControls' => ['paragraph','text','textarea'],
+                'controls_group' => [
+                    'post_fields' => [
+                        'label' => __('Post Fields','front-editor'),
+                        'types' => []
+                    ],
+                    'taxonomies' => [
+                        'label' => __('Taxonomies','front-editor'),
+                        'types' => []
+                    ],
+                    'custom_fields' =>[
+                        'label' => __('Custom Fields','front-editor'),
+                        'types' => []
+                    ],
+                ],
+                'controlOrder' => []
             ]
         ];
 
+        /**
+         * Default controls
+         */
+        $data['formBuilder_options']['controls_group']['custom_fields']['types'] = $data['formBuilder_options']['defaultControls'];
+
+        /**
+         * Ability to add custom group
+         */
+        $data['formBuilder_options']['controls_group'] = apply_filters('admin_post_form_formBuilder_add_controls_group',$data['formBuilder_options']['controls_group']);
+
         $filter_data = apply_filters('admin_post_form_formBuilder_settings',$data);
+
+        /**
+         * Order Elements in control bar
+         */
+        foreach($filter_data['formBuilder_options']['controls_group'] as $group){
+
+            if(empty($group['types'])){
+                continue;
+            }
+
+            foreach($group['types'] as $types){
+                $filter_data['formBuilder_options']['controlOrder'][] = $types;
+            }
+        }
         wp_send_json_success($filter_data);
     }
 

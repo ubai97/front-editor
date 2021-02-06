@@ -252,7 +252,6 @@ __webpack_require__.r(__webpack_exports__);
   });
 
   function updateFormBuilder() {
-    var post_type_update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     var post_type = $('#fe_settings_post_type').val();
     wp.ajax.send('fe_get_formBuilder_data', {
       data: {
@@ -261,6 +260,7 @@ __webpack_require__.r(__webpack_exports__);
         admin_form_builder_nonce: admin_form_builder_nonce
       },
       success: function success(response) {
+        console.log(response);
         var formBuilderId = "form-builder";
         $("#".concat(formBuilderId)).remove();
         $('.formBuilder-wrapper').empty().append("<div id=\"".concat(formBuilderId, "\"></div>"));
@@ -286,9 +286,9 @@ __webpack_require__.r(__webpack_exports__);
 
         formBuilderContainer = $("#".concat(formBuilderId)).formBuilder(formBuilderOptions).promise.then(function (formBuilder) {
           // Remove controls on ajax request if there do not needed
-          builder_control_controls(formBuilderOptions);
-          jQuery("<p>Test</p>").insertBefore('[data-type="tax_post_tag"]');
-          $(document).find('[data_type="tax_category"]').before("<p>Test</p>"); // Disable pro fields
+          builder_control_controls(formBuilderOptions); //
+
+          add_groups(); // Disable pro fields
 
           formBuilderOptions.disable_attr.map(function (val) {
             $(document).find(val).prop('disabled', true);
@@ -307,7 +307,7 @@ __webpack_require__.r(__webpack_exports__);
 
   $('#fe_settings_post_type').on('change', function (ev) {
     ev.preventDefault();
-    updateFormBuilder(true);
+    updateFormBuilder();
   });
   /**
    * Remove controls on ajax request if there do not needed
@@ -315,7 +315,6 @@ __webpack_require__.r(__webpack_exports__);
    */
 
   function builder_control_controls(formBuilderOptions) {
-    var post_type_update = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     current_forBuilder_controls = [];
     updated_forBuilder_controls = []; // Getting current controls
 
@@ -345,6 +344,13 @@ __webpack_require__.r(__webpack_exports__);
     difference.map(function (val) {
       $("[data-type=\"".concat(val, "\"]")).remove();
     });
+  }
+
+  function add_groups() {
+    var controls_group = formBuilderOptions.controls_group;
+    Object.keys(controls_group).map(function (key, index) {
+      $("<p class=\"group-name ".concat(key, "\">").concat(controls_group[key].label, "</p>")).insertBefore("[data-type=\"".concat(controls_group[key].types[0], "\"]"));
+    }); //jQuery("<p>Test</p>").insertBefore('[data-type="tax_post_tag"]');
   }
 });
 
