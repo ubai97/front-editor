@@ -12,5 +12,6 @@
 import './blocks/editor-block-editor.js';
 
 import Swal from 'sweetalert2'
-import admin_post_form from './admin-post-form.js';
+import admin_post_form from './admin-post-form';
+//import './vendors/form-builder.min.js'
 admin_post_form(jQuery,Swal);

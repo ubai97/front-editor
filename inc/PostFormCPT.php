@@ -30,21 +30,16 @@ class PostFormCPT
         add_action('init', [__CLASS__, 'register_post_types']);
 
         /**
-         * Adding metabox with post form settings fields
-         */
-        add_action('add_meta_boxes', [__CLASS__, 'front_editor_add_custom_box']);
-
-        /**
          * Adding scripts to custom post type
          */
         add_action('admin_enqueue_scripts', [__CLASS__, 'add_admin_scripts'], 10, 1);
 
+        /**
+         * Get formBuilder data
+         */
         add_action('wp_ajax_fe_get_formBuilder_data', [__CLASS__, 'fe_get_formBuilder_data']);
 
-        // /**
-        //  * When saving save fields
-        //  */
-        // add_action('save_post_front_editor', [__CLASS__, 'save_front_editor_data'], 10, 3);
+        add_action('wp_ajax_save_post_front_settings', [__CLASS__, 'save_post_front_settings']);
     }
 
     /**
@@ -58,6 +53,11 @@ class PostFormCPT
         add_meta_box('front_editor_metabox', 'Post Form Data', [__CLASS__, 'front_editor_meta_box_callback'], $screens);
     }
 
+    /**
+     * Get formBuilder data
+     *
+     * @return void
+     */
     public static function fe_get_formBuilder_data()
     {
 
@@ -71,14 +71,6 @@ class PostFormCPT
          * If this is auto save do nothing
          */
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-            return;
-
-        $post_ID = (int) esc_html($_POST['post_id']);
-
-        /**
-         * Check user roles
-         */
-        if (!current_user_can('edit_post', $post_ID))
             return;
 
 
@@ -149,46 +141,52 @@ class PostFormCPT
         wp_send_json_success($filter_data);
     }
 
+
     /**
-     * Metabox showing function
+     * Callback method for Post Forms submenu
      *
-     * @param [type] $post
-     * @param [type] $meta
+     * @since 2.5
+     *
      * @return void
      */
-    public static function front_editor_meta_box_callback($post, $meta)
+    public static function fe_post_forms_page()
     {
-        $screens = $meta['args'];
+        $action           = isset($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : null;
+        $post_ID           = isset($_GET['id']) ? sanitize_text_field(wp_unslash($_GET['id'])) : 'new';
+        $add_new_page_url = admin_url('admin.php?page=fe-post-forms&action=add-new');
 
-        // wp nonce for security
-        wp_nonce_field('admin_form_builder_nonce', 'admin_form_builder_nonce');
 
-        $post_type = get_post_meta($post->ID, 'front_editor_first_name', 1) ?? 'post';
-        $last_name = get_post_meta($post->ID, 'front_editor_last_name', 1);
-        $email = get_post_meta($post->ID, 'front_editor_email', 1);
-        $subject = get_post_meta($post->ID, 'front_editor_subject', 1);
-        $message = get_post_meta($post->ID, 'front_editor_message', 1);
+        wp_enqueue_script('jquery-ui');
+        wp_enqueue_script('bfe-block-script');
+        wp_enqueue_script('bfe-form-builder');
+        wp_enqueue_style('fe_post_form_CPT');
+
 
         $data = [
-            'post_id' => $post->ID,
+            'post_id' => $post_ID,
             'ajax_url' => admin_url('admin-ajax.php'),
         ];
 
         wp_localize_script('bfe-block-script', 'fe_post_form_data', apply_filters('bfe_fe_post_form_backend_block_localize_data', $data));
 
-        /**
-         * Form template for CPT
-         */
-        require FE_PLUGIN_DIR_PATH . 'templates/post-form.php';
+        switch ($action) {
+            case 'edit':
+
+                require FE_PLUGIN_DIR_PATH . 'templates/post-form.php';
+                break;
+
+            case 'add-new':
+                require FE_PLUGIN_DIR_PATH . 'templates/post-form.php';
+                break;
+
+            default:
+                //require_once WPUF_ROOT . '/admin/post-forms-list-table-view.php';
+                break;
+        }
     }
 
-    public static function save_front_editor_data($post_ID, $post, $update)
+    public static function save_post_front_settings()
     {
-        /**
-         * If ajax working
-         */
-        if (wp_doing_ajax())
-            return;
 
         /**
          * Check wp nonce
@@ -202,6 +200,8 @@ class PostFormCPT
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return;
 
+        $post_ID = $_POST['post_ID'];
+
         /**
          * Check user roles
          */
@@ -211,11 +211,11 @@ class PostFormCPT
         /**
          * Saving data
          */
-        update_post_meta($post_ID, 'front_editor_first_name', sanitize_text_field($_POST['front_editor_first_name']));
-        update_post_meta($post_ID, 'front_editor_last_name', sanitize_text_field($_POST['front_editor_last_name']));
-        update_post_meta($post_ID, 'front_editor_email', sanitize_email($_POST['front_editor_email']));
-        update_post_meta($post_ID, 'front_editor_subject', sanitize_text_field($_POST['front_editor_subject']));
-        update_post_meta($post_ID, 'front_editor_message', sanitize_text_field($_POST['front_editor_message']));
+        // update_post_meta($post_ID, 'front_editor_first_name', sanitize_text_field($_POST['front_editor_first_name']));
+        // update_post_meta($post_ID, 'front_editor_last_name', sanitize_text_field($_POST['front_editor_last_name']));
+        // update_post_meta($post_ID, 'front_editor_email', sanitize_email($_POST['front_editor_email']));
+        // update_post_meta($post_ID, 'front_editor_subject', sanitize_text_field($_POST['front_editor_subject']));
+        // update_post_meta($post_ID, 'front_editor_message', sanitize_text_field($_POST['front_editor_message']));
     }
 
     /**
@@ -229,20 +229,29 @@ class PostFormCPT
 
         global $post;
         $asset = require FE_PLUGIN_DIR_PATH . 'assets/frontend/frontend.asset.php';
-        if ($hook == 'post-new.php' || $hook == 'post.php') {
-            if ('fe_post_form' === $post->post_type) {
-                wp_enqueue_style('fe_post_form_CPT', FE_PLUGIN_URL . '/assets/editor/main.css', [], $asset['version']);
-                wp_register_script(
-                    'bfe-block-script',
-                    plugins_url('assets/editor/editor.js', dirname(__FILE__)),
-                    $asset['dependencies'],
-                    $asset['version'],
-                    true
-                );
 
-                wp_enqueue_script('bfe-block-script');
-            }
-        }
+        wp_register_script(
+            'jquery-ui',
+            plugins_url('assets/vendors/jquery-ui.min.js', dirname(__FILE__)),
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
+        wp_register_script(
+            'bfe-form-builder',
+            plugins_url('assets/vendors/form-builder.min.js', dirname(__FILE__)),
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
+        wp_register_style('fe_post_form_CPT', FE_PLUGIN_URL . '/assets/editor/main.css', [], $asset['version']);
+        wp_register_script(
+            'bfe-block-script',
+            plugins_url('assets/editor/editor.js', dirname(__FILE__)),
+            $asset['dependencies'],
+            $asset['version'],
+            true
+        );
     }
 
     /**

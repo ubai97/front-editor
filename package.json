@@ -16,9 +16,10 @@
     "@editorjs/raw": "^2.3.0",
     "@editorjs/table": "^1.3.0",
     "@editorjs/warning": "^1.2.0",
-    "@material-ui/core": "^4.11.1",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.52",
+    "@editorjs/editorjs": "^2.19.1",
+    "@editorjs/header": "^2.6.1",
+    "@editorjs/list": "^1.6.2",
+    "formBuilder": "^3.6.2",
     "@wordpress/components": "^9.5.0",
     "@wordpress/scripts": "^9.0.0",
     "array-move": "^2.2.1",
@@ -37,14 +38,7 @@
     "react-smooth-dnd": "^0.11.1",
     "select2": "^4.0.13",
     "selectize": "^0.12.6",
-    "slim-select": "^1.26.1",
-    "sweetalert2": "^10.14.0"
-  },
-  "dependencies": {
-    "@editorjs/editorjs": "^2.19.0",
-    "@editorjs/header": "^2.6.1",
-    "@editorjs/list": "^1.6.1",
-    "formBuilder": "^3.6.2",
-    "formeo": "^1.6.2"
+    "slim-select": "^1.27.0",
+    "sweetalert2": "^10.14.1"
   }
 }

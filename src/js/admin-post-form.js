@@ -1,53 +1,62 @@
-import './vendors/form-builder.min'
-
 export default ($, Swal) => {
+    // Make plugin menu active if we in editing page
+    $('li.wp-has-current-submenu').removeClass('wp-has-current-submenu')
+    $('li.toplevel_page_front_editor_settings').addClass('wp-has-current-submenu')
+
+
     let localizeData = window.fe_post_form_data,
         admin_form_builder_nonce = $('#admin_form_builder_nonce').val(),
         formBuilderContainer = false,
         current_forBuilder_controls,
         updated_forBuilder_controls,
-        formBuilderOptions,
-        options = {
-            notify: {
-                error: function (message) {
-                    return Swal.fire(message, '', 'error');
-                },
-                success: function (message) {
-                    return Swal.fire(message, '', 'success');
+        formBuilderOptions;
 
-                },
-                warning: function (message) {
-                    return Swal.fire(message);
-
-                }
+    let options = {
+        notify: {
+            error: function (message) {
+                return Swal.fire(message, '', 'error');
             },
-            onAddField: function (fieldId) {
-                const currentFieldId = fieldId,
-                    field = $(`#${fieldId}`),
-                    field_type = field.attr('type'),
-                    field_count_in_form = $(`.form-field[type="${field_type}"]`).length;
+            success: function (message) {
+                return Swal.fire(message, '', 'success');
 
-                /**
-                 * Check for max of type exactable for form
-                 */
-                if ((field_type in formBuilderOptions.temp_back)
-                    && ('max_in_form' in formBuilderOptions.temp_back[field_type])
-                    && formBuilderOptions.temp_back[field_type].max_in_form < field_count_in_form) {
-                    formBuilderContainer.actions.removeField(currentFieldId);
-                    Swal.fire(`Oops...`,formBuilderOptions.messages.max_fields_warning);
-                }
-
-                //TODO Add logic for pro version fields
-
+            },
+            warning: function (message) {
+                return Swal.fire(message);
             }
-        };
+        },
+        onAddField: function (fieldId) {
+            const currentFieldId = fieldId,
+                field = $(`#${fieldId}`),
+                field_type = field.attr('type'),
+                field_count_in_form = $(`.form-field[type="${field_type}"]`).length;
+
+            /**
+             * Check for max of type exactable for form
+             */
+            if ((field_type in formBuilderOptions.temp_back)
+                && ('max_in_form' in formBuilderOptions.temp_back[field_type])
+                && (formBuilderOptions.temp_back[field_type].max_in_form < field_count_in_form)) {
+                formBuilderContainer.actions.removeField(currentFieldId);
+                Swal.fire(`Oops...`, formBuilderOptions.messages.max_fields_warning);
+            }
+
+            //TODO Add logic for pro version fields
+
+        }
+    };
 
 
 
+    /**
+     * Activate form builder
+     */
     $(window).on('load', () => {
         updateFormBuilder();
     })
 
+    /**
+     * Update form builder
+     */
     function updateFormBuilder() {
         let post_type = $('#fe_settings_post_type').val();
         wp.ajax.send('fe_get_formBuilder_data', {
@@ -107,12 +116,57 @@ export default ($, Swal) => {
         });
     }
 
+    function save_form_data() {
+
+        var formArray = $('#post').serializeArray(),
+            data = objectifyForm(formArray);
+
+        data.formBuilderData = formBuilderContainer.actions.getData('json', true);
+        data.action = 'save_post_front_settings';
+
+        data.lala = 'lala';
+
+        console.log(data)
+        wp.ajax.send('save_post_front_settings', {
+            data: data,
+            success: function (response) {
+                console.log(response)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        // $.post(`http://front-editor.local/wp-json/fe/v1/updateFormBuilder/post/`,
+        //     data,
+        //     function (data, status) {
+        //         alert("Data: " + data + "\nStatus: " + status);
+        //     });
+    }
+
+    function objectifyForm(formArray) {
+        //serialize data function
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+            returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+    }
+
     /**
      * Update for builder on post type update
      */
     $('#fe_settings_post_type').on('change', function (ev) {
         ev.preventDefault();
         updateFormBuilder();
+    });
+
+    /**
+     * Save data
+     */
+    $('#save-form-post').on('click', function (ev) {
+        ev.preventDefault();
+        save_form_data();
     });
 
     /**
